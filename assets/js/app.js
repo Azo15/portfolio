@@ -12,6 +12,52 @@ const blueprintColors = { 'AI & Computer Vision': '#00f0ff', 'Embedded & Robotic
 const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const textKey = (value = '') => String(value).trim().toLocaleLowerCase('en');
 const byId = (id) => document.getElementById(id);
+const translations = {
+  'Overview': 'Genel Bakış', 'Projects': 'Projeler', 'Resume': 'Özgeçmiş', 'Articles': 'Yazılar', 'Contact': 'İletişim',
+  'Live GitHub telemetry': 'Canlı GitHub verileri', 'PUBLIC REPOS': 'AÇIK DEPOLAR', 'FOLLOWERS': 'TAKİPÇİLER',
+  'View engineering resume': 'Mühendislik özgeçmişini görüntüle', 'Open contact console': 'İletişim panelini aç', 'Recently updated': 'Son güncellenenler',
+  'Connecting to GitHub API…': 'GitHub API bağlantısı kuruluyor…', 'Loading public repositories…': 'Açık depolar yükleniyor…',
+  'Engineering at the edge of ': 'Mühendislik, ', 'intelligence': 'zekâ', ' and silicon.': ' ile donanımın kesişiminde.',
+  'Explore engineering work ': 'Projeleri keşfet ', 'Start a conversation': 'İletişime geç', 'Engineering disciplines': 'Mühendislik alanları',
+  'Tech stack matrix': 'Teknoloji yığını', 'SELECT A CHIP TO FILTER PROJECTS': 'PROJELERİ FİLTRELEMEK İÇİN BİR ETİKET SEÇ',
+  'GITHUB REPOSITORIES': 'GITHUB DEPOLARI', ' PUBLIC REPOS · LIVE': ' AÇIK DEPO · CANLI', 'AUDITED PROJECTS IN THE SHOWCASE': 'VİTRİNDE İNCELENMİŞ PROJE', 'ENGINEERING DISCIPLINES': 'MÜHENDİSLİK ALANI',
+  'Repository intelligence / 30 case files': 'Depo kataloğu / 30 vaka dosyası', 'Engineering showcase': 'Mühendislik vitrini',
+  'Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.': 'Algılama, uygulama, gömülü sistem ve otomasyon alanlarında incelenmiş projeler. Proje veya teknoloji ara; belgelenen mimariyi görmek için vaka dosyasını aç.',
+  'Search projects, descriptions, technologies…': 'Proje, açıklama veya teknoloji ara…', 'PROJECTS': 'PROJE', 'All': 'Tümü',
+  'No project matches this query. Try another technology or category.': 'Bu aramayla eşleşen proje yok. Başka bir teknoloji veya kategori dene.',
+  'Inspect / Architecture': 'İncele / Mimari', 'Profile ↗': 'Profil ↗', 'GitHub ↗': 'GitHub ↗', 'Private case study': 'Özel vaka incelemesi',
+  'Problem / engineering goal': 'Problem / mühendislik hedefi', 'Architecture / documented approach': 'Mimari / belgelenen yaklaşım', 'Technology stack': 'Teknoloji yığını', 'Repository access': 'Depo erişimi',
+  'Public repository.': 'Açık depo.', 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.': 'Özel depo; kaynak bağlantısını açığa çıkarmadan GitHub profiline yönlendirir.',
+  'Education / research / system capabilities': 'Eğitim / araştırma / sistem yetkinlikleri', 'Engineering resume': 'Mühendislik özgeçmişi', 'Academic work, research programs and project-based engineering experience.': 'Akademik çalışmalar, araştırma programları ve proje tabanlı mühendislik deneyimi.',
+  'Education': 'Eğitim', 'Research & experience': 'Araştırma ve deneyim', 'Technical telemetry': 'Teknik yetkinlikler', 'SELF-ASSESSMENT': 'ÖZ DEĞERLENDİRME', 'Bars are a self-assessed snapshot, not an external certification.': 'Çubuklar öz değerlendirmeyi gösterir; harici sertifika değildir.',
+  'Medium / technical writing': 'Medium / teknik yazılar', 'Engineering notes': 'Mühendislik notları', 'Writing tracks for technical articles. These topic cards are not presented as published posts; use the Medium profile to see published writing.': 'Teknik yazı konu başlıkları. Bu kartlar yayımlanmış makale değildir; yayımlanan yazılar için Medium profilini ziyaret et.', 'Open Medium profile ↗': 'Medium profilini aç ↗', 'Visit @azo-dev ↗': '@azo-dev profilini ziyaret et ↗',
+  'Contact protocol / encrypted by your mail client': 'İletişim protokolü / e-posta uygulamanız üzerinden', 'Open a channel': 'İletişim kanalı aç', 'Choose a topic to generate a structured message. Copy it or hand it to your email application.': 'Düzenli bir ileti oluşturmak için konu seç. Kopyala veya e-posta uygulamana aktar.',
+  'NAME': 'AD', 'EMAIL': 'E-POSTA', 'TOPIC': 'KONU', 'MESSAGE': 'MESAJ', 'Your name': 'Adınız', 'Select a topic': 'Bir konu seçin', 'Embedded Systems & Robotics': 'Gömülü Sistemler ve Robotik', 'Full-Stack Engineering': 'Full-Stack Mühendislik', 'Research / Collaboration': 'Araştırma / İş Birliği', 'Other': 'Diğer', 'Share a little context…': 'Kısaca bağlamı paylaşın…', 'Open email draft ↗': 'E-posta taslağı aç ↗', 'Copy structured message': 'Düzenli iletiyi kopyala', 'Direct channels': 'Doğrudan iletişim',
+  'Navigate to view': 'Görünüme git', 'Navigate or search projects…': 'Görünüme git veya proje ara…', 'No matching view or project.': 'Eşleşen görünüm veya proje yok.', 'Close case study': 'Vaka incelemesini kapat', 'Close command palette': 'Komut paletini kapat',
+  'Live API · updated now': 'Canlı API · şimdi güncellendi', 'Refreshing live API…': 'Canlı API yenileniyor…', 'Recent public repositories unavailable.': 'Son açık depolar kullanılamıyor.'
+};
+const reverseTranslations = Object.fromEntries(Object.entries(translations).map(([english, turkish]) => [turkish, english]));
+let language = localStorage.getItem('azo-os-language') || (navigator.language?.toLowerCase().startsWith('tr') ? 'tr' : 'en');
+
+function translateText(value) {
+  const dictionary = language === 'tr' ? translations : reverseTranslations;
+  const normalized = value.trim();
+  if (dictionary[normalized]) return value.replace(normalized, dictionary[normalized]);
+  const entries = Object.entries(dictionary).sort((left, right) => right[0].length - left[0].length);
+  return entries.reduce((text, [source, target]) => text.replaceAll(source, target), value);
+}
+
+function applyLanguage() {
+  document.documentElement.lang = language;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) walker.currentNode.nodeValue = translateText(walker.currentNode.nodeValue);
+  document.querySelectorAll('[placeholder]').forEach((element) => { element.placeholder = translateText(element.placeholder); });
+  const current = document.querySelector('[data-language-current]');
+  const next = document.querySelector('[data-language-next]');
+  if (current) current.textContent = language.toUpperCase();
+  if (next) next.textContent = language === 'tr' ? 'EN' : 'TR';
+  document.querySelector('[data-lang-toggle]')?.setAttribute('aria-pressed', String(language === 'tr'));
+}
 
 let currentView = 'overview';
 let activeCategory = 'All';
@@ -84,6 +130,7 @@ function renderProjects() {
   search.value = projectQuery;
   search.addEventListener('input', () => { projectQuery = search.value; applyProjectFilters(); });
   applyProjectFilters();
+  applyLanguage();
 }
 
 function applyProjectFilters() {
@@ -140,6 +187,7 @@ function renderAll() {
   document.querySelector('[data-profile-title]').textContent = profile.title;
   document.querySelector('[data-profile-status]').textContent = profile.status;
   document.querySelector('[data-year]').textContent = new Date().getFullYear();
+  applyLanguage();
 }
 
 function navigate(view, { updateHash = true } = {}) {
@@ -164,6 +212,7 @@ function openCase(projectId) {
   document.querySelector('[data-case-category]').textContent = `${project.category} / ${project.visibility}`;
   document.querySelector('[data-case-title]').textContent = project.title;
   document.querySelector('[data-case-body]').innerHTML = `<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(project.problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(project.architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3><p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
+  applyLanguage();
   const overlay = document.querySelector('[data-case-overlay]');
   overlay.hidden = false;
   document.body.style.overflow = 'hidden';
@@ -191,6 +240,7 @@ function renderPalette() {
   const commands = paletteCommands(paletteInput.value);
   paletteSelection = 0;
   paletteResults.innerHTML = commands.length ? commands.map((command, index) => `<button class="command-result${index === 0 ? ' is-selected' : ''}" type="button" data-command-type="${command.type}" data-command-value="${escapeHtml(command.value)}"><code>${command.code}</code><span>${escapeHtml(command.title)}</span><small>${escapeHtml(command.meta)}</small></button>`).join('') : '<div class="empty-state">No matching view or project.</div>';
+  applyLanguage();
 }
 
 function openPalette() {
@@ -240,6 +290,7 @@ document.addEventListener('click', (event) => {
   if (target.matches('[data-close-palette]') || event.target === document.querySelector('[data-palette-overlay]')) closePalette();
   if (target.matches('[data-command-type]')) selectPaletteCommand(target);
   if (target.matches('[data-gh-refresh]')) updateGitHubTelemetry(true);
+  if (target.matches('[data-lang-toggle]')) { language = language === 'tr' ? 'en' : 'tr'; localStorage.setItem('azo-os-language', language); applyLanguage(); }
   if (target.matches('[data-tech-query]')) { projectQuery = target.dataset.techQuery; activeCategory = 'All'; navigate('projects'); renderProjects(); }
 });
 
