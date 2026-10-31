@@ -20,7 +20,7 @@ const filterProjects = (selectedCategory) => {
   const category = normalizeCategory(selectedCategory);
 
   projectItems.forEach((project) => {
-    const isVisible = category === 'all' || normalizeCategory(project.dataset.category) === category;
+    const isVisible = category === 'all' || project.dataset.category.split('|').some((projectCategory) => normalizeCategory(projectCategory) === category);
     project.classList.toggle('active', isVisible);
   });
 
