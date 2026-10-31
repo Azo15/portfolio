@@ -1,64 +1,77 @@
 'use strict';
 
+const elementToggleFunc = (element) => element.classList.toggle('active');
 
-
-// element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
-
-
-
-// sidebar variables
-const sidebar = document.querySelector("[data-sidebar]");
-const sidebarBtn = document.querySelector("[data-sidebar-btn]");
-
-// sidebar toggle functionality for mobile
+const sidebar = document.querySelector('[data-sidebar]');
+const sidebarBtn = document.querySelector('[data-sidebar-btn]');
 if (sidebar && sidebarBtn) {
-  sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+  sidebarBtn.addEventListener('click', () => elementToggleFunc(sidebar));
 }
 
+const projectItems = [...document.querySelectorAll('[data-filter-item]')];
+const filterButtons = [...document.querySelectorAll('[data-filter-btn]')];
+const filterSelect = document.querySelector('[data-select]');
+const filterSelectValue = document.querySelector('[data-selecct-value]');
+const selectItems = [...document.querySelectorAll('[data-select-item]')];
 
+const normalizeCategory = (value) => value.trim().toLocaleLowerCase('en');
 
-// custom select variables
-// contact form variables
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
+const filterProjects = (selectedCategory) => {
+  const category = normalizeCategory(selectedCategory);
 
-// add event to all form input field
+  projectItems.forEach((project) => {
+    const isVisible = category === 'all' || normalizeCategory(project.dataset.category) === category;
+    project.classList.toggle('active', isVisible);
+  });
+
+  filterButtons.forEach((button) => {
+    button.classList.toggle('active', normalizeCategory(button.textContent) === category);
+  });
+
+  if (filterSelectValue) {
+    const selectedButton = selectItems.find((item) => normalizeCategory(item.textContent) === category);
+    filterSelectValue.textContent = selectedButton ? selectedButton.textContent.trim() : 'Select category';
+  }
+};
+
+filterButtons.forEach((button) => {
+  button.addEventListener('click', () => filterProjects(button.textContent));
+});
+
+if (filterSelect) {
+  filterSelect.addEventListener('click', () => elementToggleFunc(filterSelect));
+}
+
+selectItems.forEach((item) => {
+  item.addEventListener('click', () => {
+    filterProjects(item.textContent);
+    if (filterSelect) filterSelect.classList.remove('active');
+  });
+});
+
+const form = document.querySelector('[data-form]');
+const formInputs = document.querySelectorAll('[data-form-input]');
+const formBtn = document.querySelector('[data-form-btn]');
 if (form && formBtn) {
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
+  formInputs.forEach((input) => {
+    input.addEventListener('input', () => {
+      formBtn.toggleAttribute('disabled', !form.checkValidity());
+    });
   });
 }
 
+const navigationLinks = [...document.querySelectorAll('[data-nav-link]')];
+const pages = [...document.querySelectorAll('[data-page]')];
+navigationLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    const targetPage = normalizeCategory(link.textContent);
 
-
-// page navigation variables
-const navigationLinks = document.querySelectorAll("[data-nav-link]");
-const pages = document.querySelectorAll("[data-page]");
-
-// add event to all nav link
-for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
-
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
-    }
-
+    pages.forEach((page) => {
+      page.classList.toggle('active', normalizeCategory(page.dataset.page) === targetPage);
+    });
+    navigationLinks.forEach((navLink) => {
+      navLink.classList.toggle('active', navLink === link);
+    });
+    window.scrollTo(0, 0);
   });
-}
+});
