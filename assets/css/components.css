@@ -92,6 +92,9 @@
 .blueprint-symbol { position: relative; z-index: 1; display: grid; width: 46px; height: 46px; place-items: center; color: var(--blueprint-accent, var(--cyan)); background: rgba(6,9,17,.78); border: 1px solid color-mix(in srgb, var(--blueprint-accent, var(--cyan)) 35%, transparent); border-radius: 14px; font: 600 13px var(--font-mono); box-shadow: 0 0 30px color-mix(in srgb, var(--blueprint-accent, var(--cyan)) 12%, transparent); }
 .project-card-body { padding: 17px; }
 .project-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.project-badges { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px; }
+.flagship-badge { flex: 0 0 auto; padding: 4px 7px; color: #a7f3d0; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.32); border-radius: 999px; box-shadow: 0 0 18px rgba(16,185,129,.1); font: 8px var(--font-mono); letter-spacing: .06em; }
+.project-card.is-featured { border-color: rgba(16,185,129,.25); }
 .project-title-row h3 { margin: 0; font: 600 16px/1.3 var(--font-display); letter-spacing: -.02em; }
 .project-area { margin: 5px 0 10px; color: var(--sky); font: 9px var(--font-mono); }
 .project-description { margin: 0 0 13px; color: var(--muted); font-size: 11px; line-height: 1.7; }
@@ -145,6 +148,10 @@
 .case-body { display: grid; gap: 18px; padding: 22px; }
 .case-section h3 { margin: 0 0 7px; color: var(--sky); font: 10px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
 .case-section p { margin: 0; color: var(--muted); font-size: 12px; }
+.architecture-pipeline { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; margin: 14px 0 0; padding: 0; list-style: none; }
+.pipeline-step { position: relative; display: grid; align-content: start; gap: 9px; min-height: 88px; padding: 12px; color: var(--text); background: rgba(16,185,129,.07); border: 1px solid rgba(16,185,129,.22); border-radius: 12px; font-size: 11px; }
+.pipeline-step:not(:last-child)::after { position: absolute; top: 50%; left: calc(100% + 5px); color: var(--emerald); content: '→'; font: 16px var(--font-mono); transform: translateY(-50%); }
+.pipeline-index { color: var(--emerald); font: 9px var(--font-mono); }
 .icon-button { width: 36px; height: 36px; color: var(--muted); background: rgba(255,255,255,.04); border-color: var(--line); border-radius: 9px; font: 17px var(--font-mono); }
 .icon-button:hover { color: var(--cyan); border-color: var(--line-cyan); }
 .palette-overlay { z-index: 70; align-items: start; padding-top: min(18vh,150px); }
@@ -175,6 +182,9 @@
   .palette-trigger kbd { display: none; }
   .project-action { min-height: 40px; padding: 9px 10px; }
   .project-actions { flex-wrap: wrap; }
+  .architecture-pipeline { grid-template-columns: 1fr; gap: 10px; }
+  .pipeline-step { min-height: 0; }
+  .pipeline-step:not(:last-child)::after { top: calc(100% + 1px); left: 50%; content: '↓'; transform: translateX(-50%); }
   .metric-grid { grid-template-columns: 1fr 1fr; }
   .metric-card:last-child { grid-column: 1/-1; }
   .discipline-grid, .tech-matrix, .project-grid, .article-grid { grid-template-columns: 1fr; }

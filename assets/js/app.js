@@ -61,6 +61,7 @@ function applyLanguage() {
 
 let currentView = 'overview';
 let activeCategory = 'All';
+let featuredOnly = false;
 let projectQuery = '';
 let paletteSelection = 0;
 
@@ -84,12 +85,12 @@ function blueprintSvg(project) {
 
 function projectCard(project) {
   const privateCase = project.visibility !== 'Public';
-  return `<article class="project-card" data-project-card data-search="${escapeHtml(`${project.title} ${project.description} ${project.technologies.join(' ')}`)}" data-categories="${escapeHtml(project.categories.join('|'))}">
+  return `<article class="project-card${project.featured ? ' is-featured' : ''}" data-project-card data-search="${escapeHtml(`${project.title} ${project.description} ${project.technologies.join(' ')}`)}" data-categories="${escapeHtml(project.categories.join('|'))}">
     <div class="blueprint" style="--blueprint-accent:${blueprintColors[project.category] ?? '#00f0ff'}" aria-label="Engineering blueprint for ${escapeHtml(project.title)}">
       ${blueprintSvg(project)}<span class="blueprint-label">AZO.OS / ${escapeHtml(project.category.toUpperCase())}</span><span class="blueprint-symbol">${escapeHtml(project.code)}</span><span class="blueprint-code">CASE_${escapeHtml(project.id.slice(0, 8).toUpperCase())}</span>
     </div>
     <div class="project-card-body">
-      <div class="project-title-row"><h3>${escapeHtml(project.title)}</h3><span class="visibility-badge${privateCase ? ' private' : ''}">${escapeHtml(project.visibility)}</span></div>
+      <div class="project-title-row"><h3>${escapeHtml(project.title)}</h3><div class="project-badges">${project.featured ? '<span class="flagship-badge">★ FLAGSHIP</span>' : ''}<span class="visibility-badge${privateCase ? ' private' : ''}">${escapeHtml(project.visibility)}</span></div></div>
       <p class="project-area">${escapeHtml(project.area)}</p>
       <p class="project-description">${escapeHtml(project.description)}</p>
       <div class="project-tags">${project.technologies.map((technology) => `<span class="project-tag">${escapeHtml(technology)}</span>`).join('')}</div>
@@ -121,7 +122,7 @@ function renderProjects() {
     <div class="project-toolbar"><label class="search-field"><span>⌕</span><input type="search" data-project-search placeholder="Search projects, descriptions, technologies…" autocomplete="off"><span class="mono">/</span></label><span class="mono" data-project-result-count></span></div>
     <div class="filter-tabs" data-project-filters></div><div class="project-grid" data-project-grid></div>`;
   const filterMount = mount.querySelector('[data-project-filters]');
-  filterMount.innerHTML = ['All', ...categories].map((category) => {
+  filterMount.innerHTML = `<button class="filter-tab${featuredOnly ? ' is-active' : ''}" type="button" data-featured-filter>★ Featured <span>(${projects.filter((project) => project.featured).length})</span></button>` + ['All', ...categories].map((category) => {
     const count = category === 'All' ? projects.length : projects.filter((project) => project.categories.includes(category)).length;
     const active = category === activeCategory ? ' is-active' : '';
     return `<button class="filter-tab${active}" type="button" data-project-filter="${escapeHtml(category)}">${escapeHtml(category)} <span>(${count})</span></button>`;
@@ -140,7 +141,7 @@ function applyProjectFilters() {
   const filtered = projects.filter((project) => {
     const categoryMatch = activeCategory === 'All' || project.categories.includes(activeCategory);
     const searchable = textKey(`${project.title} ${project.description} ${project.technologies.join(' ')}`);
-    return categoryMatch && searchable.includes(query);
+    return categoryMatch && (!featuredOnly || project.featured) && searchable.includes(query);
   });
   grid.innerHTML = filtered.length ? filtered.map(projectCard).join('') : '<div class="empty-state">No project matches this query. Try another technology or category.</div>';
   const count = document.querySelector('[data-project-result-count]');
@@ -148,6 +149,7 @@ function applyProjectFilters() {
   document.querySelectorAll('[data-project-filter]').forEach((button) => {
     button.classList.toggle('is-active', button.dataset.projectFilter === activeCategory);
   });
+  document.querySelector('[data-featured-filter]')?.classList.toggle('is-active', featuredOnly);
 }
 
 function timelineCard(item) {
@@ -211,7 +213,8 @@ function openCase(projectId) {
   if (!project) return;
   document.querySelector('[data-case-category]').textContent = `${project.category} / ${project.visibility}`;
   document.querySelector('[data-case-title]').textContent = project.title;
-  document.querySelector('[data-case-body]').innerHTML = `<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(project.problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(project.architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3><p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
+  const pipeline = project.pipeline?.length ? `<section class="case-section"><h3>System Architecture Pipeline</h3><ol class="architecture-pipeline">${project.pipeline.map((step, index) => `<li class="pipeline-step"><span class="pipeline-index">0${index + 1}</span><span>${escapeHtml(step)}</span></li>`).join('')}</ol></section>` : '';
+  document.querySelector('[data-case-body]').innerHTML = `${pipeline}<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(project.problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(project.architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3><p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
   applyLanguage();
   const overlay = document.querySelector('[data-case-overlay]');
   overlay.hidden = false;
@@ -283,7 +286,8 @@ document.addEventListener('click', (event) => {
 
   if (target.matches('[data-view-target]')) { event.preventDefault(); navigate(target.dataset.viewTarget); }
   if (target.matches('[data-brand-home]')) { event.preventDefault(); navigate('overview'); }
-  if (target.matches('[data-project-filter]')) { activeCategory = target.dataset.projectFilter; applyProjectFilters(); }
+  if (target.matches('[data-project-filter]')) { activeCategory = target.dataset.projectFilter; featuredOnly = false; applyProjectFilters(); }
+  if (target.matches('[data-featured-filter]')) { featuredOnly = !featuredOnly; applyProjectFilters(); }
   if (target.matches('[data-open-case]')) openCase(target.dataset.openCase);
   if (target.matches('[data-close-case]') || event.target === document.querySelector('[data-case-overlay]')) closeCase();
   if (target.matches('[data-open-palette]')) openPalette();
@@ -291,7 +295,7 @@ document.addEventListener('click', (event) => {
   if (target.matches('[data-command-type]')) selectPaletteCommand(target);
   if (target.matches('[data-gh-refresh]')) updateGitHubTelemetry(true);
   if (target.matches('[data-lang-toggle]')) { language = language === 'tr' ? 'en' : 'tr'; localStorage.setItem('azo-os-language', language); applyLanguage(); }
-  if (target.matches('[data-tech-query]')) { projectQuery = target.dataset.techQuery; activeCategory = 'All'; navigate('projects'); renderProjects(); }
+  if (target.matches('[data-tech-query]')) { projectQuery = target.dataset.techQuery; activeCategory = 'All'; featuredOnly = false; navigate('projects'); renderProjects(); }
 });
 
 paletteInput.addEventListener('input', renderPalette);

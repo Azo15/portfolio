@@ -9,8 +9,18 @@ const categoryLabels = {
   'automation & systems': 'Automation & Systems'
 };
 
+const flagshipPipelines = {
+  'Software Health & Technical Debt Analyzer': ['Git Commit Mining', 'Complexity & Halstead Metrics', 'Time-Aware Risk Model', 'CLI Findings & Refactoring Signals'],
+  'Smart Driver Monitoring System': ['Camera Stream', 'MediaPipe Landmarking', 'EAR/MAR Fatigue Engine', 'Serial Alert Output'],
+  'Hospital AI — No-Show Risk Analysis': ['Appointment Intake', 'Feature Preparation', 'LightGBM Risk Inference', 'Staff Recommendation View'],
+  'Laravel Library Management System': ['Role-Based Request', 'Catalog & Stock Service', 'Loan Approval Workflow', 'MySQL Persistence'],
+  'OmniBrain AI Assistant': ['Telegram Event', 'Whisper / Gemini Parsing', 'Llama Task Structuring', 'Notion Persistence'],
+  'Coin Detection & Currency Prototype': ['Image Input', 'Grayscale & Blur', 'Hough Circle Detection', 'Heuristic Label & Overlay']
+};
+
 export const projects = projectRecords.map((project) => ({
   ...project,
+  ...(flagshipPipelines[project.title] ? { featured: true, pipeline: flagshipPipelines[project.title] } : {}),
   category: categoryLabels[project.category] ?? project.category,
   categories: project.categories.map((category) => categoryLabels[category] ?? category),
   architecture: architectureNotes[project.title] ?? project.architecture
