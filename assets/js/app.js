@@ -59,7 +59,7 @@ function renderOverview() {
     <aside class="hero-aside"><span class="mono">$ system --profile</span><p>NAME&nbsp;&nbsp; ${escapeHtml(profile.name)}<br>EDU&nbsp;&nbsp;&nbsp; SOFTWARE_ENGINEERING<br>BASE&nbsp;&nbsp; ${escapeHtml(profile.location)}<br>FOCUS&nbsp; PERCEPTION / SYSTEMS<br>STATE&nbsp; BUILDING</p></aside>
   </header>
   <div class="metric-grid">
-    <article class="metric-card"><div class="metric-value"><span data-gh-stat="publicRepos">79</span><small>LIVE</small></div><div class="metric-label">PUBLIC GITHUB REPOS</div></article>
+    <article class="metric-card"><div class="metric-value">85+<small>ACCOUNT</small></div><div class="metric-label">GITHUB REPOSITORIES</div><div class="metric-label"><span data-gh-stat="publicRepos">79</span> PUBLIC REPOS · LIVE</div></article>
     <article class="metric-card"><div class="metric-value">30<span>+</span></div><div class="metric-label">AUDITED PROJECTS IN THE SHOWCASE</div></article>
     <article class="metric-card"><div class="metric-value">4</div><div class="metric-label">ENGINEERING DISCIPLINES</div></article>
   </div>

@@ -163,7 +163,7 @@
   .command-nav { position: relative; top: auto; align-items: flex-start; flex-direction: column; }
   .nav-tabs { width: 100%; display: grid; grid-template-columns: repeat(3,1fr); }
   .nav-tab { padding: 8px 4px; font-size: 10px; }
-  .palette-trigger { position: absolute; top: 12px; right: 12px; }
+  .palette-trigger { position: static; align-self: flex-end; }
   .metric-grid { grid-template-columns: 1fr 1fr; }
   .metric-card:last-child { grid-column: 1/-1; }
   .discipline-grid, .tech-matrix, .project-grid, .article-grid { grid-template-columns: 1fr; }
