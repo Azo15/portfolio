@@ -1980,3 +1980,33 @@ article,
 @media (prefers-reduced-motion: reduce) {
   .service-item, .contact-item, .navbar-link, .tech-badge { transition-duration: 0.01ms; }
 }
+
+/*-----------------------------------*\
+  #PROJECT CARD FOUNDATION
+\*-----------------------------------*/
+
+.project-item {
+  padding: 10px 10px 16px;
+  background: hsla(240, 2%, 15%, 0.52);
+  border: 1px solid hsla(0, 0%, 100%, 0.075);
+  border-radius: 18px;
+  box-shadow: var(--shadow-1);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-item.active { display: block; animation: scaleUp 0.25s ease forwards; }
+.project-item:hover { transform: translateY(-4px); border-color: hsla(45, 100%, 72%, 0.28); box-shadow: 0 18px 34px hsla(0, 0%, 0%, 0.3); }
+.project-img { margin-bottom: 14px; background: var(--eerie-black-1); }
+.project-title { margin: 0 4px 6px; font-weight: var(--fw-500); }
+.project-category { margin: 0 4px; color: var(--vegas-gold); }
+.project-desc { margin: 12px 4px; color: var(--light-gray-70); font-size: var(--fs-6); line-height: 1.65; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 4px 2px; }
+.project-tag { padding: 5px 9px; color: var(--light-gray); font-size: var(--fs-8); background: hsla(0, 0%, 100%, 0.055); border: 1px solid hsla(0, 0%, 100%, 0.09); border-radius: 8px; }
+.project-actions { display: flex; align-items: center; gap: 10px; margin: 14px 4px 0; }
+.project-action { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; color: var(--light-gray); background: hsla(0, 0%, 100%, 0.06); border: 1px solid hsla(0, 0%, 100%, 0.1); border-radius: 10px; transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease; }
+.project-action:hover { color: var(--orange-yellow-crayola); background: hsla(45, 100%, 72%, 0.09); border-color: hsla(45, 100%, 72%, 0.4); transform: translateY(-2px); }
+.project-action ion-icon { font-size: 18px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .project-item, .project-action { transition-duration: 0.01ms; }
+}
