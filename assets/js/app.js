@@ -25,6 +25,7 @@ const translations = {
   'Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.': 'Algılama, uygulama, gömülü sistem ve otomasyon alanlarında incelenmiş projeler. Proje veya teknoloji ara; belgelenen mimariyi görmek için vaka dosyasını aç.',
   'Search projects, descriptions, technologies…': 'Proje, açıklama veya teknoloji ara…', 'PROJECTS': 'PROJE', 'All': 'Tümü',
   'No project matches this query. Try another technology or category.': 'Bu aramayla eşleşen proje yok. Başka bir teknoloji veya kategori dene.',
+  'Featured': 'Öne Çıkanlar', 'FLAGSHIP': 'AMİRAL GEMİSİ', 'System Architecture Pipeline': 'Sistem Mimari Akışı',
   'Inspect / Architecture': 'İncele / Mimari', 'Profile ↗': 'Profil ↗', 'GitHub ↗': 'GitHub ↗', 'Private case study': 'Özel vaka incelemesi',
   'Problem / engineering goal': 'Problem / mühendislik hedefi', 'Architecture / documented approach': 'Mimari / belgelenen yaklaşım', 'Technology stack': 'Teknoloji yığını', 'Repository access': 'Depo erişimi',
   'Public repository.': 'Açık depo.', 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.': 'Özel depo; kaynak bağlantısını açığa çıkarmadan GitHub profiline yönlendirir.',
@@ -85,6 +86,7 @@ function blueprintSvg(project) {
 
 function projectCard(project) {
   const privateCase = project.visibility !== 'Public';
+  const description = language === 'en' ? project.descriptionEn : project.description;
   return `<article class="project-card${project.featured ? ' is-featured' : ''}" data-project-card data-search="${escapeHtml(`${project.title} ${project.description} ${project.technologies.join(' ')}`)}" data-categories="${escapeHtml(project.categories.join('|'))}">
     <div class="blueprint" style="--blueprint-accent:${blueprintColors[project.category] ?? '#00f0ff'}" aria-label="Engineering blueprint for ${escapeHtml(project.title)}">
       ${blueprintSvg(project)}<span class="blueprint-label">AZO.OS / ${escapeHtml(project.category.toUpperCase())}</span><span class="blueprint-symbol">${escapeHtml(project.code)}</span><span class="blueprint-code">CASE_${escapeHtml(project.id.slice(0, 8).toUpperCase())}</span>
@@ -92,7 +94,7 @@ function projectCard(project) {
     <div class="project-card-body">
       <div class="project-title-row"><h3>${escapeHtml(project.title)}</h3><div class="project-badges">${project.featured ? '<span class="flagship-badge">★ FLAGSHIP</span>' : ''}<span class="visibility-badge${privateCase ? ' private' : ''}">${escapeHtml(project.visibility)}</span></div></div>
       <p class="project-area">${escapeHtml(project.area)}</p>
-      <p class="project-description">${escapeHtml(project.description)}</p>
+      <p class="project-description">${escapeHtml(description)}</p>
       <div class="project-tags">${project.technologies.map((technology) => `<span class="project-tag">${escapeHtml(technology)}</span>`).join('')}</div>
       <div class="project-actions"><button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}">Inspect / Architecture</button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${privateCase ? 'Profile ↗' : 'GitHub ↗'}</a></div>
     </div>
@@ -102,7 +104,7 @@ function projectCard(project) {
 function renderOverview() {
   const mount = byId('view-overview');
   mount.innerHTML = `<header class="hero-panel glass-panel">
-    <div><span class="eyebrow">Azo İsmail / Software Engineering</span><h1>Engineering at the edge of <span>intelligence</span> and silicon.</h1><p class="hero-copy">${escapeHtml(profile.summary)}</p><div class="button-row"><button class="button" type="button" data-view-target="projects">Explore engineering work <span>→</span></button><button class="button secondary" type="button" data-view-target="contact">Start a conversation</button></div></div>
+    <div><span class="eyebrow">Azo İsmail / Software Engineering</span><h1>Engineering at the edge of <span>intelligence</span> and silicon.</h1><p class="hero-copy">${escapeHtml(language === 'en' ? profile.summaryEn : profile.summary)}</p><div class="button-row"><button class="button" type="button" data-view-target="projects">Explore engineering work <span>→</span></button><button class="button secondary" type="button" data-view-target="contact">Start a conversation</button></div></div>
     <aside class="hero-aside"><span class="mono">$ system --profile</span><p>NAME&nbsp;&nbsp; ${escapeHtml(profile.name)}<br>EDU&nbsp;&nbsp;&nbsp; SOFTWARE_ENGINEERING<br>BASE&nbsp;&nbsp; ${escapeHtml(profile.location)}<br>FOCUS&nbsp; PERCEPTION / SYSTEMS<br>STATE&nbsp; BUILDING</p></aside>
   </header>
   <div class="metric-grid">
@@ -140,7 +142,7 @@ function applyProjectFilters() {
   const query = textKey(projectQuery);
   const filtered = projects.filter((project) => {
     const categoryMatch = activeCategory === 'All' || project.categories.includes(activeCategory);
-    const searchable = textKey(`${project.title} ${project.description} ${project.technologies.join(' ')}`);
+    const searchable = textKey(`${project.title} ${project.description} ${project.descriptionEn} ${project.technologies.join(' ')}`);
     return categoryMatch && (!featuredOnly || project.featured) && searchable.includes(query);
   });
   grid.innerHTML = filtered.length ? filtered.map(projectCard).join('') : '<div class="empty-state">No project matches this query. Try another technology or category.</div>';
@@ -164,7 +166,7 @@ function renderResume() {
 
 function renderArticles() {
   byId('view-articles').innerHTML = `<header class="view-header"><div><span class="eyebrow">Medium / technical writing</span><h1>Engineering notes</h1><p>Writing tracks for technical articles. These topic cards are not presented as published posts; use the Medium profile to see published writing.</p></div><a class="button ghost" href="${escapeHtml(articlesProfileUrl)}" target="_blank" rel="noopener noreferrer">Open Medium profile ↗</a></header>
-    <div class="article-grid">${articles.map((article) => `<article class="article-card"><span class="article-status">${escapeHtml(article.status)}</span><h3>${escapeHtml(article.title)}</h3><span class="mono">${escapeHtml(article.category)}</span><p>${escapeHtml(article.description)}</p><a class="project-action" href="${escapeHtml(articlesProfileUrl)}" target="_blank" rel="noopener noreferrer">Visit @azo-dev ↗</a></article>`).join('')}</div>`;
+    <div class="article-grid">${articles.map((article) => `<article class="article-card"><span class="article-status">${escapeHtml(article.status)}</span><h3>${escapeHtml(article.title)}</h3><span class="mono">${escapeHtml(article.category)}</span><p>${escapeHtml(language === 'en' ? article.descriptionEn : article.description)}</p><a class="project-action" href="${escapeHtml(articlesProfileUrl)}" target="_blank" rel="noopener noreferrer">Visit @azo-dev ↗</a></article>`).join('')}</div>`;
 }
 
 function renderContact() {
@@ -175,7 +177,7 @@ function renderContact() {
       <div class="field full"><label for="contact-topic">TOPIC</label><select id="contact-topic" name="topic" required><option value="">Select a topic</option><option>AI &amp; Computer Vision</option><option>Embedded Systems &amp; Robotics</option><option>Full-Stack Engineering</option><option>Research / Collaboration</option><option>Other</option></select></div>
       <div class="field full"><label for="contact-message">MESSAGE</label><textarea id="contact-message" name="message" required minlength="12" placeholder="Share a little context…"></textarea></div>
       <div class="field full"><div class="button-row"><button class="button" type="submit">Open email draft ↗</button><button class="button secondary" type="button" data-copy-message>Copy structured message</button></div></div>
-    </div></form></section><aside class="contact-panel contact-aside"><span class="eyebrow">Direct channels</span><h2>${escapeHtml(profile.name)}</h2><p>${escapeHtml(profile.education)}<br>${escapeHtml(profile.location)}</p><div class="dock-links"><a class="dock-link" href="mailto:${escapeHtml(profile.email)}">${escapeHtml(profile.email)} <span>↗</span></a><a class="dock-link" href="${escapeHtml(profile.github)}" target="_blank" rel="noopener noreferrer">GitHub / Azo15 <span>↗</span></a><a class="dock-link" href="${escapeHtml(profile.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a></div></aside></div>`;
+    </div></form></section><aside class="contact-panel contact-aside"><span class="eyebrow">Direct channels</span><h2>${escapeHtml(profile.name)}</h2><p>${escapeHtml(language === 'en' ? profile.educationEn : profile.education)}<br>${escapeHtml(profile.location)}</p><div class="dock-links"><a class="dock-link" href="mailto:${escapeHtml(profile.email)}">${escapeHtml(profile.email)} <span>↗</span></a><a class="dock-link" href="${escapeHtml(profile.github)}" target="_blank" rel="noopener noreferrer">GitHub / Azo15 <span>↗</span></a><a class="dock-link" href="${escapeHtml(profile.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a></div></aside></div>`;
   bindContactForm(byId('view-contact').querySelector('[data-contact-form]'), profile.email);
 }
 
@@ -214,7 +216,9 @@ function openCase(projectId) {
   document.querySelector('[data-case-category]').textContent = `${project.category} / ${project.visibility}`;
   document.querySelector('[data-case-title]').textContent = project.title;
   const pipeline = project.pipeline?.length ? `<section class="case-section"><h3>System Architecture Pipeline</h3><ol class="architecture-pipeline">${project.pipeline.map((step, index) => `<li class="pipeline-step"><span class="pipeline-index">0${index + 1}</span><span>${escapeHtml(step)}</span></li>`).join('')}</ol></section>` : '';
-  document.querySelector('[data-case-body]').innerHTML = `${pipeline}<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(project.problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(project.architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3><p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
+  const problem = language === 'en' ? project.descriptionEn : project.problem;
+  const architecture = language === 'en' ? `Engineering approach: ${project.descriptionEn} Technology stack: ${project.technologies.join(', ')}.` : project.architecture;
+  document.querySelector('[data-case-body]').innerHTML = `${pipeline}<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3><p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
   applyLanguage();
   const overlay = document.querySelector('[data-case-overlay]');
   overlay.hidden = false;
@@ -294,7 +298,7 @@ document.addEventListener('click', (event) => {
   if (target.matches('[data-close-palette]') || event.target === document.querySelector('[data-palette-overlay]')) closePalette();
   if (target.matches('[data-command-type]')) selectPaletteCommand(target);
   if (target.matches('[data-gh-refresh]')) updateGitHubTelemetry(true);
-  if (target.matches('[data-lang-toggle]')) { language = language === 'tr' ? 'en' : 'tr'; localStorage.setItem('azo-os-language', language); applyLanguage(); }
+  if (target.matches('[data-lang-toggle]')) { language = language === 'tr' ? 'en' : 'tr'; localStorage.setItem('azo-os-language', language); renderAll(); navigate(currentView, { updateHash: false }); }
   if (target.matches('[data-tech-query]')) { projectQuery = target.dataset.techQuery; activeCategory = 'All'; featuredOnly = false; navigate('projects'); renderProjects(); }
 });
 

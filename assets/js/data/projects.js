@@ -18,8 +18,42 @@ const flagshipPipelines = {
   'Coin Detection & Currency Prototype': ['Image Input', 'Grayscale & Blur', 'Hough Circle Detection', 'Heuristic Label & Overlay']
 };
 
+const projectSummariesEn = {
+  'software-health-technical-debt-analyzer': 'Combines Git history with code complexity and maintenance metrics to rank time-aware risk and surface refactoring opportunities in Python projects.',
+  'athlete-decay-predictor': 'Models performance decline from NBA game statistics and fatigue factors, then presents visual decision support.',
+  'hospital-ai-no-show-risk-analysis': 'Predicts appointment no-show risk with LightGBM and presents risk scores and recommendations to hospital staff.',
+  'hospital-ai-it-support-assistant': 'Manages hospital IT support requests through a role-based workspace and an AI-assisted chat interface.',
+  'smart-driver-monitoring-system': 'Combines camera-based attention and fatigue monitoring with Arduino serial communication, an LCD, and audio-visual alerts.',
+  'football-video-analytics': 'Builds a modular vision pipeline for player and ball detection, multi-object tracking, pass analysis, and heatmaps in football footage.',
+  'face-recognition-matching': 'Matches detected faces against enrolled identities with LBPH recognition and visually labels known and unknown results.',
+  'opencv-image-analysis-lab': 'Collects experiments in live face tracking, coin classification, fatigue monitoring, object detection, edge detection, and image filtering.',
+  'coin-detection-currency-prototype': 'Detects circular coin regions with OpenCV and demonstrates currency and value analysis using color thresholds.',
+  'pharmaceutical-record-linkage': 'Links TITCK and ATC medicine records without shared keys using text normalization, TF-IDF, and cosine similarity.',
+  'laravel-library-management-system': 'A multi-role library system combining catalog, inventory, lending and approval, returns, and administration in a responsive interface.',
+  'modern-blog-spa-cms': 'Presents a .NET 9 layered CMS approach for managing blog and spa business content.',
+  'yolarkada-vehicle-rental': 'Provides a vehicle catalog, rental options, booking summary, and browser-persisted reservations with Blazor Interactive Server.',
+  'bİkopİ-com-commerce-platform': 'A NestJS/Next.js modular commerce platform for print and stationery, structured for authentication, payments, and shipping integrations.',
+  'edulibrary-desktop-management-system': 'Combines SPA-style single-window navigation with multi-role access, activity notifications, and interactive charts in a C# WinForms app.',
+  'dormitory-management-system': 'Digitizes everyday staff and student workflows with a Java Swing interface and software design patterns.',
+  'object-oriented-e-commerce-application': 'Models product categories and cart workflows with a Java class hierarchy using inheritance and polymorphism.',
+  'employee-management-system': 'A PHP and MySQL application for managing employee, department, and salary records through web forms.',
+  'flutter-interactive-quiz-app': 'A mobile quiz app with timed questions, animated choices, live scoring, and a results view.',
+  'omnibrain-ai-assistant': 'An automation workflow that processes Telegram voice, images, and documents with AI services and saves summaries and tasks to Notion.',
+  'binaryforce-telegram-assistant': 'A modular bot that handles natural-language requests and offers utility flows such as prayer reminders and local weather.',
+  'design-patterns-practice-suite': 'Collects Java examples of Adapter, Bridge, Decorator, State, and Strategy patterns in separate subprojects.',
+  'crm-optimization-with-dynamic-programming': 'Applies dynamic programming to customer support assignment and budget-constrained campaign selection.',
+  'transport-route-planner': 'Ranks public transport routes for Kırklareli neighborhoods using population, cost, environmental impact, and related criteria.',
+  'dynamic-production-planner': 'Searches for a minimum-time production schedule using job and machine durations plus transition costs.',
+  'planet-knowledge-base-fca': 'Applies Prolog rules and Formal Concept Analysis closure calculations to planet-property relationships.',
+  'web-scraping-h2-data-store': 'Extracts HTML records with Jsoup CSS selectors and stores them in a local H2 database.',
+  'java-socket-web-server': 'A small Java web server that accepts HTTP connections through ServerSocket and returns HTML responses.',
+  'java-resume-pdf-generator': 'Generates a photo resume PDF from profile, education, and experience data with iTextPDF.',
+  'software-engineering-coursework-collection': 'A collection of private coursework folders covering graphics, visual programming, databases, AI, and software architecture.'
+};
+
 export const projects = projectRecords.map((project) => ({
   ...project,
+  descriptionEn: projectSummariesEn[project.id] ?? project.description,
   ...(flagshipPipelines[project.title] ? { featured: true, pipeline: flagshipPipelines[project.title] } : {}),
   category: categoryLabels[project.category] ?? project.category,
   categories: project.categories.map((category) => categoryLabels[category] ?? category),
