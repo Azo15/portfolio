@@ -42,11 +42,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   gap: 20px;
   padding: 24px 22px;
   overflow: auto;
-  background: var(--glass);
-  border: 1px solid var(--line-cyan);
+  background: linear-gradient(165deg, rgba(13,22,38,.97), rgba(8,13,25,.97) 58%, rgba(10,17,30,.98));
+  border: 1px solid rgba(88,132,164,.3);
   border-radius: var(--radius-xl);
   backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-panel);
+  box-shadow: 0 30px 90px rgba(0,0,0,.5), inset 0 1px rgba(255,255,255,.035), inset 0 0 30px rgba(46,164,181,.025);
 }
 
 .app-main {
