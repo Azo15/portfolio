@@ -122,12 +122,21 @@ function renderProjects() {
   const mount = byId('view-projects');
   mount.innerHTML = `<header class="view-header"><div><span class="eyebrow">Repository intelligence / 30 case files</span><h1>Engineering showcase</h1><p>Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.</p></div></header>
     <div class="project-toolbar"><label class="search-field"><span>⌕</span><input type="search" data-project-search placeholder="Search projects, descriptions, technologies…" autocomplete="off"><span class="mono">/</span></label><span class="mono" data-project-result-count></span></div>
-    <div class="filter-tabs" data-project-filters></div><div class="project-grid" data-project-grid></div>`;
+    <section class="category-console" aria-label="Project categories"><div class="category-console-heading"><span>${language === 'tr' ? 'PROJE KATEGORİLERİ' : 'PROJECT CATEGORIES'}</span><span>${language === 'tr' ? 'BİR ALAN SEÇ' : 'SELECT A TRACK'}</span></div><div class="filter-tabs" data-project-filters></div></section><div class="project-grid" data-project-grid></div>`;
   const filterMount = mount.querySelector('[data-project-filters]');
-  filterMount.innerHTML = `<button class="filter-tab${featuredOnly ? ' is-active' : ''}" type="button" data-featured-filter>★ Featured <span>(${projects.filter((project) => project.featured).length})</span></button>` + ['All', ...categories].map((category) => {
+  const categoryInfo = {
+    All: { code: '00', icon: '⌘', title: language === 'tr' ? 'Tüm projeler' : 'All projects', note: language === 'tr' ? '30 vaka dosyasına göz at' : 'Browse all case studies', className: 'all' },
+    'AI & Computer Vision': { code: '01', icon: '◉', title: language === 'tr' ? 'Yapay Zekâ' : 'AI & Vision', note: language === 'tr' ? 'Algılama ve makine öğrenmesi' : 'Perception and machine learning', className: 'ai' },
+    'Embedded & Robotics': { code: '02', icon: '⌁', title: language === 'tr' ? 'Gömülü Sistemler' : 'Embedded', note: language === 'tr' ? 'Donanım ve gerçek zamanlı sistemler' : 'Hardware and real-time systems', className: 'embedded' },
+    'Web & Full-Stack': { code: '03', icon: '▱', title: language === 'tr' ? 'Web ve Full-Stack' : 'Web & Full-Stack', note: language === 'tr' ? 'Uygulamalar ve servisler' : 'Applications and services', className: 'web' },
+    'Automation & Systems': { code: '04', icon: '⟳', title: language === 'tr' ? 'Otomasyon' : 'Automation', note: language === 'tr' ? 'İş akışları ve sistem araçları' : 'Workflows and system tools', className: 'automation' }
+  };
+  const filterButton = ({ value, featured = false, info, count, active }) => `<button class="filter-tab category-filter category-${info.className}${active ? ' is-active' : ''}" type="button" ${featured ? 'data-featured-filter' : `data-project-filter="${escapeHtml(value)}"`} aria-pressed="${active}"><span class="filter-index">${info.code}</span><span class="filter-icon" aria-hidden="true">${info.icon}</span><span class="filter-copy"><span class="filter-name">${escapeHtml(info.title)}</span><span class="filter-description">${escapeHtml(info.note)}</span></span><span class="filter-count">${count}</span><span class="filter-arrow" aria-hidden="true">↗</span></button>`;
+  const featuredInfo = { code: '★', icon: '✦', title: language === 'tr' ? 'Öne Çıkanlar' : 'Featured', note: language === 'tr' ? 'Amiral gemisi sistemler' : 'Flagship engineering work', className: 'featured' };
+  filterMount.innerHTML = filterButton({ value: 'Featured', featured: true, info: featuredInfo, count: projects.filter((project) => project.featured).length, active: featuredOnly }) + ['All', ...categories].map((category) => {
+    const info = categoryInfo[category] ?? { code: '05', icon: '•', title: category, note: '', className: 'all' };
     const count = category === 'All' ? projects.length : projects.filter((project) => project.categories.includes(category)).length;
-    const active = category === activeCategory ? ' is-active' : '';
-    return `<button class="filter-tab${active}" type="button" data-project-filter="${escapeHtml(category)}">${escapeHtml(category)} <span>(${count})</span></button>`;
+    return filterButton({ value: category, info, count, active: !featuredOnly && category === activeCategory });
   }).join('');
   const search = mount.querySelector('[data-project-search]');
   search.value = projectQuery;
@@ -149,9 +158,13 @@ function applyProjectFilters() {
   const count = document.querySelector('[data-project-result-count]');
   if (count) count.textContent = `${filtered.length} / ${projects.length} PROJECTS`;
   document.querySelectorAll('[data-project-filter]').forEach((button) => {
-    button.classList.toggle('is-active', button.dataset.projectFilter === activeCategory);
+    const active = !featuredOnly && button.dataset.projectFilter === activeCategory;
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-pressed', String(active));
   });
-  document.querySelector('[data-featured-filter]')?.classList.toggle('is-active', featuredOnly);
+  const featuredFilter = document.querySelector('[data-featured-filter]');
+  featuredFilter?.classList.toggle('is-active', featuredOnly);
+  featuredFilter?.setAttribute('aria-pressed', String(featuredOnly));
 }
 
 function timelineCard(item) {
