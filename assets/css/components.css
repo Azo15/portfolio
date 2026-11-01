@@ -78,6 +78,7 @@
 .tech-chip:hover, .tech-chip.is-active { color: var(--cyan); background: rgba(0,240,255,.08); border-color: rgba(0,240,255,.28); }
 
 .project-toolbar { display: grid; grid-template-columns: minmax(220px, 1fr) auto; gap: 14px; align-items: center; margin: 22px 0 16px; }
+.project-toolbar [data-project-result-count] { justify-self: end; color: #75d3ff; white-space: nowrap; }
 .search-field { display: flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 14px; background: rgba(15,23,42,.78); border: 1px solid var(--line); border-radius: 12px; }
 .search-field span { color: var(--cyan); font: 13px var(--font-mono); }
 .search-field input { width: 100%; color: var(--text); background: transparent; border: 0; outline: 0; font-size: 12px; }
@@ -86,7 +87,7 @@
 .category-console-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 13px; color: #96a8c0; font: 10px/1.5 var(--font-mono); letter-spacing: .1em; }
 .category-console-heading span:last-child { color: var(--dim); }
 .filter-tabs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
-.filter-tab { position: relative; display: grid; min-width: 0; min-height: 78px; grid-template-columns: 28px minmax(0,1fr) auto; grid-template-rows: 1fr auto; align-items: center; gap: 5px 10px; padding: 12px 13px; overflow: hidden; color: var(--muted); background: linear-gradient(145deg, rgba(21,31,49,.92), rgba(12,19,32,.94)); border: 1px solid rgba(125,145,171,.18); border-radius: 13px; cursor: pointer; text-align: left; transition: transform 180ms var(--ease), color 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease); }
+.filter-tab { appearance: none; -webkit-appearance: none; position: relative; display: grid; min-width: 0; min-height: 78px; grid-template-columns: 28px minmax(0,1fr) auto; grid-template-rows: 1fr auto; align-items: center; gap: 5px 10px; padding: 12px 13px; overflow: hidden; color: var(--muted); background: linear-gradient(145deg, rgba(21,31,49,.92), rgba(12,19,32,.94)); border: 1px solid rgba(125,145,171,.18); border-radius: 13px; cursor: pointer; text-align: left; transition: transform 180ms var(--ease), color 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease); }
 .filter-tab::before { position: absolute; inset: 0 auto 0 0; width: 3px; content: ''; background: var(--filter-accent, #66758c); opacity: .6; transition: opacity 180ms var(--ease); }
 .filter-tab:hover { transform: translateY(-2px); color: var(--text); border-color: color-mix(in srgb, var(--filter-accent, var(--cyan)) 45%, transparent); }
 .filter-tab.is-active { color: var(--text); background: linear-gradient(145deg, color-mix(in srgb, var(--filter-accent, var(--cyan)) 15%, #111a2a), rgba(11,18,31,.98)); border-color: color-mix(in srgb, var(--filter-accent, var(--cyan)) 58%, transparent); box-shadow: 0 8px 24px color-mix(in srgb, var(--filter-accent, var(--cyan)) 12%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--filter-accent, var(--cyan)) 12%, transparent); }
@@ -220,7 +221,14 @@
 @media (max-width: 680px) {
   .project-title-row { flex-direction: column; }
   .project-badges { justify-content: flex-start; }
-  .filter-tabs { grid-template-columns: minmax(0, 1fr); }
+  .filter-tabs { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .filter-tab { min-height: 80px; grid-template-columns: 20px minmax(0,1fr); gap: 3px 7px; padding: 11px 9px; }
+  .filter-icon { position: absolute; right: 9px; bottom: 9px; width: 26px; height: 26px; font-size: 14px; }
+  .filter-copy { grid-column: 2; grid-row: 1 / 3; padding-right: 3px; }
+  .filter-name { font-size: 12px; }
+  .filter-description { font-size: 10px; }
+  .filter-count { top: 6px; right: 7px; }
+  .filter-arrow { display: none; }
 }
 
 @media (max-width: 480px) {
@@ -234,4 +242,11 @@
   .project-actions > * { flex: 1 1 auto; }
   .metric-card { padding: 14px; }
   .metric-label { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 360px) {
+  .filter-tabs { grid-template-columns: minmax(0,1fr); }
+  .filter-tab { min-height: 70px; grid-template-columns: 26px minmax(0,1fr) 28px; padding: 10px 11px; }
+  .filter-icon { position: static; width: 27px; height: 27px; grid-column: 3; grid-row: 1 / 3; }
+  .filter-copy { grid-column: 2; grid-row: 1 / 3; }
 }
