@@ -198,4 +198,18 @@
 @media (max-width: 680px) {
   .project-title-row { flex-direction: column; }
   .project-badges { justify-content: flex-start; }
+  .filter-tabs { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .command-nav { flex-wrap: wrap; }
+  .command-actions { order: 0; margin-left: auto; }
+  .nav-tabs { order: 1; flex: 0 0 100%; }
+  .nav-tab { padding-inline: 11px; font-size: 11px; }
+  .workspace { padding: 18px 14px; }
+  .project-card-body { padding: 15px; }
+  .project-actions { align-items: stretch; }
+  .project-actions > * { flex: 1 1 auto; }
+  .metric-card { padding: 14px; }
+  .metric-label { overflow-wrap: anywhere; }
 }
