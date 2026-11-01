@@ -15,7 +15,7 @@ body {
     var(--bg-root);
   background-size: auto, auto, 36px 36px, 36px 36px, auto;
   background-attachment: fixed;
-  font: 14px/1.65 var(--font-body);
+  font: var(--font-size-body)/var(--line-body) var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -54,8 +54,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .view.is-active { display: block; }
 .view-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
 .view-header h1 { margin: 5px 0 0; font: 600 clamp(28px, 4vw, 42px)/1.08 var(--font-display); letter-spacing: -0.045em; }
-.view-header p { max-width: 660px; margin: 10px 0 0; color: var(--muted); }
-.eyebrow { color: var(--cyan); font: 500 10px/1.4 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; }
+.view-header p { max-width: 720px; margin: 12px 0 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
+.eyebrow { color: var(--cyan); font: 600 11px/1.55 var(--font-mono); letter-spacing: 0.11em; text-transform: uppercase; }
+
+p { overflow-wrap: anywhere; }
+button, input, select, textarea { line-height: 1.5; }
 
 @media (max-width: 1100px) {
   .identity-dock { position: relative; inset: auto; width: auto; min-height: auto; margin: 16px; }
