@@ -178,8 +178,17 @@ function renderResume() {
 }
 
 function renderArticles() {
-  byId('view-articles').innerHTML = `<header class="view-header"><div><span class="eyebrow">Medium / technical writing</span><h1>Engineering notes</h1><p>Writing tracks for technical articles. These topic cards are not presented as published posts; use the Medium profile to see published writing.</p></div><a class="button ghost" href="${escapeHtml(articlesProfileUrl)}" target="_blank" rel="noopener noreferrer">Open Medium profile ↗</a></header>
-    <div class="article-grid">${articles.map((article) => `<article class="article-card"><span class="article-status">${escapeHtml(article.status)}</span><h3>${escapeHtml(article.title)}</h3><span class="mono">${escapeHtml(article.category)}</span><p>${escapeHtml(language === 'en' ? article.descriptionEn : article.description)}</p><a class="project-action" href="${escapeHtml(articlesProfileUrl)}" target="_blank" rel="noopener noreferrer">Visit @azo-dev ↗</a></article>`).join('')}</div>`;
+  const articleHeading = language === 'tr' ? 'Yayımlanmış makaleler' : 'Published articles';
+  const articleIntro = language === 'tr' ? 'Medium’da yayımlanan seçili yazılar. Özgün yazıyı okumak için bir kartı aç.' : 'Selected articles published on Medium. Open a card to read the original story.';
+  const articleEyebrow = language === 'tr' ? 'MEDIUM / YAYIMLANMIŞ YAZILAR' : 'MEDIUM / PUBLISHED WRITING';
+  byId('view-articles').innerHTML = `<header class="view-header"><div><span class="eyebrow">${articleEyebrow}</span><h1>${articleHeading}</h1><p>${articleIntro}</p></div><a class="button ghost" href="${escapeHtml(articlesProfileUrl)}" target="_blank" rel="noopener noreferrer">${language === 'tr' ? 'Medium profilini aç ↗' : 'Open Medium profile ↗'}</a></header>
+    <div class="article-grid">${articles.map((article) => {
+      const title = language === 'tr' ? article.titleTr : article.title;
+      const date = language === 'tr' ? article.publishedAtTr : article.publishedAt;
+      const description = language === 'en' ? article.descriptionEn : article.description;
+      const category = language === 'tr' ? article.categoryTr : article.category;
+      return `<article class="article-card"><a class="article-cover" href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer" aria-label="${language === 'tr' ? 'Medium makalesini oku: ' : 'Read Medium article: '}${escapeHtml(title)}"><img src="${escapeHtml(article.image)}" alt="${escapeHtml(title)}" loading="lazy" decoding="async"><span class="article-cover-mark" aria-hidden="true">M</span></a><div class="article-body"><div class="article-meta"><span class="article-status">MEDIUM / ${escapeHtml(date)}</span><span class="article-category">${escapeHtml(category)}</span></div><h3><a class="article-title-link" href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></h3><p>${escapeHtml(description)}</p><a class="article-read-link" href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">${language === 'tr' ? 'Makaleyi Medium’da oku' : 'Read article on Medium'} <span aria-hidden="true">↗</span></a></div></article>`;
+    }).join('')}</div>`;
 }
 
 function renderContact() {
