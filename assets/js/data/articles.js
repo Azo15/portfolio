@@ -44,7 +44,9 @@ export const articles = [
     descriptionEn: 'Shows how Formal Concept Analysis and lattice theory can reveal concepts and hierarchical class structures from data.',
     publishedAt: 'December 23, 2025',
     publishedAtTr: '23 Aralık 2025',
-    image: 'https://cdn-images-1.medium.com/max/400/1*Z-86j39QFKcQ9VpGEcSX9g.png',
+    image: './assets/images/articles/formal-concept-lattice.svg',
+    imageAlt: 'Formal concept Hasse lattice: Superhero branches to Flyers and Humans, which meet at Iron Man.',
+    imageAltTr: 'Biçimsel kavram Hasse kafesi: Süper Kahraman, Uçabilenler ve İnsanlar dallarına ayrılır; dallar Iron Man’de kesişir.',
     url: 'https://medium.com/@azo-dev/bilgiyi-matematiksel-olarak-d%C3%BCzenlemek-bi%C3%A7imsel-kavram-%C3%A7%C3%B6z%C3%BCmlemesi-e24e06e01fd3'
   }
 ];

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="42" x2="1100" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101b2e"/>
+      <stop offset="1" stop-color="#080d18"/>
+    </linearGradient>
+    <linearGradient id="root" x1="420" y1="124" x2="780" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#203a54"/>
+      <stop offset="1" stop-color="#17243a"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="470" y1="490" x2="730" y2="610" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123a3c"/>
+      <stop offset="1" stop-color="#152d39"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" stroke="#7d9bb8" stroke-opacity=".09"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="15" stdDeviation="18" flood-color="#000814" flood-opacity=".42"/>
+    </filter>
+    <marker id="arrow-cyan" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M1 1 10 6 1 11" stroke="#53d9e8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M1 1 10 6 1 11" stroke="#5ad6a7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="675" rx="26" fill="url(#bg)"/>
+  <rect width="1200" height="675" rx="26" fill="url(#grid)"/>
+  <circle cx="600" cy="325" r="270" fill="#1bc9d3" fill-opacity=".035"/>
+  <text x="64" y="66" fill="#75d3ff" font-family="monospace" font-size="15" letter-spacing="3">AZO.OS / FORMAL CONCEPT ANALYSIS</text>
+  <text x="1136" y="66" text-anchor="end" fill="#8392aa" font-family="monospace" font-size="13" letter-spacing="2">HASSE LATTICE · 01</text>
+
+  <path d="M505 224C465 270 400 292 342 344" stroke="#53d9e8" stroke-opacity=".75" stroke-width="3" marker-end="url(#arrow-cyan)"/>
+  <path d="M695 224C735 270 800 292 858 344" stroke="#53d9e8" stroke-opacity=".75" stroke-width="3" marker-end="url(#arrow-cyan)"/>
+  <path d="M342 438C395 486 477 506 536 544" stroke="#5ad6a7" stroke-opacity=".78" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <path d="M858 438C805 486 723 506 664 544" stroke="#5ad6a7" stroke-opacity=".78" stroke-width="3" marker-end="url(#arrow-green)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="410" y="120" width="380" height="112" rx="18" fill="url(#root)" stroke="#58c9dd" stroke-opacity=".62" stroke-width="2"/>
+    <rect x="428" y="138" width="4" height="76" rx="2" fill="#58c9dd"/>
+    <text x="458" y="163" fill="#8da5bf" font-family="monospace" font-size="13" letter-spacing="2">GENERAL CONCEPT</text>
+    <text x="458" y="199" fill="#edf4ff" font-family="Arial, sans-serif" font-weight="700" font-size="29">SUPERHERO</text>
+    <text x="744" y="194" text-anchor="end" fill="#69e2e7" font-family="monospace" font-size="13">TOP</text>
+
+    <rect x="150" y="338" width="380" height="112" rx="18" fill="#152238" stroke="#a78bfa" stroke-opacity=".56" stroke-width="2"/>
+    <rect x="168" y="356" width="4" height="76" rx="2" fill="#a78bfa"/>
+    <text x="198" y="381" fill="#aab7ca" font-family="monospace" font-size="13" letter-spacing="2">SHARED ATTRIBUTE</text>
+    <text x="198" y="417" fill="#f0ebff" font-family="Arial, sans-serif" font-weight="700" font-size="29">FLYERS</text>
+    <text x="484" y="412" text-anchor="end" fill="#bba8ff" font-family="monospace" font-size="13">CAN FLY</text>
+
+    <rect x="670" y="338" width="380" height="112" rx="18" fill="#152238" stroke="#38bdf8" stroke-opacity=".56" stroke-width="2"/>
+    <rect x="688" y="356" width="4" height="76" rx="2" fill="#38bdf8"/>
+    <text x="718" y="381" fill="#aab7ca" font-family="monospace" font-size="13" letter-spacing="2">SHARED ATTRIBUTE</text>
+    <text x="718" y="417" fill="#e8f6ff" font-family="Arial, sans-serif" font-weight="700" font-size="29">HUMANS</text>
+    <text x="1004" y="412" text-anchor="end" fill="#75d3ff" font-family="monospace" font-size="13">HUMAN DNA</text>
+
+    <rect x="420" y="530" width="360" height="104" rx="18" fill="url(#leaf)" stroke="#5ad6a7" stroke-opacity=".72" stroke-width="2"/>
+    <rect x="438" y="548" width="4" height="68" rx="2" fill="#5ad6a7"/>
+    <text x="468" y="572" fill="#9bc7bd" font-family="monospace" font-size="13" letter-spacing="2">INTERSECTION · BOTH BRANCHES</text>
+    <text x="468" y="608" fill="#e7fff4" font-family="Arial, sans-serif" font-weight="700" font-size="29">IRON MAN</text>
+    <text x="740" y="603" text-anchor="end" fill="#73e0b5" font-family="monospace" font-size="13">LEAF</text>
+  </g>
+</svg>
