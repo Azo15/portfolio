@@ -1,7 +1,7 @@
 import { profile } from './data/profile.js';
 import { projects } from './data/projects.js';
 import { resume } from './data/resume.js';
-import { articles, articlesProfileUrl } from './data/articles.js';
+import { articles, articlesProfileUrl } from './data/articles.js?v=20261102-fca';
 import { getGitHubStats } from './services/githubService.js';
 import { bindContactForm, showToast } from './services/contactService.js';
 
