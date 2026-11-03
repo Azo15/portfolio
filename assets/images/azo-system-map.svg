@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 440" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Azo.OS engineering system map</title>
+  <desc id="desc">Three connected engineering domains: perception, intelligence and embedded systems.</desc>
+  <defs>
+    <linearGradient id="field" x1="48" y1="26" x2="586" y2="414" gradientUnits="userSpaceOnUse"><stop stop-color="#00F0FF" stop-opacity=".12"/><stop offset=".52" stop-color="#101B30" stop-opacity=".1"/><stop offset="1" stop-color="#8B5CF6" stop-opacity=".16"/></linearGradient>
+    <linearGradient id="route" x1="92" y1="91" x2="540" y2="352" gradientUnits="userSpaceOnUse"><stop stop-color="#00F0FF"/><stop offset=".52" stop-color="#38BDF8"/><stop offset="1" stop-color="#A78BFA"/></linearGradient>
+    <radialGradient id="core" cx="0" cy="0" r="1" gradientTransform="matrix(0 95 -95 0 320 220)" gradientUnits="userSpaceOnUse"><stop stop-color="#00F0FF" stop-opacity=".16"/><stop offset="1" stop-color="#00F0FF" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" stroke="#96B7D8" stroke-opacity=".11"/></pattern>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect x="20" y="20" width="600" height="400" rx="28" fill="#080F1D" stroke="#29425B"/>
+  <rect x="20" y="20" width="600" height="400" rx="28" fill="url(#field)"/>
+  <rect x="20" y="20" width="600" height="400" rx="28" fill="url(#grid)"/>
+  <circle cx="320" cy="220" r="160" fill="url(#core)"/>
+  <path d="M126 139H250Q277 139 292 160L319 198M347 221H421Q450 221 466 244L510 306M298 242 254 289Q239 306 212 306H126" stroke="url(#route)" stroke-width="2" stroke-dasharray="5 8"/>
+  <path d="M126 139H250Q277 139 292 160L319 198M347 221H421Q450 221 466 244L510 306M298 242 254 289Q239 306 212 306H126" stroke="url(#route)" stroke-opacity=".24" stroke-width="9" filter="url(#glow)"/>
+  <g fill="#07101E" stroke="#55EAF1" stroke-width="2"><rect x="76" y="108" width="100" height="62" rx="15"/><rect x="464" y="275" width="100" height="62" rx="15"/><rect x="76" y="275" width="100" height="62" rx="15"/></g>
+  <rect x="274" y="176" width="92" height="88" rx="24" fill="#091322" stroke="#00F0FF" stroke-opacity=".8"/>
+  <rect x="274" y="176" width="92" height="88" rx="24" stroke="#00F0FF" stroke-opacity=".24" filter="url(#glow)"/>
+  <g fill="#07101E" stroke="#B69AFF" stroke-width="2"><circle cx="250" cy="139" r="5"/><circle cx="421" cy="221" r="5"/><circle cx="254" cy="289" r="5"/><circle cx="510" cy="306" r="5"/></g>
+  <path d="M116 126h20m-20 8h28m-28 8h14M502 293h22m-22 8h30m-30 8h16M116 293h20m-20 8h28m-28 8h14" stroke="#00F0FF" stroke-opacity=".45" stroke-linecap="round"/>
+  <circle cx="320" cy="220" r="4" fill="#00F0FF" filter="url(#glow)"/>
+</svg>
