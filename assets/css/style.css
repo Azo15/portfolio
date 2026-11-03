@@ -1,4 +1,4 @@
-@import url('./variables.css');
-@import url('./layout.css');
-@import url('./components.css');
-@import url('./animations.css');
+@import url('./variables.css?v=20261103-active-cards');
+@import url('./layout.css?v=20261103-active-cards');
+@import url('./components.css?v=20261103-active-cards');
+@import url('./animations.css?v=20261103-active-cards');

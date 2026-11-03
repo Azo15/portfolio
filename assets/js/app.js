@@ -1,9 +1,9 @@
-import { profile } from './data/profile.js';
-import { projects } from './data/projects.js';
-import { resume } from './data/resume.js';
-import { articles, articlesProfileUrl } from './data/articles.js?v=20261102-fca';
-import { getGitHubStats } from './services/githubService.js';
-import { bindContactForm, showToast } from './services/contactService.js';
+import { profile } from './data/profile.js?v=20261103-active-cards';
+import { projects } from './data/projects.js?v=20261103-active-cards';
+import { resume } from './data/resume.js?v=20261103-active-cards';
+import { articles, articlesProfileUrl } from './data/articles.js?v=20261103-active-cards';
+import { getGitHubStats } from './services/githubService.js?v=20261103-active-cards';
+import { bindContactForm, showToast } from './services/contactService.js?v=20261103-active-cards';
 
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
