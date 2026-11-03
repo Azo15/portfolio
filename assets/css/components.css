@@ -201,6 +201,28 @@
 .command-result code { color: var(--cyan); font: 11px var(--font-mono); }
 .command-result small { color: var(--muted); font: 11px/1.5 var(--font-body); }
 
+/* Azo.OS home signature: editorial introduction paired with an original system map. */
+.hero-panel { grid-template-columns: minmax(0, 1.05fr) minmax(330px, .95fr); align-items: center; gap: clamp(24px, 4vw, 54px); min-height: 430px; padding: clamp(26px, 4.4vw, 54px); background: radial-gradient(ellipse at 76% 50%, rgba(0,240,255,.055), transparent 48%), var(--glass); }
+.hero-intro { position: relative; z-index: 1; }
+.hero-intro .eyebrow { letter-spacing: .14em; }
+.hero-panel h1 { max-width: 650px; margin: 18px 0; font-size: clamp(38px, 5vw, 62px); line-height: 1.08; letter-spacing: -.06em; }
+.hero-panel h1 span { color: transparent; background: linear-gradient(100deg, #00F0FF 8%, #72E9E5 50%, #A78BFA 96%); background-clip: text; -webkit-background-clip: text; }
+.hero-copy { max-width: 590px; margin: 0 0 22px; font-size: 15px; line-height: 1.85; }
+.hero-signature { display: flex; align-items: center; gap: 9px; margin-top: 22px; color: #9ab1c9; font: 10px/1.6 var(--font-mono); letter-spacing: .035em; }
+.hero-signature .status-pulse { width: 6px; height: 6px; }
+.hero-aside { position: relative; min-width: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; padding: 15px; overflow: hidden; background: linear-gradient(155deg, rgba(6,14,27,.94), rgba(9,17,31,.72)); border-color: rgba(95,156,184,.25); box-shadow: inset 0 1px rgba(255,255,255,.035), 0 18px 48px rgba(0,0,0,.24); }
+.hero-aside-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 2px 3px 12px; border-bottom: 1px solid rgba(148,163,184,.12); }
+.hero-live { display: inline-flex; align-items: center; gap: 6px; color: #85e3c3; font: 9px var(--font-mono); letter-spacing: .09em; }
+.hero-live i { width: 6px; height: 6px; background: var(--emerald); border-radius: 50%; box-shadow: 0 0 10px rgba(16,185,129,.7); }
+.system-map { position: relative; width: 100%; max-width: 540px; margin: 4px auto 0; }
+.system-map img { display: block; width: 100%; height: auto; }
+.system-map-label { position: absolute; color: #b3c6d8; font: 8px/1.4 var(--font-mono); letter-spacing: .065em; white-space: nowrap; }
+.map-label-vision { top: 31%; left: 17%; }
+.map-label-ai { top: 66%; left: 78%; }
+.map-label-embedded { top: 66%; left: 17%; }
+.system-map-core { position: absolute; top: 50%; left: 50%; display: grid; width: 52px; height: 52px; place-items: center; color: var(--cyan); background: rgba(7,16,30,.96); border: 1px solid rgba(0,240,255,.45); border-radius: 16px; box-shadow: 0 0 32px rgba(0,240,255,.14), inset 0 0 18px rgba(0,240,255,.06); font: 600 11px var(--font-mono); transform: translate(-50%,-50%); }
+.system-map-caption { margin: 0; padding: 0 5px 4px; color: #9aacc0; font: 10px/1.6 var(--font-mono); text-align: center; }
+
 @media (max-width: 900px) {
   .hero-panel { grid-template-columns: 1fr; }
   .hero-aside { max-width: none; }
