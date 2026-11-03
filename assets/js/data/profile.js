@@ -18,10 +18,10 @@ export const profile = {
     { value: '4', label: 'Engineering disciplines', key: 'disciplines' }
   ],
   disciplines: [
-    { title: 'AI & Computer Vision', code: '01 / PERCEPTION', icon: '◉', description: 'OpenCV, MediaPipe, machine learning and image analytics.' },
-    { title: 'Full-Stack & Backend', code: '02 / APPLICATIONS', icon: '⌘', description: 'Laravel, .NET, React and scalable service architecture.' },
-    { title: 'Embedded & Robotics', code: '03 / SILICON', icon: '⌁', description: 'ESP32, Arduino, serial protocols and hardware integration.' },
-    { title: 'Automation & Security', code: '04 / SYSTEMS', icon: '⏣', description: 'Workflow automation, Linux environments and developer tools.' }
+    { title: 'AI & Computer Vision', category: 'AI & Computer Vision', code: '01 / PERCEPTION', icon: '◉', description: 'OpenCV, MediaPipe, machine learning and image analytics.' },
+    { title: 'Full-Stack & Backend', category: 'Web & Full-Stack', code: '02 / APPLICATIONS', icon: '⌘', description: 'Laravel, .NET, React and scalable service architecture.' },
+    { title: 'Embedded & Robotics', category: 'Embedded & Robotics', code: '03 / SILICON', icon: '⌁', description: 'ESP32, Arduino, serial protocols and hardware integration.' },
+    { title: 'Automation & Security', category: 'Automation & Systems', code: '04 / SYSTEMS', icon: '⏣', description: 'Workflow automation, Linux environments and developer tools.' }
   ],
   techStack: [
     { category: 'Programming Languages', items: ['Java', 'Python', 'C#', 'C', 'PHP', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Dart', 'Prolog', 'Assembly'] },
@@ -29,5 +29,43 @@ export const profile = {
     { category: 'Databases', items: ['MySQL', 'Microsoft SQL Server', 'PostgreSQL', 'MongoDB'] },
     { category: 'Tools & Environments', items: ['Git', 'GitHub', 'Docker', 'n8n', 'VS Code', 'IntelliJ IDEA', 'PySerial'] },
     { category: 'Operating Systems & Distros', items: ['Ubuntu', 'Kali Linux', 'Linux', 'Windows'] }
-  ]
+  ],
+  techAliases: {
+    'Java': ['java', 'java 23', 'swing', 'jsoup', 'serversocket', 'itextpdf', 'oop'],
+    'Python': ['python', 'pydriller', 'lightgbm', 'pandas', 'scikit-learn', 'xgboost', 'streamlit', 'flask', 'opencv', 'mediapipe', 'pyserial', 'numpy', 'yolo'],
+    'C#': ['c#', '.net', '.net 9', 'winforms', 'blazor', 'razor components'],
+    'C': ['c', 'c++', 'arduino', 'esp32', 'embedded'],
+    'PHP': ['php', 'laravel', 'laravel 11'],
+    'JavaScript': ['javascript', 'ajax', 'localstorage', 'alpine.js', 'next.js', 'nestjs', 'typescript'],
+    'TypeScript': ['typescript', 'nestjs', 'next.js', 'prisma'],
+    'HTML5': ['html', 'html5', 'razor components', 'blazor', 'web'],
+    'CSS3': ['css', 'css3', 'tailwind css', 'responsive'],
+    'Dart': ['dart', 'flutter'],
+    'Prolog': ['prolog', 'fca', 'logic programming'],
+    'Assembly': ['assembly', 'arduino', 'embedded', 'systems'],
+    '.NET / Core': ['.net', '.net 9', 'c#', 'blazor', 'winforms', 'n-tier'],
+    'Laravel 11': ['laravel 11', 'laravel', 'php'],
+    'Node.js': ['node.js', 'nestjs', 'next.js', 'typescript', 'n8n'],
+    'React': ['react', 'next.js', 'spa'],
+    'Flutter': ['flutter', 'dart', 'mobile ui'],
+    'OpenCV': ['opencv', 'hough circles', 'haar cascades', 'lbph', 'image processing'],
+    'MediaPipe': ['mediapipe', 'opencv'],
+    'Tailwind CSS': ['tailwind css', 'css'],
+    'Alpine.js': ['alpine.js', 'laravel 11'],
+    'MySQL': ['mysql', 'sqlite', 'database'],
+    'Microsoft SQL Server': ['mssql', 'sql server', 'c#', '.net', '.net 9', 'n-tier', 'winforms'],
+    'PostgreSQL': ['postgresql', 'prisma', 'sql'],
+    'MongoDB': ['mongodb', 'database', 'knowledge base', 'h2 database'],
+    'Git': ['git', 'pydriller', 'github'],
+    'GitHub': ['github', 'git', 'pydriller'],
+    'Docker': ['docker', 'n8n', 'nestjs'],
+    'n8n': ['n8n', 'telegram', 'automation', 'notion'],
+    'VS Code': ['python', 'typescript', 'javascript', 'flutter', 'laravel 11'],
+    'IntelliJ IDEA': ['intellij idea', 'java', 'java 23'],
+    'PySerial': ['pyserial', 'arduino', 'serial'],
+    'Ubuntu': ['python', 'docker', 'n8n', 'flask', 'linux'],
+    'Kali Linux': ['python', 'networking', 'serversocket', 'linux'],
+    'Linux': ['python', 'docker', 'n8n', 'serversocket'],
+    'Windows': ['c#', '.net', 'winforms', 'blazor']
+  }
 };

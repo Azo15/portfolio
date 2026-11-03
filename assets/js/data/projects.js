@@ -51,11 +51,30 @@ const projectSummariesEn = {
   'software-engineering-coursework-collection': 'A collection of private coursework folders covering graphics, visual programming, databases, AI, and software architecture.'
 };
 
-export const projects = projectRecords.map((project) => ({
-  ...project,
-  descriptionEn: projectSummariesEn[project.id] ?? project.description,
-  ...(flagshipPipelines[project.title] ? { featured: true, pipeline: flagshipPipelines[project.title] } : {}),
-  category: categoryLabels[project.category] ?? project.category,
-  categories: project.categories.map((category) => categoryLabels[category] ?? category),
-  architecture: architectureNotes[project.title] ?? project.architecture
-}));
+const projectTechExtensions = {
+  'modern-blog-spa-cms': ['Microsoft SQL Server', 'SQL', 'Entity Framework'],
+  'edulibrary-desktop-management-system': ['Microsoft SQL Server', 'SQL'],
+  'yolarkada-vehicle-rental': ['HTML5', 'CSS3', 'JavaScript'],
+  'omnibrain-ai-assistant': ['Docker', 'Node.js', 'Linux'],
+  'smart-driver-monitoring-system': ['C', 'C++', 'ESP32'],
+  'employee-management-system': ['HTML5', 'CSS3', 'SQL'],
+  'laravel-library-management-system': ['HTML5', 'CSS3', 'JavaScript', 'Git'],
+  'bİkopİ-com-commerce-platform': ['Node.js', 'React', 'Docker', 'Git'],
+  'software-health-technical-debt-analyzer': ['Git', 'GitHub', 'Linux'],
+  'hospital-ai-it-support-assistant': ['Python', 'HTML5', 'CSS3', 'SQL'],
+  'java-socket-web-server': ['Linux', 'Ubuntu']
+};
+
+export const projects = projectRecords.map((project) => {
+  const extraTech = projectTechExtensions[project.id] ?? [];
+  const mergedTech = [...new Set([...project.technologies, ...extraTech])];
+  return {
+    ...project,
+    technologies: mergedTech,
+    descriptionEn: projectSummariesEn[project.id] ?? project.description,
+    ...(flagshipPipelines[project.title] ? { featured: true, pipeline: flagshipPipelines[project.title] } : {}),
+    category: categoryLabels[project.category] ?? project.category,
+    categories: project.categories.map((category) => categoryLabels[category] ?? category),
+    architecture: architectureNotes[project.title] ?? project.architecture
+  };
+});
