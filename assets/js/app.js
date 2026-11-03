@@ -1,9 +1,9 @@
-import { profile } from './data/profile.js?v=20261103-active-cards';
-import { projects } from './data/projects.js?v=20261103-active-cards';
-import { resume } from './data/resume.js?v=20261103-active-cards';
-import { articles, articlesProfileUrl } from './data/articles.js?v=20261103-active-cards';
-import { getGitHubStats } from './services/githubService.js?v=20261103-active-cards';
-import { bindContactForm, showToast } from './services/contactService.js?v=20261103-active-cards';
+import { profile } from './data/profile.js?v=20261103-dock-radar';
+import { projects } from './data/projects.js?v=20261103-dock-radar';
+import { resume } from './data/resume.js?v=20261103-dock-radar';
+import { articles, articlesProfileUrl } from './data/articles.js?v=20261103-dock-radar';
+import { getGitHubStats } from './services/githubService.js?v=20261103-dock-radar';
+import { bindContactForm, showToast } from './services/contactService.js?v=20261103-dock-radar';
 
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
