@@ -25,6 +25,9 @@ const translations = {
   'Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.': 'Algılama, uygulama, gömülü sistem ve otomasyon alanlarında incelenmiş projeler. Proje veya teknoloji ara; belgelenen mimariyi görmek için vaka dosyasını aç.',
   'Search projects, descriptions, technologies…': 'Proje, açıklama veya teknoloji ara…', 'PROJECTS': 'PROJE', 'All': 'Tümü',
   'No project matches this query. Try another technology or category.': 'Bu aramayla eşleşen proje yok. Başka bir teknoloji veya kategori dene.',
+  'Reset active filters & show all 30 projects': 'Aktif filtreleri sıfırla ve 30 projenin tümünü göster',
+  'Clear filter': 'Filtreyi temizle',
+  'ACTIVE FILTER:': 'AKTİF FİLTRE:',
   'Featured': 'Öne Çıkanlar', 'FLAGSHIP': 'AMİRAL GEMİSİ', 'System Architecture Pipeline': 'Sistem Mimari Akışı',
   'Inspect / Architecture': 'İncele / Mimari', 'Profile ↗': 'Profil ↗', 'GitHub ↗': 'GitHub ↗', 'Private case study': 'Özel vaka incelemesi',
   'Problem / engineering goal': 'Problem / mühendislik hedefi', 'Architecture / documented approach': 'Mimari / belgelenen yaklaşım', 'Technology stack': 'Teknoloji yığını', 'Repository access': 'Depo erişimi',
@@ -65,6 +68,25 @@ let activeCategory = 'All';
 let featuredOnly = false;
 let projectQuery = '';
 let paletteSelection = 0;
+let liveRepoIndex = {};
+
+function matchesProjectQuery(project, rawQuery) {
+  const query = textKey(rawQuery);
+  if (!query) return true;
+  const searchable = textKey(`${project.title} ${project.area} ${project.description} ${project.descriptionEn} ${project.architecture} ${project.technologies.join(' ')}`);
+  if (searchable.includes(query)) return true;
+  const aliasEntry = Object.entries(profile.techAliases ?? {}).find(([key]) => textKey(key) === query);
+  if (aliasEntry) {
+    return aliasEntry[1].some((alias) => searchable.includes(textKey(alias)));
+  }
+  const tokens = query.split(/\s+/).filter((token) => token.length >= 2);
+  return tokens.length > 1 && tokens.every((token) => searchable.includes(token));
+}
+
+function getRepoTelemetry(project) {
+  if (!project.repository) return null;
+  return liveRepoIndex[String(project.repository).toLowerCase()] ?? null;
+}
 
 function blueprintSvg(project) {
   const accent = blueprintColors[project.category] ?? '#00f0ff';
@@ -87,15 +109,19 @@ function blueprintSvg(project) {
 function projectCard(project) {
   const privateCase = project.visibility !== 'Public';
   const description = language === 'en' ? project.descriptionEn : project.description;
-  return `<article class="project-card${project.featured ? ' is-featured' : ''}" data-project-card data-search="${escapeHtml(`${project.title} ${project.description} ${project.technologies.join(' ')}`)}" data-categories="${escapeHtml(project.categories.join('|'))}">
+  const repoMeta = getRepoTelemetry(project);
+  const telemetryBadge = repoMeta
+    ? `<span class="repo-telemetry-badge" title="Live GitHub repository telemetry">${escapeHtml(repoMeta.language || project.code)}${repoMeta.stars ? ` · ★ ${repoMeta.stars}` : ''}</span>`
+    : '';
+  return `<article class="project-card${project.featured ? ' is-featured' : ''}" data-project-card data-card-case="${escapeHtml(project.id)}" tabindex="0" role="button" aria-label="${escapeHtml(project.title)} — Inspect architecture" data-search="${escapeHtml(`${project.title} ${project.description} ${project.technologies.join(' ')}`)}" data-categories="${escapeHtml(project.categories.join('|'))}">
     <div class="blueprint" style="--blueprint-accent:${blueprintColors[project.category] ?? '#00f0ff'}" aria-label="Engineering blueprint for ${escapeHtml(project.title)}">
       ${blueprintSvg(project)}<span class="blueprint-label">AZO.OS / ${escapeHtml(project.category.toUpperCase())}</span><span class="blueprint-symbol">${escapeHtml(project.code)}</span><span class="blueprint-code">CASE_${escapeHtml(project.id.slice(0, 8).toUpperCase())}</span>
     </div>
     <div class="project-card-body">
-      <div class="project-title-row"><h3>${escapeHtml(project.title)}</h3><div class="project-badges">${project.featured ? '<span class="flagship-badge">★ FLAGSHIP</span>' : ''}<span class="visibility-badge${privateCase ? ' private' : ''}">${escapeHtml(project.visibility)}</span></div></div>
+      <div class="project-title-row"><h3>${escapeHtml(project.title)}</h3><div class="project-badges">${project.featured ? '<span class="flagship-badge">★ FLAGSHIP</span>' : ''}${telemetryBadge}<span class="visibility-badge${privateCase ? ' private' : ''}">${escapeHtml(project.visibility)}</span></div></div>
       <p class="project-area">${escapeHtml(project.area)}</p>
       <p class="project-description">${escapeHtml(description)}</p>
-      <div class="project-tags">${project.technologies.map((technology) => `<span class="project-tag">${escapeHtml(technology)}</span>`).join('')}</div>
+      <div class="project-tags">${project.technologies.map((technology) => `<button class="project-tag" type="button" data-tech-query="${escapeHtml(technology)}" title="Filter by ${escapeHtml(technology)}">${escapeHtml(technology)}</button>`).join('')}</div>
       <div class="project-actions"><button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}">Inspect / Architecture</button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${privateCase ? 'Profile ↗' : 'GitHub ↗'}</a></div>
     </div>
   </article>`;
@@ -109,20 +135,28 @@ function renderOverview() {
     <aside class="hero-aside"><div class="hero-aside-heading"><span class="mono">AZO.OS / SYSTEM MAP</span><span class="hero-live"><i aria-hidden="true"></i> ${isEnglish ? 'ACTIVE' : 'AKTİF'}</span></div><div class="system-map"><img src="./assets/images/azo-system-map.svg" alt="${isEnglish ? 'Diagram linking perception, intelligence, and embedded systems' : 'Algılama, yapay zekâ ve gömülü sistemleri birbirine bağlayan sistem diyagramı'}" width="640" height="440" fetchpriority="high"><span class="system-map-label map-label-vision">01 / ${isEnglish ? 'PERCEPTION' : 'ALGILAMA'}</span><span class="system-map-label map-label-ai">02 / AI</span><span class="system-map-label map-label-embedded">03 / ${isEnglish ? 'EMBEDDED' : 'GÖMÜLÜ'}</span><span class="system-map-core">A/OS</span></div><p class="system-map-caption">${isEnglish ? 'From signal to decision, from software to the physical world.' : 'Sinyalden karara, yazılımdan fiziksel dünyaya.'}</p></aside>
   </header>
   <div class="metric-grid">
-    <article class="metric-card"><div class="metric-value">85+<small>ACCOUNT</small></div><div class="metric-label">GITHUB REPOSITORIES</div><div class="metric-label"><span data-gh-stat="publicRepos">79</span> PUBLIC REPOS · LIVE</div></article>
-    <article class="metric-card"><div class="metric-value">30<span>+</span></div><div class="metric-label">AUDITED PROJECTS IN THE SHOWCASE</div></article>
-    <article class="metric-card"><div class="metric-value">4</div><div class="metric-label">ENGINEERING DISCIPLINES</div></article>
+    <button class="metric-card is-interactive" type="button" data-metric-action="repos"><div class="metric-value">85+<small>ACCOUNT</small></div><div class="metric-label">GITHUB REPOSITORIES</div><div class="metric-label"><span data-gh-stat="publicRepos">79</span> PUBLIC REPOS · LIVE ↗</div></button>
+    <button class="metric-card is-interactive" type="button" data-metric-action="showcase"><div class="metric-value">30<span>+</span></div><div class="metric-label">AUDITED PROJECTS IN THE SHOWCASE</div><div class="metric-label">${isEnglish ? 'CLICK TO BROWSE ALL →' : 'TÜMÜNÜ GÖRMEK İÇİN TIKLA →'}</div></button>
+    <button class="metric-card is-interactive" type="button" data-metric-action="featured"><div class="metric-value">6<span>★</span></div><div class="metric-label">${isEnglish ? 'FLAGSHIP SYSTEMS' : 'AMİRAL GEMİSİ SİSTEM'}</div><div class="metric-label">${isEnglish ? 'OPEN FEATURED TRACK →' : 'ÖNE ÇIKANLARI AÇ →'}</div></button>
   </div>
   <div class="section-heading"><h2>Engineering disciplines</h2><span>01—04 / SYSTEMS MAP</span></div>
-  <div class="discipline-grid">${profile.disciplines.map((discipline) => `<article class="discipline-card"><span class="discipline-code">${escapeHtml(discipline.code)}</span><h3>${escapeHtml(discipline.title)}</h3><p>${escapeHtml(discipline.description)}</p></article>`).join('')}</div>
+  <div class="discipline-grid">${profile.disciplines.map((discipline) => {
+    const count = projects.filter((project) => project.categories.includes(discipline.category)).length;
+    return `<button class="discipline-card is-interactive" type="button" data-discipline-filter="${escapeHtml(discipline.category)}"><div class="discipline-card-top"><span class="discipline-code">${escapeHtml(discipline.code)}</span><span class="discipline-count">${count} PROJECTS ↗</span></div><h3>${escapeHtml(discipline.title)}</h3><p>${escapeHtml(discipline.description)}</p></button>`;
+  }).join('')}</div>
   <div class="section-heading"><h2>Tech stack matrix</h2><span>SELECT A CHIP TO FILTER PROJECTS</span></div>
-  <div class="tech-matrix">${profile.techStack.map((group) => `<section class="tech-card"><h3>${escapeHtml(group.category)}</h3><div class="tech-chips">${group.items.map((item) => `<button class="tech-chip" type="button" data-tech-query="${escapeHtml(item)}">${escapeHtml(item)}</button>`).join('')}</div></section>`).join('')}</div>`;
+  <div class="tech-matrix">${profile.techStack.map((group) => `<section class="tech-card"><h3>${escapeHtml(group.category)}</h3><div class="tech-chips">${group.items.map((item) => {
+    const matchCount = projects.filter((project) => matchesProjectQuery(project, item)).length;
+    const isSelected = textKey(projectQuery) === textKey(item);
+    return `<button class="tech-chip${isSelected ? ' is-active' : ''}" type="button" data-tech-query="${escapeHtml(item)}"><span>${escapeHtml(item)}</span><small class="chip-count">${matchCount}</small></button>`;
+  }).join('')}</div></section>`).join('')}</div>`;
 }
 
 function renderProjects() {
   const mount = byId('view-projects');
   mount.innerHTML = `<header class="view-header"><div><span class="eyebrow">Repository intelligence / 30 case files</span><h1>Engineering showcase</h1><p>Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.</p></div></header>
-    <div class="project-toolbar"><label class="search-field"><span>⌕</span><input type="search" data-project-search placeholder="Search projects, descriptions, technologies…" autocomplete="off"><span class="mono">/</span></label><span class="mono" data-project-result-count></span></div>
+    <div class="project-toolbar"><label class="search-field"><span>⌕</span><input type="search" data-project-search placeholder="Search projects, descriptions, technologies…" autocomplete="off"><button class="search-clear" type="button" data-clear-search aria-label="Clear filter" hidden>×</button><span class="mono">/</span></label><span class="mono" data-project-result-count></span></div>
+    <div class="active-filter-bar" data-active-filter-bar hidden></div>
     <section class="category-console" aria-label="Project categories"><div class="category-console-heading"><span>${language === 'tr' ? 'PROJE KATEGORİLERİ' : 'PROJECT CATEGORIES'}</span><span>${language === 'tr' ? 'BİR ALAN SEÇ' : 'SELECT A TRACK'}</span></div><div class="filter-tabs" data-project-filters></div></section><div class="project-grid" data-project-grid></div>`;
   const filterMount = mount.querySelector('[data-project-filters]');
   const categoryInfo = {
@@ -149,23 +183,45 @@ function renderProjects() {
 function applyProjectFilters() {
   const grid = document.querySelector('[data-project-grid]');
   if (!grid) return;
-  const query = textKey(projectQuery);
   const filtered = projects.filter((project) => {
     const categoryMatch = activeCategory === 'All' || project.categories.includes(activeCategory);
-    const searchable = textKey(`${project.title} ${project.description} ${project.descriptionEn} ${project.technologies.join(' ')}`);
-    return categoryMatch && (!featuredOnly || project.featured) && searchable.includes(query);
+    return categoryMatch && (!featuredOnly || project.featured) && matchesProjectQuery(project, projectQuery);
   });
-  grid.innerHTML = filtered.length ? filtered.map(projectCard).join('') : '<div class="empty-state">No project matches this query. Try another technology or category.</div>';
+  grid.innerHTML = filtered.length
+    ? filtered.map(projectCard).join('')
+    : `<div class="empty-state"><p>No project matches this query. Try another technology or category.</p><button class="button secondary" type="button" data-reset-filters>Reset active filters &amp; show all 30 projects</button></div>`;
   const count = document.querySelector('[data-project-result-count]');
   if (count) count.textContent = `${filtered.length} / ${projects.length} PROJECTS`;
+  const clearBtn = document.querySelector('[data-clear-search]');
+  if (clearBtn) clearBtn.hidden = !projectQuery.trim();
+  const filterBar = document.querySelector('[data-active-filter-bar]');
+  if (filterBar) {
+    const pills = [];
+    if (featuredOnly) pills.push(`<button class="active-filter-pill" type="button" data-clear-featured>★ Featured <span>×</span></button>`);
+    if (!featuredOnly && activeCategory !== 'All') pills.push(`<button class="active-filter-pill" type="button" data-clear-category>${escapeHtml(activeCategory)} <span>×</span></button>`);
+    if (projectQuery.trim()) pills.push(`<button class="active-filter-pill" type="button" data-clear-search>⌕ "${escapeHtml(projectQuery.trim())}" <span>×</span></button>`);
+    filterBar.hidden = pills.length === 0;
+    filterBar.innerHTML = pills.length ? `<span class="mono">ACTIVE FILTER:</span><div class="active-filter-pills">${pills.join('')}<button class="active-filter-reset" type="button" data-reset-filters>Clear filter</button></div>` : '';
+  }
   document.querySelectorAll('[data-project-filter]').forEach((button) => {
     const active = !featuredOnly && button.dataset.projectFilter === activeCategory;
     button.classList.toggle('is-active', active);
     button.setAttribute('aria-pressed', String(active));
+    const cat = button.dataset.projectFilter;
+    const countEl = button.querySelector('.filter-count');
+    if (countEl) {
+      const catCount = projects.filter((project) => (cat === 'All' || project.categories.includes(cat)) && matchesProjectQuery(project, projectQuery)).length;
+      countEl.textContent = catCount;
+    }
   });
   const featuredFilter = document.querySelector('[data-featured-filter]');
   featuredFilter?.classList.toggle('is-active', featuredOnly);
   featuredFilter?.setAttribute('aria-pressed', String(featuredOnly));
+  const featuredCountEl = featuredFilter?.querySelector('.filter-count');
+  if (featuredCountEl) {
+    featuredCountEl.textContent = projects.filter((project) => project.featured && matchesProjectQuery(project, projectQuery)).length;
+  }
+  applyLanguage();
 }
 
 function timelineCard(item) {
@@ -242,7 +298,11 @@ function openCase(projectId) {
   const pipeline = project.pipeline?.length ? `<section class="case-section"><h3>System Architecture Pipeline</h3><ol class="architecture-pipeline">${project.pipeline.map((step, index) => `<li class="pipeline-step"><span class="pipeline-index">0${index + 1}</span><span>${escapeHtml(step)}</span></li>`).join('')}</ol></section>` : '';
   const problem = language === 'en' ? project.descriptionEn : project.problem;
   const architecture = language === 'en' ? `Engineering approach: ${project.descriptionEn} Technology stack: ${project.technologies.join(', ')}.` : project.architecture;
-  document.querySelector('[data-case-body]').innerHTML = `${pipeline}<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3><p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
+  const repoMeta = getRepoTelemetry(project);
+  const repoTelemetryLine = repoMeta
+    ? `<p class="mono" style="margin-bottom:10px">LIVE TELEMETRY · Language: ${escapeHtml(repoMeta.language || 'Multi-language')} · Stars: ★ ${repoMeta.stars} · Forks: ${repoMeta.forks}</p>`
+    : '';
+  document.querySelector('[data-case-body]').innerHTML = `${pipeline}<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<button class="project-tag" type="button" data-tech-query="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3>${repoTelemetryLine}<p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
   applyLanguage();
   const overlay = document.querySelector('[data-case-overlay]');
   overlay.hidden = false;
@@ -300,30 +360,114 @@ async function updateGitHubTelemetry(refresh = false) {
   const status = document.querySelector('[data-gh-status]');
   if (status) status.textContent = refresh ? 'Refreshing live API…' : 'Connecting to GitHub API…';
   const data = await getGitHubStats({ refresh });
+  liveRepoIndex = data.repoIndex ?? {};
   document.querySelectorAll('[data-gh-stat="publicRepos"]').forEach((element) => { element.textContent = data.publicRepos; });
   document.querySelectorAll('[data-gh-stat="followers"]').forEach((element) => { element.textContent = data.followers; });
   if (status) status.textContent = data.source === 'live' ? 'Live API · updated now' : `${data.source} · public data`;
   const recent = document.querySelector('[data-recent-repos]');
   if (recent) recent.innerHTML = data.recentRepos.length ? data.recentRepos.slice(0, 4).map((repo) => `<a class="dock-link" href="${escapeHtml(repo.url)}" target="_blank" rel="noopener noreferrer"><span>${escapeHtml(repo.name)}</span><span>↗</span></a>`).join('') : '<span class="dock-link">Recent public repositories unavailable.</span>';
+  applyProjectFilters();
   if (data.error) showToast('GitHub API is unavailable; showing cached/fallback public profile data.', 'error');
 }
 
 document.addEventListener('click', (event) => {
-  const target = event.target.closest('button, a, [data-case-overlay], [data-palette-overlay]');
+  const target = event.target.closest('button, a, [data-card-case], [data-case-overlay], [data-palette-overlay]');
   if (!target) return;
 
-  if (target.matches('[data-view-target]')) { event.preventDefault(); navigate(target.dataset.viewTarget); }
-  if (target.matches('[data-brand-home]')) { event.preventDefault(); navigate('overview'); }
-  if (target.matches('[data-project-filter]')) { activeCategory = target.dataset.projectFilter; featuredOnly = false; applyProjectFilters(); }
-  if (target.matches('[data-featured-filter]')) { featuredOnly = !featuredOnly; applyProjectFilters(); }
-  if (target.matches('[data-open-case]')) openCase(target.dataset.openCase);
-  if (target.matches('[data-close-case]') || event.target === document.querySelector('[data-case-overlay]')) closeCase();
-  if (target.matches('[data-open-palette]')) openPalette();
-  if (target.matches('[data-close-palette]') || event.target === document.querySelector('[data-palette-overlay]')) closePalette();
-  if (target.matches('[data-command-type]')) selectPaletteCommand(target);
-  if (target.matches('[data-gh-refresh]')) updateGitHubTelemetry(true);
+  if (target.matches('[data-view-target]')) { event.preventDefault(); navigate(target.dataset.viewTarget); return; }
+  if (target.matches('[data-brand-home]')) { event.preventDefault(); navigate('overview'); return; }
+  if (target.matches('[data-project-filter]')) {
+    const selectedCategory = target.dataset.projectFilter;
+    activeCategory = selectedCategory;
+    featuredOnly = false;
+    if (projectQuery.trim()) {
+      const hasMatchesWithQuery = projects.some((project) => (selectedCategory === 'All' || project.categories.includes(selectedCategory)) && matchesProjectQuery(project, projectQuery));
+      if (!hasMatchesWithQuery || selectedCategory === 'All') {
+        projectQuery = '';
+        const searchInput = document.querySelector('[data-project-search]');
+        if (searchInput) searchInput.value = '';
+      }
+    }
+    applyProjectFilters();
+    return;
+  }
+  if (target.matches('[data-featured-filter]')) {
+    featuredOnly = !featuredOnly;
+    if (featuredOnly && projectQuery.trim()) {
+      const hasFeaturedWithQuery = projects.some((project) => project.featured && matchesProjectQuery(project, projectQuery));
+      if (!hasFeaturedWithQuery) {
+        projectQuery = '';
+        const searchInput = document.querySelector('[data-project-search]');
+        if (searchInput) searchInput.value = '';
+      }
+    }
+    applyProjectFilters();
+    return;
+  }
+  if (target.matches('[data-reset-filters]')) {
+    projectQuery = '';
+    activeCategory = 'All';
+    featuredOnly = false;
+    const searchInput = document.querySelector('[data-project-search]');
+    if (searchInput) searchInput.value = '';
+    renderOverview();
+    applyProjectFilters();
+    return;
+  }
+  if (target.matches('[data-clear-search]')) {
+    projectQuery = '';
+    const searchInput = document.querySelector('[data-project-search]');
+    if (searchInput) searchInput.value = '';
+    renderOverview();
+    applyProjectFilters();
+    return;
+  }
+  if (target.matches('[data-clear-category]')) {
+    activeCategory = 'All';
+    applyProjectFilters();
+    return;
+  }
+  if (target.matches('[data-clear-featured]')) {
+    featuredOnly = false;
+    applyProjectFilters();
+    return;
+  }
+  if (target.matches('[data-discipline-filter]')) {
+    activeCategory = target.dataset.disciplineFilter;
+    featuredOnly = false;
+    projectQuery = '';
+    navigate('projects');
+    renderProjects();
+    return;
+  }
+  if (target.matches('[data-metric-action]')) {
+    const action = target.dataset.metricAction;
+    if (action === 'repos') { window.open(profile.github, '_blank', 'noopener,noreferrer'); return; }
+    projectQuery = '';
+    activeCategory = 'All';
+    featuredOnly = action === 'featured';
+    navigate('projects');
+    renderProjects();
+    return;
+  }
+  if (target.matches('[data-tech-query]')) {
+    closeCase();
+    projectQuery = target.dataset.techQuery;
+    activeCategory = 'All';
+    featuredOnly = false;
+    renderOverview();
+    navigate('projects');
+    renderProjects();
+    return;
+  }
+  if (target.matches('[data-open-case]')) { openCase(target.dataset.openCase); return; }
+  if (target.matches('[data-card-case]') && !event.target.closest('a, button')) { openCase(target.dataset.cardCase); return; }
+  if (target.matches('[data-close-case]') || event.target === document.querySelector('[data-case-overlay]')) { closeCase(); return; }
+  if (target.matches('[data-open-palette]')) { openPalette(); return; }
+  if (target.matches('[data-close-palette]') || event.target === document.querySelector('[data-palette-overlay]')) { closePalette(); return; }
+  if (target.matches('[data-command-type]')) { selectPaletteCommand(target); return; }
+  if (target.matches('[data-gh-refresh]')) { updateGitHubTelemetry(true); return; }
   if (target.matches('[data-lang-toggle]')) { language = language === 'tr' ? 'en' : 'tr'; localStorage.setItem('azo-os-language', language); renderAll(); navigate(currentView, { updateHash: false }); }
-  if (target.matches('[data-tech-query]')) { projectQuery = target.dataset.techQuery; activeCategory = 'All'; featuredOnly = false; navigate('projects'); renderProjects(); }
 });
 
 paletteInput.addEventListener('input', renderPalette);
@@ -337,6 +481,10 @@ paletteResults.addEventListener('mousemove', (event) => {
 document.addEventListener('keydown', (event) => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); openPalette(); }
   if (event.key === 'Escape') { closeCase(); closePalette(); }
+  if ((event.key === 'Enter' || event.key === ' ') && document.activeElement?.matches('[data-card-case]')) {
+    event.preventDefault();
+    openCase(document.activeElement.dataset.cardCase);
+  }
   if (!paletteOverlay.hidden && ['ArrowDown', 'ArrowUp', 'Enter'].includes(event.key)) {
     const items = [...paletteResults.querySelectorAll('.command-result')];
     if (event.key === 'Enter') { event.preventDefault(); selectPaletteCommand(items[paletteSelection]); }
