@@ -14,18 +14,17 @@ const textKey = (value = '') => String(value).trim().toLocaleLowerCase('en');
 const byId = (id) => document.getElementById(id);
 const translations = {
   'Overview': 'Genel Bakış', 'Projects': 'Projeler', 'Resume': 'Özgeçmiş', 'Articles': 'Yazılar', 'Contact': 'İletişim',
-  'Live GitHub telemetry': 'Canlı GitHub verileri', 'PUBLIC REPOS': 'AÇIK DEPOLAR', 'FOLLOWERS': 'TAKİPÇİLER',
-  'View engineering resume': 'Mühendislik özgeçmişini görüntüle', 'Open contact console': 'İletişim panelini aç', 'Recently updated': 'Son güncellenenler',
-  'Connecting to GitHub API…': 'GitHub API bağlantısı kuruluyor…', 'Loading public repositories…': 'Açık depolar yükleniyor…',
+  'Core architecture radar': 'Mimari odak radarı', 'Flagship systems': 'Amiral gemisi sistemler',
+  'View engineering resume': 'Mühendislik özgeçmişini görüntüle', 'Open contact console': 'İletişim panelini aç',
   'Engineering at the edge of ': 'Mühendislik, ', 'intelligence': 'zekâ', ' and silicon.': ' ile donanımın kesişiminde.',
   'Explore engineering work ': 'Projeleri keşfet ', 'Start a conversation': 'İletişime geç', 'Engineering disciplines': 'Mühendislik alanları',
   'Tech stack matrix': 'Teknoloji yığını', 'SELECT A CHIP TO FILTER PROJECTS': 'PROJELERİ FİLTRELEMEK İÇİN BİR ETİKET SEÇ',
-  'GITHUB REPOSITORIES': 'GITHUB DEPOLARI', ' PUBLIC REPOS · LIVE': ' AÇIK DEPO · CANLI', 'AUDITED PROJECTS IN THE SHOWCASE': 'VİTRİNDE İNCELENMİŞ PROJE', 'ENGINEERING DISCIPLINES': 'MÜHENDİSLİK ALANI',
+  'END-TO-END ARCHITECTURES': 'UÇTAN UCA MİMARİLER', 'AI, EMBEDDED & FULL-STACK': 'YAPAY ZEKÂ, GÖMÜLÜ & WEB', 'RESEARCH & PRODUCTION': 'ARAŞTIRMA & ÜRETİM', 'TÜBİTAK 2209-A & INTERNSHIPS': 'TÜBİTAK 2209-A & STAJLAR', 'ENGINEERING DISCIPLINES': 'MÜHENDİSLİK ALANI',
   'Repository intelligence / 30 case files': 'Depo kataloğu / 30 vaka dosyası', 'Engineering showcase': 'Mühendislik vitrini',
   'Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.': 'Algılama, uygulama, gömülü sistem ve otomasyon alanlarında incelenmiş projeler. Proje veya teknoloji ara; belgelenen mimariyi görmek için vaka dosyasını aç.',
   'Search projects, descriptions, technologies…': 'Proje, açıklama veya teknoloji ara…', 'PROJECTS': 'PROJE', 'All': 'Tümü',
   'No project matches this query. Try another technology or category.': 'Bu aramayla eşleşen proje yok. Başka bir teknoloji veya kategori dene.',
-  'Reset active filters & show all 30 projects': 'Aktif filtreleri sıfırla ve 30 projenin tümünü göster',
+  'Reset active filters & show all projects': 'Aktif filtreleri sıfırla ve tüm projeleri göster',
   'Clear filter': 'Filtreyi temizle',
   'ACTIVE FILTER:': 'AKTİF FİLTRE:',
   'Featured': 'Öne Çıkanlar', 'FLAGSHIP': 'AMİRAL GEMİSİ', 'System Architecture Pipeline': 'Sistem Mimari Akışı',
@@ -135,43 +134,40 @@ function renderOverview() {
     <aside class="hero-aside"><div class="hero-aside-heading"><span class="mono">AZO.OS / SYSTEM MAP</span><span class="hero-live"><i aria-hidden="true"></i> ${isEnglish ? 'ACTIVE' : 'AKTİF'}</span></div><div class="system-map"><img src="./assets/images/azo-system-map.svg" alt="${isEnglish ? 'Diagram linking perception, intelligence, and embedded systems' : 'Algılama, yapay zekâ ve gömülü sistemleri birbirine bağlayan sistem diyagramı'}" width="640" height="440" fetchpriority="high"><span class="system-map-label map-label-vision">01 / ${isEnglish ? 'PERCEPTION' : 'ALGILAMA'}</span><span class="system-map-label map-label-ai">02 / AI</span><span class="system-map-label map-label-embedded">03 / ${isEnglish ? 'EMBEDDED' : 'GÖMÜLÜ'}</span><span class="system-map-core">A/OS</span></div><p class="system-map-caption">${isEnglish ? 'From signal to decision, from software to the physical world.' : 'Sinyalden karara, yazılımdan fiziksel dünyaya.'}</p></aside>
   </header>
   <div class="metric-grid">
-    <button class="metric-card is-interactive" type="button" data-metric-action="repos"><div class="metric-value">85+<small>ACCOUNT</small></div><div class="metric-label">GITHUB REPOSITORIES</div><div class="metric-label"><span data-gh-stat="publicRepos">79</span> PUBLIC REPOS · LIVE ↗</div></button>
-    <button class="metric-card is-interactive" type="button" data-metric-action="showcase"><div class="metric-value">30<span>+</span></div><div class="metric-label">AUDITED PROJECTS IN THE SHOWCASE</div><div class="metric-label">${isEnglish ? 'CLICK TO BROWSE ALL →' : 'TÜMÜNÜ GÖRMEK İÇİN TIKLA →'}</div></button>
-    <button class="metric-card is-interactive" type="button" data-metric-action="featured"><div class="metric-value">6<span>★</span></div><div class="metric-label">${isEnglish ? 'FLAGSHIP SYSTEMS' : 'AMİRAL GEMİSİ SİSTEM'}</div><div class="metric-label">${isEnglish ? 'OPEN FEATURED TRACK →' : 'ÖNE ÇIKANLARI AÇ →'}</div></button>
+    <button class="metric-card is-interactive" type="button" data-metric-action="featured"><div class="metric-value">★ FLAGSHIP</div><div class="metric-label">${isEnglish ? 'END-TO-END ARCHITECTURES' : 'UÇTAN UCA MİMARİLER'}</div><div class="metric-label">${isEnglish ? 'OPEN FEATURED SYSTEMS →' : 'AMİRAL GEMİSİ SİSTEMLERİ AÇ →'}</div></button>
+    <button class="metric-card is-interactive" type="button" data-metric-action="showcase"><div class="metric-value">4 TRACKS</div><div class="metric-label">${isEnglish ? 'AI, EMBEDDED & FULL-STACK' : 'YAPAY ZEKÂ, GÖMÜLÜ & WEB'}</div><div class="metric-label">${isEnglish ? 'EXPLORE CASE STUDIES →' : 'VAKA İNCELEMELERİNİ KEŞFET →'}</div></button>
+    <button class="metric-card is-interactive" type="button" data-view-target="resume"><div class="metric-value">R&amp;D</div><div class="metric-label">${isEnglish ? 'RESEARCH & PRODUCTION' : 'ARAŞTIRMA & ÜRETİM'}</div><div class="metric-label">${isEnglish ? 'TÜBİTAK 2209-A & INTERNSHIPS →' : 'TÜBİTAK 2209-A & STAJLAR →'}</div></button>
   </div>
   <div class="section-heading"><h2>Engineering disciplines</h2><span>01—04 / SYSTEMS MAP</span></div>
   <div class="discipline-grid">${profile.disciplines.map((discipline) => {
-    const count = projects.filter((project) => project.categories.includes(discipline.category)).length;
-    return `<button class="discipline-card is-interactive" type="button" data-discipline-filter="${escapeHtml(discipline.category)}"><div class="discipline-card-top"><span class="discipline-code">${escapeHtml(discipline.code)}</span><span class="discipline-count">${count} PROJECTS ↗</span></div><h3>${escapeHtml(discipline.title)}</h3><p>${escapeHtml(discipline.description)}</p></button>`;
+    return `<button class="discipline-card is-interactive" type="button" data-discipline-filter="${escapeHtml(discipline.category)}"><div class="discipline-card-top"><span class="discipline-code">${escapeHtml(discipline.code)}</span><span class="discipline-count">${isEnglish ? 'EXPLORE TRACK ↗' : 'ALANI İNCELE ↗'}</span></div><h3>${escapeHtml(discipline.title)}</h3><p>${escapeHtml(discipline.description)}</p></button>`;
   }).join('')}</div>
   <div class="section-heading"><h2>Tech stack matrix</h2><span>SELECT A CHIP TO FILTER PROJECTS</span></div>
   <div class="tech-matrix">${profile.techStack.map((group) => `<section class="tech-card"><h3>${escapeHtml(group.category)}</h3><div class="tech-chips">${group.items.map((item) => {
-    const matchCount = projects.filter((project) => matchesProjectQuery(project, item)).length;
     const isSelected = textKey(projectQuery) === textKey(item);
-    return `<button class="tech-chip${isSelected ? ' is-active' : ''}" type="button" data-tech-query="${escapeHtml(item)}"><span>${escapeHtml(item)}</span><small class="chip-count">${matchCount}</small></button>`;
+    return `<button class="tech-chip${isSelected ? ' is-active' : ''}" type="button" data-tech-query="${escapeHtml(item)}"><span>${escapeHtml(item)}</span></button>`;
   }).join('')}</div></section>`).join('')}</div>`;
 }
 
 function renderProjects() {
   const mount = byId('view-projects');
-  mount.innerHTML = `<header class="view-header"><div><span class="eyebrow">Repository intelligence / 30 case files</span><h1>Engineering showcase</h1><p>Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.</p></div></header>
-    <div class="project-toolbar"><label class="search-field"><span>⌕</span><input type="search" data-project-search placeholder="Search projects, descriptions, technologies…" autocomplete="off"><button class="search-clear" type="button" data-clear-search aria-label="Clear filter" hidden>×</button><span class="mono">/</span></label><span class="mono" data-project-result-count></span></div>
+  mount.innerHTML = `<header class="view-header"><div><span class="eyebrow">${language === 'tr' ? 'MÜHENDİSLİK MİMARİLERİ & VAKA DOSYALARI' : 'ENGINEERING ARCHITECTURES & CASE FILES'}</span><h1>Engineering showcase</h1><p>Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.</p></div></header>
+    <div class="project-toolbar"><label class="search-field"><span>⌕</span><input type="search" data-project-search placeholder="Search projects, descriptions, technologies…" autocomplete="off"><button class="search-clear" type="button" data-clear-search aria-label="Clear filter" hidden>×</button><span class="mono">/</span></label></div>
     <div class="active-filter-bar" data-active-filter-bar hidden></div>
     <section class="category-console" aria-label="Project categories"><div class="category-console-heading"><span>${language === 'tr' ? 'PROJE KATEGORİLERİ' : 'PROJECT CATEGORIES'}</span><span>${language === 'tr' ? 'BİR ALAN SEÇ' : 'SELECT A TRACK'}</span></div><div class="filter-tabs" data-project-filters></div></section><div class="project-grid" data-project-grid></div>`;
   const filterMount = mount.querySelector('[data-project-filters]');
   const categoryInfo = {
-    All: { code: '00', icon: '⌘', title: language === 'tr' ? 'Tüm projeler' : 'All projects', note: language === 'tr' ? '30 vaka dosyasına göz at' : 'Browse all case studies', className: 'all' },
+    All: { code: '00', icon: '⌘', title: language === 'tr' ? 'Tüm projeler' : 'All projects', note: language === 'tr' ? 'Tüm vaka dosyalarına göz at' : 'Browse all case studies', className: 'all' },
     'AI & Computer Vision': { code: '01', icon: '◉', title: language === 'tr' ? 'Yapay Zekâ' : 'AI & Vision', note: language === 'tr' ? 'Algılama ve makine öğrenmesi' : 'Perception and machine learning', className: 'ai' },
     'Embedded & Robotics': { code: '02', icon: '⌁', title: language === 'tr' ? 'Gömülü Sistemler' : 'Embedded', note: language === 'tr' ? 'Donanım ve gerçek zamanlı sistemler' : 'Hardware and real-time systems', className: 'embedded' },
     'Web & Full-Stack': { code: '03', icon: '▱', title: language === 'tr' ? 'Web ve Full-Stack' : 'Web & Full-Stack', note: language === 'tr' ? 'Uygulamalar ve servisler' : 'Applications and services', className: 'web' },
     'Automation & Systems': { code: '04', icon: '⟳', title: language === 'tr' ? 'Otomasyon' : 'Automation', note: language === 'tr' ? 'İş akışları ve sistem araçları' : 'Workflows and system tools', className: 'automation' }
   };
-  const filterButton = ({ value, featured = false, info, count, active }) => `<button class="filter-tab category-filter category-${info.className}${active ? ' is-active' : ''}" type="button" ${featured ? 'data-featured-filter' : `data-project-filter="${escapeHtml(value)}"`} aria-pressed="${active}"><span class="filter-index">${info.code}</span><span class="filter-icon" aria-hidden="true">${info.icon}</span><span class="filter-copy"><span class="filter-name">${escapeHtml(info.title)}</span><span class="filter-description">${escapeHtml(info.note)}</span></span><span class="filter-count">${count}</span><span class="filter-arrow" aria-hidden="true">↗</span></button>`;
+  const filterButton = ({ value, featured = false, info, active }) => `<button class="filter-tab category-filter category-${info.className}${active ? ' is-active' : ''}" type="button" ${featured ? 'data-featured-filter' : `data-project-filter="${escapeHtml(value)}"`} aria-pressed="${active}"><span class="filter-index">${info.code}</span><span class="filter-icon" aria-hidden="true">${info.icon}</span><span class="filter-copy"><span class="filter-name">${escapeHtml(info.title)}</span><span class="filter-description">${escapeHtml(info.note)}</span></span><span class="filter-arrow" aria-hidden="true">↗</span></button>`;
   const featuredInfo = { code: '★', icon: '✦', title: language === 'tr' ? 'Öne Çıkanlar' : 'Featured', note: language === 'tr' ? 'Amiral gemisi sistemler' : 'Flagship engineering work', className: 'featured' };
-  filterMount.innerHTML = filterButton({ value: 'Featured', featured: true, info: featuredInfo, count: projects.filter((project) => project.featured).length, active: featuredOnly }) + ['All', ...categories].map((category) => {
+  filterMount.innerHTML = filterButton({ value: 'Featured', featured: true, info: featuredInfo, active: featuredOnly }) + ['All', ...categories].map((category) => {
     const info = categoryInfo[category] ?? { code: '05', icon: '•', title: category, note: '', className: 'all' };
-    const count = category === 'All' ? projects.length : projects.filter((project) => project.categories.includes(category)).length;
-    return filterButton({ value: category, info, count, active: !featuredOnly && category === activeCategory });
+    return filterButton({ value: category, info, active: !featuredOnly && category === activeCategory });
   }).join('');
   const search = mount.querySelector('[data-project-search]');
   search.value = projectQuery;
@@ -189,9 +185,7 @@ function applyProjectFilters() {
   });
   grid.innerHTML = filtered.length
     ? filtered.map(projectCard).join('')
-    : `<div class="empty-state"><p>No project matches this query. Try another technology or category.</p><button class="button secondary" type="button" data-reset-filters>Reset active filters &amp; show all 30 projects</button></div>`;
-  const count = document.querySelector('[data-project-result-count]');
-  if (count) count.textContent = `${filtered.length} / ${projects.length} PROJECTS`;
+    : `<div class="empty-state"><p>No project matches this query. Try another technology or category.</p><button class="button secondary" type="button" data-reset-filters>Reset active filters &amp; show all projects</button></div>`;
   const clearBtn = document.querySelector('[data-clear-search]');
   if (clearBtn) clearBtn.hidden = !projectQuery.trim();
   const filterBar = document.querySelector('[data-active-filter-bar]');
@@ -207,20 +201,10 @@ function applyProjectFilters() {
     const active = !featuredOnly && button.dataset.projectFilter === activeCategory;
     button.classList.toggle('is-active', active);
     button.setAttribute('aria-pressed', String(active));
-    const cat = button.dataset.projectFilter;
-    const countEl = button.querySelector('.filter-count');
-    if (countEl) {
-      const catCount = projects.filter((project) => (cat === 'All' || project.categories.includes(cat)) && matchesProjectQuery(project, projectQuery)).length;
-      countEl.textContent = catCount;
-    }
   });
   const featuredFilter = document.querySelector('[data-featured-filter]');
   featuredFilter?.classList.toggle('is-active', featuredOnly);
   featuredFilter?.setAttribute('aria-pressed', String(featuredOnly));
-  const featuredCountEl = featuredFilter?.querySelector('.filter-count');
-  if (featuredCountEl) {
-    featuredCountEl.textContent = projects.filter((project) => project.featured && matchesProjectQuery(project, projectQuery)).length;
-  }
   applyLanguage();
 }
 
@@ -357,17 +341,9 @@ function selectPaletteCommand(button) {
 }
 
 async function updateGitHubTelemetry(refresh = false) {
-  const status = document.querySelector('[data-gh-status]');
-  if (status) status.textContent = refresh ? 'Refreshing live API…' : 'Connecting to GitHub API…';
   const data = await getGitHubStats({ refresh });
   liveRepoIndex = data.repoIndex ?? {};
-  document.querySelectorAll('[data-gh-stat="publicRepos"]').forEach((element) => { element.textContent = data.publicRepos; });
-  document.querySelectorAll('[data-gh-stat="followers"]').forEach((element) => { element.textContent = data.followers; });
-  if (status) status.textContent = data.source === 'live' ? 'Live API · updated now' : `${data.source} · public data`;
-  const recent = document.querySelector('[data-recent-repos]');
-  if (recent) recent.innerHTML = data.recentRepos.length ? data.recentRepos.slice(0, 4).map((repo) => `<a class="dock-link" href="${escapeHtml(repo.url)}" target="_blank" rel="noopener noreferrer"><span>${escapeHtml(repo.name)}</span><span>↗</span></a>`).join('') : '<span class="dock-link">Recent public repositories unavailable.</span>';
   applyProjectFilters();
-  if (data.error) showToast('GitHub API is unavailable; showing cached/fallback public profile data.', 'error');
 }
 
 document.addEventListener('click', (event) => {
