@@ -126,6 +126,40 @@ function projectCard(project) {
   </article>`;
 }
 
+function renderTelemetryDashboard(data) {
+  const isEnglish = language === 'en';
+  const metrics = [
+    { value: data?.publicRepos ?? '—', label: isEnglish ? 'PUBLIC REPOSITORIES' : 'AÇIK DEPO', note: isEnglish ? 'GitHub account' : 'GitHub hesabı' },
+    { value: data?.followers ?? '—', label: isEnglish ? 'FOLLOWERS' : 'TAKİPÇİ', note: isEnglish ? 'Community reach' : 'Topluluk erişimi' },
+    { value: data?.totalStars ?? '—', label: isEnglish ? 'REPOSITORY STARS' : 'DEPO YILDIZI', note: isEnglish ? 'Across public repos' : 'Açık depolar toplamı' }
+  ];
+  const metricMount = document.querySelector('[data-live-metrics]');
+  if (metricMount) metricMount.innerHTML = metrics.map((metric, index) => `<article class="telemetry-metric"><span class="telemetry-index">0${index + 1} / LIVE</span><strong data-count-up="${escapeHtml(metric.value)}">${escapeHtml(metric.value)}</strong><span class="telemetry-label">${escapeHtml(metric.label)}</span><small>${escapeHtml(metric.note)}</small></article>`).join('');
+
+  const categoryColors = ['#00F0FF', '#8B7CFF', '#10B981', '#F6B95F'];
+  const projectMix = document.querySelector('[data-project-mix]');
+  const categoryRows = categories.map((category, index) => ({
+    category,
+    count: projects.filter((project) => project.categories.includes(category)).length,
+    color: categoryColors[index]
+  }));
+  const projectTotal = categoryRows.reduce((sum, item) => sum + item.count, 0) || 1;
+  let angle = 0;
+  const stops = categoryRows.map((item) => {
+    const from = angle;
+    angle += item.count / projectTotal * 360;
+    return `${item.color} ${from.toFixed(1)}deg ${angle.toFixed(1)}deg`;
+  }).join(', ');
+  if (projectMix) projectMix.innerHTML = `<div class="mix-donut" role="img" aria-label="${isEnglish ? 'Distribution of audited projects by engineering track' : 'İncelenen projelerin mühendislik alanlarına göre dağılımı'}" style="--mix-stops:${stops}"><div><strong>${projects.length}</strong><span>${isEnglish ? 'CASE FILES' : 'VAKA'}</span></div></div><ul class="mix-legend">${categoryRows.map((item) => `<li><button type="button" data-discipline-filter="${escapeHtml(item.category)}"><i style="--legend-color:${item.color}"></i><span>${escapeHtml(isEnglish ? item.category : ({ 'AI & Computer Vision': 'Yapay Zekâ & Görüntü', 'Embedded & Robotics': 'Gömülü & Robotik', 'Web & Full-Stack': 'Web & Full-Stack', 'Automation & Systems': 'Otomasyon & Sistemler' }[item.category] ?? item.category))}</span><strong>${item.count}</strong></button></li>`).join('')}</ul>`;
+
+  const languageMount = document.querySelector('[data-language-bars]');
+  const languages = (data?.languages ?? []).slice(0, 6);
+  const maxCount = Math.max(1, ...languages.map((item) => item.count));
+  if (languageMount) languageMount.innerHTML = languages.length
+    ? languages.map((item, index) => `<div class="language-row"><div class="language-row-heading"><span><i class="language-swatch" style="--language-color:${categoryColors[index % categoryColors.length]}"></i>${escapeHtml(item.name)}</span><strong>${item.count}</strong></div><div class="language-track"><i style="--bar-size:${Math.max(8, item.count / maxCount * 100)}%;--language-color:${categoryColors[index % categoryColors.length]}"></i></div></div>`).join('')
+    : `<p class="telemetry-empty">${isEnglish ? 'Live language data will appear when GitHub responds.' : 'GitHub yanıt verdiğinde dil verileri burada görünecek.'}</p>`;
+}
+
 function renderOverview() {
   const mount = byId('view-overview');
   const isEnglish = language === 'en';
@@ -133,11 +167,7 @@ function renderOverview() {
     <div class="hero-intro"><span class="eyebrow">${isEnglish ? 'AZO.ISMAIL / SOFTWARE ENGINEERING' : 'AZO.İSMAİL / YAZILIM MÜHENDİSLİĞİ'}</span><h1>${isEnglish ? 'I build systems that' : 'Algılayan, düşünen ve'} <span>${isEnglish ? 'see, think' : 'harekete geçen'}</span>${isEnglish ? ' and act.' : ' sistemler geliştiriyorum.'}</h1><p class="hero-copy">${escapeHtml(isEnglish ? profile.summaryEn : profile.summary)}</p><div class="button-row"><button class="button" type="button" data-view-target="projects">${isEnglish ? 'Explore selected work' : 'Projelerimi keşfet'} <span>→</span></button><button class="button secondary" type="button" data-view-target="contact">${isEnglish ? 'Get in touch' : 'İletişime geç'}</button></div><div class="hero-signature"><span class="status-pulse" aria-hidden="true"></span>${isEnglish ? 'Currently building AI & embedded systems' : 'Şu anda yapay zekâ ve gömülü sistemler geliştiriyor'}</div></div>
     <aside class="hero-aside"><div class="hero-aside-heading"><span class="mono">AZO.OS / SYSTEM MAP</span><span class="hero-live"><i aria-hidden="true"></i> ${isEnglish ? 'ACTIVE' : 'AKTİF'}</span></div><div class="system-map"><img src="./assets/images/azo-system-map.svg" alt="${isEnglish ? 'Diagram linking perception, intelligence, and embedded systems' : 'Algılama, yapay zekâ ve gömülü sistemleri birbirine bağlayan sistem diyagramı'}" width="640" height="440" fetchpriority="high"><span class="system-map-label map-label-vision">01 / ${isEnglish ? 'PERCEPTION' : 'ALGILAMA'}</span><span class="system-map-label map-label-ai">02 / AI</span><span class="system-map-label map-label-embedded">03 / ${isEnglish ? 'EMBEDDED' : 'GÖMÜLÜ'}</span><span class="system-map-core">A/OS</span></div><p class="system-map-caption">${isEnglish ? 'From signal to decision, from software to the physical world.' : 'Sinyalden karara, yazılımdan fiziksel dünyaya.'}</p></aside>
   </header>
-  <div class="metric-grid">
-    <button class="metric-card is-interactive" type="button" data-metric-action="featured"><div class="metric-value">★ FLAGSHIP</div><div class="metric-label">${isEnglish ? 'END-TO-END ARCHITECTURES' : 'UÇTAN UCA MİMARİLER'}</div><div class="metric-label">${isEnglish ? 'OPEN FEATURED SYSTEMS →' : 'AMİRAL GEMİSİ SİSTEMLERİ AÇ →'}</div></button>
-    <button class="metric-card is-interactive" type="button" data-metric-action="showcase"><div class="metric-value">4 TRACKS</div><div class="metric-label">${isEnglish ? 'AI, EMBEDDED & FULL-STACK' : 'YAPAY ZEKÂ, GÖMÜLÜ & WEB'}</div><div class="metric-label">${isEnglish ? 'EXPLORE CASE STUDIES →' : 'VAKA İNCELEMELERİNİ KEŞFET →'}</div></button>
-    <button class="metric-card is-interactive" type="button" data-view-target="resume"><div class="metric-value">R&amp;D</div><div class="metric-label">${isEnglish ? 'RESEARCH & PRODUCTION' : 'ARAŞTIRMA & ÜRETİM'}</div><div class="metric-label">${isEnglish ? 'TÜBİTAK 2209-A & INTERNSHIPS →' : 'TÜBİTAK 2209-A & STAJLAR →'}</div></button>
-  </div>
+  <section class="telemetry-dashboard" aria-labelledby="telemetry-title"><div class="telemetry-heading"><div><span class="eyebrow">${isEnglish ? 'PUBLIC SIGNAL / LIVE DATA' : 'AÇIK SİNYAL / CANLI VERİ'}</span><h2 id="telemetry-title">${isEnglish ? 'Engineering at a glance' : 'Mühendisliğe genel bakış'}</h2></div><span class="telemetry-source"><i></i> ${isEnglish ? 'GITHUB + CASE STUDIES' : 'GITHUB + VAKA DOSYALARI'}</span></div><div class="telemetry-metrics" data-live-metrics></div><div class="insight-grid"><section class="insight-panel project-mix-panel"><div class="insight-panel-heading"><div><span class="mono">01 / PORTFOLIO MIX</span><h3>${isEnglish ? 'Where I build' : 'Çalışma alanlarım'}</h3></div><span class="insight-caption">${isEnglish ? 'AUDITED PROJECTS' : 'İNCELENEN PROJELER'}</span></div><div class="project-mix" data-project-mix></div></section><section class="insight-panel language-panel"><div class="insight-panel-heading"><div><span class="mono">02 / GITHUB SIGNAL</span><h3>${isEnglish ? 'Languages in public repos' : 'Açık depolardaki diller'}</h3></div><span class="insight-caption">${isEnglish ? 'BY REPOSITORY' : 'DEPO SAYISINA GÖRE'}</span></div><div class="language-bars" data-language-bars><p class="telemetry-empty">${isEnglish ? 'Connecting to GitHub…' : 'GitHub’a bağlanılıyor…'}</p></div></section></div></section>
   <div class="section-heading"><h2>Engineering disciplines</h2><span>01—04 / SYSTEMS MAP</span></div>
   <div class="discipline-grid">${profile.disciplines.map((discipline) => {
     return `<button class="discipline-card is-interactive" type="button" data-discipline-filter="${escapeHtml(discipline.category)}"><div class="discipline-card-top"><span class="discipline-code">${escapeHtml(discipline.code)}</span><span class="discipline-count">${isEnglish ? 'EXPLORE TRACK ↗' : 'ALANI İNCELE ↗'}</span></div><h3>${escapeHtml(discipline.title)}</h3><p>${escapeHtml(discipline.description)}</p></button>`;
@@ -147,6 +177,7 @@ function renderOverview() {
     const isSelected = textKey(projectQuery) === textKey(item);
     return `<button class="tech-chip${isSelected ? ' is-active' : ''}" type="button" data-tech-query="${escapeHtml(item)}"><span>${escapeHtml(item)}</span></button>`;
   }).join('')}</div></section>`).join('')}</div>`;
+  renderTelemetryDashboard(null);
 }
 
 function renderProjects() {
