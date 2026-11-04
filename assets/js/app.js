@@ -68,6 +68,7 @@ let featuredOnly = false;
 let projectQuery = '';
 let paletteSelection = 0;
 let liveRepoIndex = {};
+let githubTelemetry = null;
 
 function matchesProjectQuery(project, rawQuery) {
   const query = textKey(rawQuery);
@@ -177,7 +178,7 @@ function renderOverview() {
     const isSelected = textKey(projectQuery) === textKey(item);
     return `<button class="tech-chip${isSelected ? ' is-active' : ''}" type="button" data-tech-query="${escapeHtml(item)}"><span>${escapeHtml(item)}</span></button>`;
   }).join('')}</div></section>`).join('')}</div>`;
-  renderTelemetryDashboard(null);
+  renderTelemetryDashboard(githubTelemetry);
 }
 
 function renderProjects() {
@@ -373,7 +374,9 @@ function selectPaletteCommand(button) {
 
 async function updateGitHubTelemetry(refresh = false) {
   const data = await getGitHubStats({ refresh });
+  githubTelemetry = data;
   liveRepoIndex = data.repoIndex ?? {};
+  renderTelemetryDashboard(data);
   applyProjectFilters();
 }
 
