@@ -310,6 +310,32 @@
 .telemetry-empty { margin: 0; color: #9aaabd; font-size: 12px; line-height: 1.7; }
 
 @media (max-width: 900px) {
+  .insight-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .telemetry-dashboard { margin: 14px 0 28px; padding: 17px 14px; border-radius: 17px; }
+  .telemetry-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .telemetry-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .telemetry-metric { padding: 12px; }
+  .telemetry-metric:last-child { grid-column: 1/-1; }
+  .telemetry-label { font-size: 9px; }
+  .telemetry-metric small { font-size: 10px; }
+  .insight-panel { padding: 14px 12px; }
+  .insight-panel-heading { gap: 8px; }
+  .insight-caption { max-width: 100px; font-size: 7px; }
+  .project-mix { grid-template-columns: minmax(100px,.72fr) minmax(0,1.28fr); gap: 10px; }
+  .mix-donut { width: min(100%,132px); }
+  .mix-legend button { gap: 6px; padding: 6px 2px; font-size: 9px; }
+}
+
+@media (max-width: 380px) {
+  .project-mix { grid-template-columns: 1fr; justify-items: center; }
+  .mix-donut { width: 118px; }
+  .mix-legend { width: 100%; }
+}
+
+@media (max-width: 900px) {
   .hero-panel { grid-template-columns: 1fr; }
   .hero-aside { max-width: none; }
   .resume-layout, .contact-layout { grid-template-columns: 1fr; }

@@ -1,5 +1,5 @@
 const username = 'Azo15';
-const cacheKey = 'azo-os.github.v2';
+const cacheKey = 'azo-os.github.v3';
 const cacheDuration = 10 * 60 * 1000;
 
 const fallback = {
