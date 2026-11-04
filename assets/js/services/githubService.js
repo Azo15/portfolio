@@ -7,6 +7,9 @@ const fallback = {
   followers: 5,
   recentRepos: [],
   repoIndex: {},
+  totalStars: null,
+  totalForks: null,
+  languages: [],
   source: 'fallback',
   updatedAt: null
 };
@@ -59,6 +62,12 @@ export async function getGitHubStats({ refresh = false } = {}) {
     const value = {
       publicRepos: user.public_repos,
       followers: user.followers,
+      totalStars: repos.reduce((sum, repo) => sum + (repo.stargazers_count ?? 0), 0),
+      totalForks: repos.reduce((sum, repo) => sum + (repo.forks_count ?? 0), 0),
+      languages: Object.entries(repos.reduce((counts, repo) => {
+        if (repo.language) counts[repo.language] = (counts[repo.language] ?? 0) + 1;
+        return counts;
+      }, {})).map(([name, count]) => ({ name, count })).sort((left, right) => right.count - left.count),
       recentRepos: repos.slice(0, 5).map(({ name, html_url, updated_at, language }) => ({ name, url: html_url, updatedAt: updated_at, language })),
       repoIndex,
       source: 'live',
