@@ -116,7 +116,7 @@ function projectCard(project) {
     : '';
   return `<article class="project-card${project.featured ? ' is-featured' : ''}" data-project-card data-card-case="${escapeHtml(project.id)}" tabindex="0" role="button" aria-label="${escapeHtml(project.title)} — Inspect architecture" data-search="${escapeHtml(`${project.title} ${project.description} ${project.technologies.join(' ')}`)}" data-categories="${escapeHtml(project.categories.join('|'))}">
     <div class="blueprint" style="--blueprint-accent:${blueprintColors[project.category] ?? '#00f0ff'}" aria-label="Engineering blueprint for ${escapeHtml(project.title)}">
-      ${blueprintSvg(project)}<span class="blueprint-label">AZO.OS / ${escapeHtml(project.category.toUpperCase())}</span><span class="blueprint-symbol">${escapeHtml(project.code)}</span><span class="blueprint-code">CASE_${escapeHtml(project.id.slice(0, 8).toUpperCase())}</span>
+      ${blueprintSvg(project)}<span class="blueprint-label">AZO.OS / ${escapeHtml(project.category.toUpperCase())}</span><span class="blueprint-signal" aria-hidden="true"><i></i><i></i><i></i><b>AZO / TRACE</b></span><span class="blueprint-symbol">${escapeHtml(project.code)}</span><span class="blueprint-code">CASE_${escapeHtml(project.id.slice(0, 8).toUpperCase())}</span>
     </div>
     <div class="project-card-body">
       <div class="project-title-row"><h3>${escapeHtml(project.title)}</h3><div class="project-badges">${project.featured ? '<span class="flagship-badge">★ FLAGSHIP</span>' : ''}${telemetryBadge}<span class="visibility-badge${privateCase ? ' private' : ''}">${escapeHtml(project.visibility)}</span></div></div>
