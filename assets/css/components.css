@@ -430,3 +430,34 @@
   .filter-icon { position: static; width: 27px; height: 27px; grid-column: 3; grid-row: 1 / 3; }
   .filter-copy { grid-column: 2; grid-row: 1 / 3; }
 }
+
+@media (max-width: 1024px) {
+  .route-case-main { grid-template-columns: 1fr; gap: 12px; }
+}
+
+@media (max-width: 680px) {
+  .route-heading { align-items: flex-start; flex-direction: column; gap: 11px; margin-bottom: 17px; }
+  .route-heading p { font-size: 13px; }
+  .route-stop { grid-template-columns: 34px minmax(0,1fr); gap: 8px; }
+  .route-list::before { left: 16px; }
+  .route-marker { width: 34px; height: 34px; }
+  .route-marker::before { inset: 4px; }
+  .route-marker span { font-size: 9px; }
+  .route-case { padding: 13px 12px 11px; }
+  .route-case-top { align-items: flex-start; }
+  .route-code { font-size: 8px; }
+  .route-status { max-width: 94px; font-size: 7px; text-align: right; }
+  .route-case-copy h3 { font-size: 16px; }
+  .route-case-copy p { font-size: 12px; }
+  .route-pipeline { flex-direction: column; gap: 3px; }
+  .route-pipeline-step { display: flex; align-items: center; gap: 9px; min-height: 0; padding: 7px 9px; font-size: 9px; }
+  .route-pipeline-arrow { height: 8px; font-size: 10px; transform: rotate(90deg); }
+  .route-case-footer { align-items: flex-start; flex-direction: column; }
+  .route-actions { width: 100%; justify-content: flex-start; }
+  .route-actions .project-action { flex: 1 1 auto; justify-content: center; }
+  .archive-heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-case { transition: none; }
+}
