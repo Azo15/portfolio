@@ -334,7 +334,9 @@
 .route-pipeline-arrow { display: grid; flex: 0 0 auto; align-self: center; place-items: center; color: color-mix(in srgb,var(--route-accent) 80%,white 8%); font: 13px var(--font-mono); }
 .route-case-footer { padding-top: 11px; border-top: 1px solid rgba(148,163,184,.11); }
 .route-tech-tags, .route-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.route-tech-tags > span { padding: 4px 7px; color: #b5c4d6; background: rgba(255,255,255,.035); border: 1px solid rgba(148,163,184,.12); border-radius: 6px; font: 8px/1.4 var(--font-mono); }
+.route-tech-tags > button { padding: 4px 7px; color: #b5c4d6; background: rgba(255,255,255,.035); border: 1px solid rgba(148,163,184,.12); border-radius: 6px; cursor: pointer; font: 8px/1.4 var(--font-mono); transition: color 160ms ease, background 160ms ease, border-color 160ms ease; }
+.route-tech-tags > button:hover, .route-tech-tags > button:focus-visible { color: var(--route-accent); background: color-mix(in srgb,var(--route-accent) 9%,transparent); border-color: color-mix(in srgb,var(--route-accent) 35%,transparent); }
+.route-case:focus-within { border-color: color-mix(in srgb,var(--route-accent) 42%,transparent); }
 .route-actions { justify-content: flex-end; }
 .route-actions .project-action { min-height: 34px; padding: 7px 9px; font-size: 9px; }
 .archive-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 31px 0 14px; padding-top: 16px; border-top: 1px solid rgba(148,163,184,.13); }
