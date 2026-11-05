@@ -223,8 +223,21 @@ function applyProjectFilters() {
     const categoryMatch = activeCategory === 'All' || project.categories.includes(activeCategory);
     return categoryMatch && (!featuredOnly || project.featured) && matchesProjectQuery(project, projectQuery);
   });
-  grid.innerHTML = filtered.length
-    ? filtered.map(projectCard).join('')
+  const route = document.querySelector('[data-featured-route]');
+  const routeMode = featuredOnly || (activeCategory === 'All' && !projectQuery.trim());
+  const routeProjects = filtered.filter((project) => project.featured).sort((left, right) => featuredRouteOrder.indexOf(left.id) - featuredRouteOrder.indexOf(right.id));
+  const showRoute = routeMode && routeProjects.length > 0;
+  if (route) {
+    route.hidden = !showRoute;
+    route.innerHTML = showRoute ? `<header class="route-heading"><div><span class="eyebrow">${language === 'tr' ? 'AZO.OS / MÜHENDİSLİK ROTASI' : 'AZO.OS / ENGINEERING ROUTE'}</span><h2 id="featured-route-title">${language === 'tr' ? 'Fikirden çalışan sisteme' : 'From idea to working system'}</h2><p>${language === 'tr' ? 'Seçilmiş projelerin problemleri, mimari kararları ve uçtan uca akışları.' : 'Selected projects, their engineering decisions, and the systems they bring to life.'}</p></div><span class="route-count">${String(routeProjects.length).padStart(2, '0')} ${language === 'tr' ? 'SEÇİLMİŞ VAKA' : 'FEATURED CASES'}</span></header><ol class="route-list">${routeProjects.map(featuredRouteItem).join('')}</ol>` : '';
+  }
+  const archiveProjects = showRoute && !featuredOnly ? filtered.filter((project) => !project.featured) : (showRoute ? [] : filtered);
+  const archiveHeading = document.querySelector('[data-archive-heading]');
+  if (archiveHeading) archiveHeading.hidden = !showRoute || featuredOnly || archiveProjects.length === 0;
+  grid.hidden = showRoute && featuredOnly;
+  grid.innerHTML = archiveProjects.length
+    ? archiveProjects.map(projectCard).join('')
+    : showRoute ? ''
     : `<div class="empty-state"><p>No project matches this query. Try another technology or category.</p><button class="button secondary" type="button" data-reset-filters>Reset active filters &amp; show all projects</button></div>`;
   const clearBtn = document.querySelector('[data-clear-search]');
   if (clearBtn) clearBtn.hidden = !projectQuery.trim();
