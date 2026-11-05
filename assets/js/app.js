@@ -7,6 +7,7 @@ import { bindContactForm, showToast } from './services/contactService.js?v=20261
 
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
+const featuredRouteOrder = ['software-health-technical-debt-analyzer', 'smart-driver-monitoring-system', 'coin-detection-currency-prototype', 'hospital-ai-no-show-risk-analysis', 'omnibrain-ai-assistant', 'laravel-library-management-system'];
 const viewLabels = { overview: 'Overview', projects: 'Projects', resume: 'Resume', articles: 'Articles', contact: 'Contact' };
 const blueprintColors = { 'AI & Computer Vision': '#00f0ff', 'Embedded & Robotics': '#10b981', 'Web & Full-Stack': '#8b5cf6', 'Automation & Systems': '#38bdf8' };
 const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
@@ -127,6 +128,13 @@ function projectCard(project) {
   </article>`;
 }
 
+function featuredRouteItem(project, index) {
+  const accent = blueprintColors[project.category] ?? '#00f0ff';
+  const description = language === 'en' ? project.descriptionEn : project.description;
+  const pipeline = project.pipeline ?? [];
+  return `<li class="route-stop" style="--route-accent:${accent}"><div class="route-marker" aria-hidden="true"><span>${String(index + 1).padStart(2, '0')}</span></div><article class="route-case"><div class="route-case-top"><span class="route-code">${escapeHtml(project.code)} / ${escapeHtml(project.category.toUpperCase())}</span><span class="route-status">${project.visibility === 'Public' ? (language === 'tr' ? 'AÇIK DEPO' : 'PUBLIC REPO') : (language === 'tr' ? 'VAKA İNCELEMESİ' : 'CASE STUDY')}</span></div><div class="route-case-main"><div class="route-case-copy"><h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(description)}</p></div><div class="route-pipeline" aria-label="${language === 'tr' ? 'Mimari akış' : 'Architecture flow'}">${pipeline.map((step, stepIndex) => `<span class="route-pipeline-step"><i>${String(stepIndex + 1).padStart(2, '0')}</i>${escapeHtml(step)}</span>`).join('<span class="route-pipeline-arrow" aria-hidden="true">→</span>')}</div></div><div class="route-case-footer"><div class="route-tech-tags">${project.technologies.slice(0, 4).map((item) => `<span>${escapeHtml(item)}</span>`).join('')}</div><div class="route-actions"><button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}">${language === 'tr' ? 'Vaka dosyasını aç' : 'Inspect case'} <span aria-hidden="true">→</span></button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${project.visibility === 'Public' ? 'GitHub ↗' : (language === 'tr' ? 'Profil ↗' : 'Profile ↗')}</a></div></div></article></li>`;
+}
+
 function renderTelemetryDashboard(data) {
   const isEnglish = language === 'en';
   const metrics = [
@@ -186,7 +194,7 @@ function renderProjects() {
   mount.innerHTML = `<header class="view-header"><div><span class="eyebrow">${language === 'tr' ? 'MÜHENDİSLİK MİMARİLERİ & VAKA DOSYALARI' : 'ENGINEERING ARCHITECTURES & CASE FILES'}</span><h1>Engineering showcase</h1><p>Audited projects across perception, applications, embedded systems and automation. Search by project or technology; open a case file for its documented architecture.</p></div></header>
     <div class="project-toolbar"><label class="search-field"><span>⌕</span><input type="search" data-project-search placeholder="Search projects, descriptions, technologies…" autocomplete="off"><button class="search-clear" type="button" data-clear-search aria-label="Clear filter" hidden>×</button><span class="mono">/</span></label></div>
     <div class="active-filter-bar" data-active-filter-bar hidden></div>
-    <section class="category-console" aria-label="Project categories"><div class="category-console-heading"><span>${language === 'tr' ? 'PROJE KATEGORİLERİ' : 'PROJECT CATEGORIES'}</span><span>${language === 'tr' ? 'BİR ALAN SEÇ' : 'SELECT A TRACK'}</span></div><div class="filter-tabs" data-project-filters></div></section><div class="project-grid" data-project-grid></div>`;
+    <section class="category-console" aria-label="Project categories"><div class="category-console-heading"><span>${language === 'tr' ? 'PROJE KATEGORİLERİ' : 'PROJECT CATEGORIES'}</span><span>${language === 'tr' ? 'BİR ALAN SEÇ' : 'SELECT A TRACK'}</span></div><div class="filter-tabs" data-project-filters></div></section><section class="featured-route" data-featured-route aria-labelledby="featured-route-title" hidden></section><div class="archive-heading" data-archive-heading hidden><span class="eyebrow">${language === 'tr' ? 'DİĞER VAKA DOSYALARI' : 'MORE CASE FILES'}</span><span>${language === 'tr' ? 'Kataloğun tamamını keşfet' : 'Explore the full catalog'}</span></div><div class="project-grid" data-project-grid></div>`;
   const filterMount = mount.querySelector('[data-project-filters]');
   const categoryInfo = {
     All: { code: '00', icon: '⌘', title: language === 'tr' ? 'Tüm projeler' : 'All projects', note: language === 'tr' ? 'Tüm vaka dosyalarına göz at' : 'Browse all case studies', className: 'all' },
