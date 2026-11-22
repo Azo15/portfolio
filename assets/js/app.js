@@ -169,6 +169,19 @@ function renderTelemetryDashboard(data) {
     : `<p class="telemetry-empty">${isEnglish ? 'Live language data will appear when GitHub responds.' : 'GitHub yanıt verdiğinde dil verileri burada görünecek.'}</p>`;
 }
 
+function renderScrollStory(isEnglish) {
+  const chapters = isEnglish ? [
+    { id: 'perception', code: '01 / INPUT', title: 'First, the system reads its environment.', body: 'Computer vision turns camera frames into measurable signals. Image analysis, face landmarks, and structured data begin here.', action: 'Explore AI & vision', category: 'AI & Computer Vision', state: '01 / PERCEPTION', caption: 'Observe the signal. Find the useful feature.' },
+    { id: 'intelligence', code: '02 / DECISION', title: 'Then, evidence becomes a decision.', body: 'Models and software architecture turn those signals into a result people can understand, inspect, and act on.', action: 'Explore decision systems', category: 'AI & Computer Vision', state: '02 / INTELLIGENCE', caption: 'Turn measured input into a clear decision.' },
+    { id: 'embedded', code: '03 / OUTPUT', title: 'Finally, software reaches the real world.', body: 'Embedded projects connect logic to devices through serial protocols, microcontrollers, and visible feedback.', action: 'Explore embedded work', category: 'Embedded & Robotics', state: '03 / EMBEDDED', caption: 'Send the result where it can make a difference.' }
+  ] : [
+    { id: 'perception', code: '01 / GİRDİ', title: 'Önce sistem çevresini algılar.', body: 'Bilgisayarlı görü, kamera görüntülerini ölçülebilir sinyallere dönüştürür. Görüntü analizi, yüz işaret noktaları ve yapılandırılmış veri burada başlar.', action: 'Yapay zekâ ve görüntü projeleri', category: 'AI & Computer Vision', state: '01 / ALGILAMA', caption: 'Sinyali gözle. İşe yarayan özelliği bul.' },
+    { id: 'intelligence', code: '02 / KARAR', title: 'Sonra kanıt bir karara dönüşür.', body: 'Modeller ve yazılım mimarisi bu sinyalleri insanların anlayabileceği, inceleyebileceği ve kullanabileceği bir sonuca dönüştürür.', action: 'Karar sistemlerini keşfet', category: 'AI & Computer Vision', state: '02 / YAPAY ZEKÂ', caption: 'Ölçülen girdiyi anlaşılır bir karara çevir.' },
+    { id: 'embedded', code: '03 / ÇIKIŞ', title: 'Sonunda yazılım gerçek dünyaya ulaşır.', body: 'Gömülü projeler; seri protokoller, mikrodenetleyiciler ve görünür geri bildirim üzerinden yazılımı cihazlara bağlar.', action: 'Gömülü sistem projeleri', category: 'Embedded & Robotics', state: '03 / GÖMÜLÜ', caption: 'Sonucu fark yaratacağı yere ulaştır.' }
+  ];
+  return `<section class="scroll-story" aria-labelledby="story-title"><header class="story-intro"><span class="eyebrow">${isEnglish ? 'HOW I ENGINEER / A SIGNAL JOURNEY' : 'MÜHENDİSLİK YAKLAŞIMIM / SİNYAL YOLCULUĞU'}</span><h2 id="story-title">${isEnglish ? 'One signal. Three stages.' : 'Bir sinyal. Üç aşama.'}</h2><p>${isEnglish ? 'Scroll through how an idea moves from input to intelligence to the physical world.' : 'Bir fikrin girdiden yapay zekâya, oradan fiziksel dünyaya nasıl ilerlediğini kaydırarak keşfet.'}</p></header><div class="story-layout"><aside class="story-map-sticky"><div class="story-map-head"><span class="mono">AZO.OS / LIVE PIPELINE</span><span class="story-map-state" data-story-state>01 / ${isEnglish ? 'PERCEPTION' : 'ALGILAMA'}</span></div><svg class="story-map-svg" viewBox="0 0 600 300" role="img" aria-labelledby="story-map-title story-map-desc"><title id="story-map-title">${isEnglish ? 'Scroll-responsive engineering pipeline' : 'Kaydırmaya duyarlı mühendislik akışı'}</title><desc id="story-map-desc">${isEnglish ? 'Perception flows through intelligence into embedded output.' : 'Algılama, yapay zekâ üzerinden gömülü sistemlere akar.'}</desc><defs><pattern id="story-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#9bc2dc" stroke-opacity=".1"/></pattern></defs><rect width="600" height="300" rx="20" fill="#08111f"/><rect width="600" height="300" rx="20" fill="url(#story-grid)"/><path class="story-path path-perception" pathLength="1" d="M105 150H236"/><path class="story-path path-intelligence" pathLength="1" d="M236 150H366"/><path class="story-path path-embedded" pathLength="1" d="M366 150H495"/><g class="story-node node-perception"><circle cx="105" cy="150" r="35"/><text x="105" y="154" text-anchor="middle">01</text></g><g class="story-node node-intelligence"><circle cx="300" cy="150" r="35"/><text x="300" y="154" text-anchor="middle">02</text></g><g class="story-node node-embedded"><circle cx="495" cy="150" r="35"/><text x="495" y="154" text-anchor="middle">03</text></g><circle class="story-packet" cx="105" cy="150" r="6"/></svg><p class="story-map-caption" data-story-caption>${escapeHtml(chapters[0].caption)}</p><div class="story-progress-rail" aria-hidden="true"><span data-story-progress-fill></span></div></aside><ol class="story-chapters">${chapters.map((chapter, index) => `<li class="story-chapter${index === 0 ? ' is-current' : ''}" data-story-step data-stage="${chapter.id}" data-story-state="${escapeHtml(chapter.state)}" data-story-caption="${escapeHtml(chapter.caption)}"><div class="story-chapter-copy"><span class="story-chapter-code">${chapter.code}</span><h3>${chapter.title}</h3><p>${chapter.body}</p><button type="button" class="story-chapter-link" data-discipline-filter="${escapeHtml(chapter.category)}">${chapter.action} <span aria-hidden="true">→</span></button></div></li>`).join('')}</ol></div></section>`;
+}
+
 function renderOverview() {
   const mount = byId('view-overview');
   const isEnglish = language === 'en';
@@ -176,6 +189,7 @@ function renderOverview() {
     <div class="hero-intro"><span class="eyebrow">${isEnglish ? 'AZO.ISMAIL / SOFTWARE ENGINEERING' : 'AZO.İSMAİL / YAZILIM MÜHENDİSLİĞİ'}</span><h1>${isEnglish ? 'I build systems that' : 'Algılayan, düşünen ve'} <span>${isEnglish ? 'see, think' : 'harekete geçen'}</span>${isEnglish ? ' and act.' : ' sistemler geliştiriyorum.'}</h1><p class="hero-copy">${escapeHtml(isEnglish ? profile.summaryEn : profile.summary)}</p><div class="button-row"><button class="button" type="button" data-view-target="projects">${isEnglish ? 'Explore selected work' : 'Projelerimi keşfet'} <span>→</span></button><button class="button secondary" type="button" data-view-target="contact">${isEnglish ? 'Get in touch' : 'İletişime geç'}</button></div><div class="hero-signature"><span class="status-pulse" aria-hidden="true"></span>${isEnglish ? 'Currently building AI & embedded systems' : 'Şu anda yapay zekâ ve gömülü sistemler geliştiriyor'}</div></div>
     <aside class="hero-aside"><div class="hero-aside-heading"><span class="mono">AZO.OS / SYSTEM MAP</span><span class="hero-live"><i aria-hidden="true"></i> ${isEnglish ? 'ACTIVE' : 'AKTİF'}</span></div><div class="system-map"><img src="./assets/images/azo-system-map.svg" alt="${isEnglish ? 'Diagram linking perception, intelligence, and embedded systems' : 'Algılama, yapay zekâ ve gömülü sistemleri birbirine bağlayan sistem diyagramı'}" width="640" height="440" fetchpriority="high"><span class="system-map-label map-label-vision">01 / ${isEnglish ? 'PERCEPTION' : 'ALGILAMA'}</span><span class="system-map-label map-label-ai">02 / AI</span><span class="system-map-label map-label-embedded">03 / ${isEnglish ? 'EMBEDDED' : 'GÖMÜLÜ'}</span><span class="system-map-core">A/OS</span></div><p class="system-map-caption">${isEnglish ? 'From signal to decision, from software to the physical world.' : 'Sinyalden karara, yazılımdan fiziksel dünyaya.'}</p></aside>
   </header>
+  ${renderScrollStory(isEnglish)}
   <section class="telemetry-dashboard" aria-labelledby="telemetry-title"><div class="telemetry-heading"><div><span class="eyebrow">${isEnglish ? 'PUBLIC SIGNAL / LIVE DATA' : 'AÇIK SİNYAL / CANLI VERİ'}</span><h2 id="telemetry-title">${isEnglish ? 'Engineering at a glance' : 'Mühendisliğe genel bakış'}</h2></div><span class="telemetry-source"><i></i> ${isEnglish ? 'GITHUB + CASE STUDIES' : 'GITHUB + VAKA DOSYALARI'}</span></div><div class="telemetry-metrics" data-live-metrics></div><div class="insight-grid"><section class="insight-panel project-mix-panel"><div class="insight-panel-heading"><div><span class="mono">01 / PORTFOLIO MIX</span><h3>${isEnglish ? 'Where I build' : 'Çalışma alanlarım'}</h3></div><span class="insight-caption">${isEnglish ? 'AUDITED PROJECTS' : 'İNCELENEN PROJELER'}</span></div><div class="project-mix" data-project-mix></div></section><section class="insight-panel language-panel"><div class="insight-panel-heading"><div><span class="mono">02 / GITHUB SIGNAL</span><h3>${isEnglish ? 'Languages in public repos' : 'Açık depolardaki diller'}</h3></div><span class="insight-caption">${isEnglish ? 'BY REPOSITORY' : 'DEPO SAYISINA GÖRE'}</span></div><div class="language-bars" data-language-bars><p class="telemetry-empty">${isEnglish ? 'Connecting to GitHub…' : 'GitHub’a bağlanılıyor…'}</p></div></section></div></section>
   <div class="section-heading"><h2>Engineering disciplines</h2><span>01—04 / SYSTEMS MAP</span></div>
   <div class="discipline-grid">${profile.disciplines.map((discipline) => {
@@ -348,6 +362,35 @@ function observePageSections() {
     }
   }, { rootMargin: '-35% 0px -60% 0px', threshold: 0 });
   sections.forEach((section) => observer.observe(section));
+}
+
+function observeStoryChapters() {
+  const story = document.querySelector('.scroll-story');
+  const steps = [...document.querySelectorAll('[data-story-step]')];
+  if (!story || !steps.length || !('IntersectionObserver' in window)) return;
+  const map = story.querySelector('.story-map-sticky');
+  const state = story.querySelector('[data-story-state]');
+  const caption = story.querySelector('[data-story-caption]');
+  map.dataset.stage = steps[0].dataset.stage;
+  map.style.setProperty('--story-progress', '0');
+  const setCurrentStep = (step) => {
+    const index = steps.indexOf(step);
+    if (index < 0 || step.classList.contains('is-current')) return;
+    steps.forEach((item) => item.classList.toggle('is-current', item === step));
+    map.dataset.stage = step.dataset.stage;
+    map.style.setProperty('--story-progress', String(index / Math.max(steps.length - 1, 1)));
+    state.textContent = step.dataset.storyState;
+    caption.textContent = step.dataset.storyCaption;
+  };
+  const observer = new IntersectionObserver(() => {
+    const marker = window.innerHeight * 0.52;
+    const current = steps.find((step) => {
+      const rect = step.getBoundingClientRect();
+      return rect.top <= marker && rect.bottom > marker;
+    });
+    if (current) setCurrentStep(current);
+  }, { rootMargin: '-49% 0px -49% 0px', threshold: 0 });
+  steps.forEach((step) => observer.observe(step));
 }
 
 let progressFrame = 0;
@@ -566,6 +609,7 @@ window.addEventListener('hashchange', () => navigate(location.hash.slice(1), { u
 
 renderAll();
 observePageSections();
+observeStoryChapters();
 window.addEventListener('scroll', updateScrollProgress, { passive: true });
 window.addEventListener('resize', updateScrollProgress, { passive: true });
 updateScrollProgress();
