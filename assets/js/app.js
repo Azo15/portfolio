@@ -315,16 +315,50 @@ function navigate(view, { updateHash = true } = {}) {
   if (!views.includes(view)) return;
   currentView = view;
   document.querySelectorAll('[data-view]').forEach((section) => {
-    const active = section.dataset.view === view;
-    section.hidden = !active;
-    section.classList.toggle('is-active', active);
+    section.classList.toggle('is-active', section.dataset.view === view);
   });
-  document.querySelectorAll('[data-view-target]').forEach((button) => {
-    button.classList.toggle('is-active', button.dataset.viewTarget === view);
-    button.setAttribute('aria-current', button.dataset.viewTarget === view ? 'page' : 'false');
-  });
+  updateNavigationState(view);
   if (updateHash) history.replaceState(null, '', `#${view}`);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  byId(`view-${view}`)?.scrollIntoView({ behavior: 'auto', block: 'start' });
+}
+
+function updateNavigationState(view) {
+  if (!views.includes(view)) return;
+  currentView = view;
+  document.querySelectorAll('[data-view-target]').forEach((button) => {
+    const active = button.dataset.viewTarget === view;
+    button.classList.toggle('is-active', active);
+    if (active) button.setAttribute('aria-current', 'location');
+    else button.removeAttribute('aria-current');
+  });
+}
+
+function observePageSections() {
+  const sections = [...document.querySelectorAll('[data-view]')];
+  if (!('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver(() => {
+    const marker = window.innerHeight * 0.36;
+    const active = sections.find((section) => {
+      const rect = section.getBoundingClientRect();
+      return rect.top <= marker && rect.bottom > marker;
+    });
+    if (active && active.dataset.view !== currentView) {
+      updateNavigationState(active.dataset.view);
+      history.replaceState(null, '', `#${active.dataset.view}`);
+    }
+  }, { rootMargin: '-35% 0px -60% 0px', threshold: 0 });
+  sections.forEach((section) => observer.observe(section));
+}
+
+let progressFrame = 0;
+function updateScrollProgress() {
+  if (progressFrame) return;
+  progressFrame = requestAnimationFrame(() => {
+    const range = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = range > 0 ? Math.min(1, Math.max(0, window.scrollY / range)) : 0;
+    document.querySelector('[data-scroll-progress-fill]')?.style.setProperty('--scroll-progress', progress);
+    progressFrame = 0;
+  });
 }
 
 function openCase(projectId) {
@@ -531,5 +565,9 @@ document.addEventListener('keydown', (event) => {
 window.addEventListener('hashchange', () => navigate(location.hash.slice(1), { updateHash: false }));
 
 renderAll();
+observePageSections();
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
+window.addEventListener('resize', updateScrollProgress, { passive: true });
+updateScrollProgress();
 navigate(views.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'overview', { updateHash: false });
 updateGitHubTelemetry();
