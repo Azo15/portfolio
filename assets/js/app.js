@@ -584,7 +584,16 @@ document.addEventListener('click', (event) => {
   if (target.matches('[data-close-palette]') || event.target === document.querySelector('[data-palette-overlay]')) { closePalette(); return; }
   if (target.matches('[data-command-type]')) { selectPaletteCommand(target); return; }
   if (target.matches('[data-gh-refresh]')) { updateGitHubTelemetry(true); return; }
-  if (target.matches('[data-lang-toggle]')) { language = language === 'tr' ? 'en' : 'tr'; localStorage.setItem('azo-os-language', language); renderAll(); navigate(currentView, { updateHash: false }); }
+  if (target.matches('[data-lang-toggle]')) {
+    const scrollPosition = window.scrollY;
+    language = language === 'tr' ? 'en' : 'tr';
+    localStorage.setItem('azo-os-language', language);
+    renderAll();
+    updateNavigationState(currentView);
+    window.scrollTo({ top: scrollPosition, behavior: 'auto' });
+    updateScrollProgress();
+    return;
+  }
 });
 
 paletteInput.addEventListener('input', renderPalette);
