@@ -82,6 +82,7 @@
 
       <main class="app-main">
         <header class="command-nav">
+          <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress-fill></span></div>
           <nav class="nav-tabs" aria-label="Main navigation">
             <button class="nav-tab is-active" type="button" data-view-target="overview">Overview</button>
             <button class="nav-tab" type="button" data-view-target="projects">Projects</button>
@@ -93,11 +94,11 @@
         </header>
 
         <div class="workspace glass-panel">
-          <section class="view is-active" id="view-overview" data-view="overview" aria-label="Overview"></section>
-          <section class="view" id="view-projects" data-view="projects" aria-label="Projects" hidden></section>
-          <section class="view" id="view-resume" data-view="resume" aria-label="Resume" hidden></section>
-          <section class="view" id="view-articles" data-view="articles" aria-label="Articles" hidden></section>
-          <section class="view" id="view-contact" data-view="contact" aria-label="Contact" hidden></section>
+          <section class="view is-active" id="view-overview" data-view="overview" aria-label="Overview" tabindex="-1"></section>
+          <section class="view" id="view-projects" data-view="projects" aria-label="Projects" tabindex="-1"></section>
+          <section class="view" id="view-resume" data-view="resume" aria-label="Resume" tabindex="-1"></section>
+          <section class="view" id="view-articles" data-view="articles" aria-label="Articles" tabindex="-1"></section>
+          <section class="view" id="view-contact" data-view="contact" aria-label="Contact" tabindex="-1"></section>
         </div>
         <footer class="dock-brand" style="justify-content:space-between;padding:14px 4px 0"><span>AZO.OS / PERSONAL ENGINEERING SYSTEM</span><span>© <span data-year></span> Azo İsmail</span></footer>
       </main>

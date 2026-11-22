@@ -55,7 +55,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .workspace { min-height: calc(100vh - 120px); padding: clamp(22px, 4vw, 54px); }
-.view { display: none; animation: view-in 360ms var(--ease) both; }
+.view { display: block; min-height: 76vh; padding: 8px 0 48px; scroll-margin-top: 92px; }
+.view + .view { margin-top: 26px; padding-top: clamp(30px,5vw,60px); border-top: 1px solid rgba(105,143,175,.18); }
 .view.is-active { display: block; }
 .view-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
 .view-header h1 { margin: 5px 0 0; font: 600 clamp(28px, 4vw, 42px)/1.08 var(--font-display); letter-spacing: -0.045em; }
