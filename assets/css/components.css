@@ -33,7 +33,7 @@
 .identity-block h2 { margin: 0; font: 600 21px/1.35 var(--font-display); letter-spacing: -0.03em; }
 .identity-block p { margin: 4px 0 0; color: #aab8cc; font-size: 12px; line-height: 1.55; }
 .system-status { display: flex; align-items: center; gap: 9px; padding: 10px 12px; color: #a7f3d0; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 11px; font: 11px/1.6 var(--font-body); }
-.status-pulse { width: 7px; height: 7px; flex: 0 0 auto; background: var(--emerald); border-radius: 50%; box-shadow: 0 0 12px rgba(16,185,129,.8); animation: pulse 1.8s ease-in-out infinite; }
+.status-pulse { width: 7px; height: 7px; flex: 0 0 auto; background: var(--emerald); border-radius: 50%; box-shadow: 0 0 10px rgba(16,185,129,.55); }
 .identity-dock > section { min-width: 0; padding: 13px; background: rgba(5,11,20,.36); border: 1px solid rgba(133,158,188,.13); border-radius: 15px; box-shadow: inset 0 1px rgba(255,255,255,.018); }
 .dock-section-title { margin: 0 0 11px; color: #9bacc2; font: 10px/1.55 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
 .dock-radar { display: grid; gap: 7px; }
@@ -357,6 +357,29 @@
 .story-chapter p { max-width: 440px; margin: 0; color: #aab8ca; font-size: 13px; line-height: 1.8; }
 .story-chapter-link { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; margin-top: 18px; padding: 8px 11px; color: var(--cyan); background: rgba(0,240,255,.055); border: 1px solid rgba(0,240,255,.19); border-radius: 9px; cursor: pointer; font: 10px/1.45 var(--font-mono); transition: background 180ms ease,border-color 180ms ease,transform 180ms ease; }
 .story-chapter-link:hover { background: rgba(0,240,255,.1); border-color: rgba(0,240,255,.42); transform: translateY(-1px); }
+
+@media (max-width: 900px) {
+  .story-layout { grid-template-columns: minmax(0,1fr); gap: 4px; }
+  .story-map-sticky { position: relative; top: auto; }
+  .story-chapter { min-height: clamp(300px,48vh,430px); }
+}
+
+@media (max-width: 640px) {
+  .command-nav { padding-top: 11px; }
+  .scroll-progress { right: 11px; left: 11px; }
+  .scroll-story { margin: 18px 0 28px; padding: 19px 15px; border-radius: 17px; }
+  .story-intro { margin-bottom: 19px; }
+  .story-intro h2 { font-size: clamp(25px,7vw,32px); }
+  .story-intro > p { font-size: 13px; }
+  .story-map-sticky { z-index: 3; padding: 10px; border-radius: 14px; }
+  .story-map-head { padding-bottom: 8px; }
+  .story-map-head .mono, .story-map-state { font-size: 8px; }
+  .story-map-svg { max-height: 190px; margin: 5px 0 1px; }
+  .story-map-caption { min-height: 30px; margin-bottom: 7px; font-size: 9px; }
+  .story-chapter { min-height: 44vh; padding: 28px 4px; }
+  .story-chapter h3 { margin-top: 11px; font-size: 25px; }
+  .story-chapter p { font-size: 12px; }
+}
 
 .brand-mark { display: inline-flex; align-items: center; justify-content: center; gap: 2px; color: #c9f9fa; }
 .brand-mark img { display: block; width: 23px; height: 23px; }

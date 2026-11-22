@@ -70,6 +70,8 @@ let projectQuery = '';
 let paletteSelection = 0;
 let liveRepoIndex = {};
 let githubTelemetry = null;
+let pageSectionObserver = null;
+let storyChapterObserver = null;
 
 function matchesProjectQuery(project, rawQuery) {
   const query = textKey(rawQuery);
@@ -323,6 +325,8 @@ function renderAll() {
   document.querySelector('[data-profile-status]').textContent = profile.status;
   document.querySelector('[data-year]').textContent = new Date().getFullYear();
   applyLanguage();
+  observePageSections();
+  observeStoryChapters();
 }
 
 function navigate(view, { updateHash = true } = {}) {
@@ -350,7 +354,8 @@ function updateNavigationState(view) {
 function observePageSections() {
   const sections = [...document.querySelectorAll('[data-view]')];
   if (!('IntersectionObserver' in window)) return;
-  const observer = new IntersectionObserver(() => {
+  pageSectionObserver?.disconnect();
+  pageSectionObserver = new IntersectionObserver(() => {
     const marker = window.innerHeight * 0.36;
     const active = sections.find((section) => {
       const rect = section.getBoundingClientRect();
@@ -361,13 +366,14 @@ function observePageSections() {
       history.replaceState(null, '', `#${active.dataset.view}`);
     }
   }, { rootMargin: '-35% 0px -60% 0px', threshold: 0 });
-  sections.forEach((section) => observer.observe(section));
+  sections.forEach((section) => pageSectionObserver.observe(section));
 }
 
 function observeStoryChapters() {
   const story = document.querySelector('.scroll-story');
   const steps = [...document.querySelectorAll('[data-story-step]')];
   if (!story || !steps.length || !('IntersectionObserver' in window)) return;
+  storyChapterObserver?.disconnect();
   const map = story.querySelector('.story-map-sticky');
   const state = story.querySelector('[data-story-state]');
   const caption = story.querySelector('[data-story-caption]');
@@ -382,15 +388,15 @@ function observeStoryChapters() {
     state.textContent = step.dataset.storyState;
     caption.textContent = step.dataset.storyCaption;
   };
-  const observer = new IntersectionObserver(() => {
-    const marker = window.innerHeight * 0.52;
+  storyChapterObserver = new IntersectionObserver(() => {
+    const marker = window.innerHeight * 0.5;
     const current = steps.find((step) => {
       const rect = step.getBoundingClientRect();
       return rect.top <= marker && rect.bottom > marker;
     });
     if (current) setCurrentStep(current);
   }, { rootMargin: '-49% 0px -49% 0px', threshold: 0 });
-  steps.forEach((step) => observer.observe(step));
+  steps.forEach((step) => storyChapterObserver.observe(step));
 }
 
 let progressFrame = 0;
@@ -608,8 +614,6 @@ document.addEventListener('keydown', (event) => {
 window.addEventListener('hashchange', () => navigate(location.hash.slice(1), { updateHash: false }));
 
 renderAll();
-observePageSections();
-observeStoryChapters();
 window.addEventListener('scroll', updateScrollProgress, { passive: true });
 window.addEventListener('resize', updateScrollProgress, { passive: true });
 updateScrollProgress();
