@@ -72,6 +72,7 @@ let liveRepoIndex = {};
 let githubTelemetry = null;
 let pageSectionObserver = null;
 let storyChapterObserver = null;
+let scrollRevealObserver = null;
 
 function matchesProjectQuery(project, rawQuery) {
   const query = textKey(rawQuery);
@@ -275,6 +276,7 @@ function applyProjectFilters() {
   featuredFilter?.classList.toggle('is-active', featuredOnly);
   featuredFilter?.setAttribute('aria-pressed', String(featuredOnly));
   applyLanguage();
+  observeScrollReveals();
 }
 
 function timelineCard(item) {
@@ -327,6 +329,7 @@ function renderAll() {
   applyLanguage();
   observePageSections();
   observeStoryChapters();
+  observeScrollReveals();
 }
 
 function navigate(view, { updateHash = true } = {}) {
@@ -400,6 +403,29 @@ function observeStoryChapters() {
     if (current) setCurrentStep(current);
   }, { rootMargin: '-49% 0px -49% 0px', threshold: 0 });
   steps.forEach((step) => storyChapterObserver.observe(step));
+}
+
+function observeScrollReveals() {
+  const elements = [...document.querySelectorAll(
+    '.hero-intro, .hero-aside, .story-intro, .story-chapter-copy, .telemetry-dashboard, #view-overview > .section-heading, #view-overview > .discipline-grid, #view-overview > .tech-matrix, [data-view] > .view-header, [data-view] .project-card, [data-view] .route-stop, [data-view] .timeline-card, [data-view] .article-card, [data-view] .contact-panel'
+  )];
+  scrollRevealObserver?.disconnect();
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    elements.forEach((element) => element.classList.remove('scroll-reveal', 'is-revealed'));
+    return;
+  }
+  scrollRevealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+  elements.forEach((element) => {
+    element.classList.add('scroll-reveal');
+    if (element.getBoundingClientRect().top < window.innerHeight * 0.92) element.classList.add('is-revealed');
+    scrollRevealObserver.observe(element);
+  });
 }
 
 let progressFrame = 0;
