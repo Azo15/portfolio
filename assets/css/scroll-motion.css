@@ -1,0 +1,18 @@
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 620ms cubic-bezier(.2,.75,.25,1), transform 620ms cubic-bezier(.2,.75,.25,1);
+}
+
+.scroll-reveal.is-revealed { opacity: 1; transform: translateY(0); }
+.story-chapter-copy.scroll-reveal { transition-delay: 70ms; }
+.project-grid > .project-card:nth-child(2n).scroll-reveal,
+.article-grid > .article-card:nth-child(2n).scroll-reveal,
+.route-list > .route-stop:nth-child(2n).scroll-reveal { transition-delay: 90ms; }
+.project-grid > .project-card:nth-child(3n).scroll-reveal,
+.article-grid > .article-card:nth-child(3n).scroll-reveal,
+.route-list > .route-stop:nth-child(3n).scroll-reveal { transition-delay: 150ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal, .scroll-reveal.is-revealed { opacity: 1; transform: none; transition: none; }
+}
