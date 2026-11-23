@@ -20,6 +20,7 @@ export function bindSignalNetwork() {
 
   const hudCode = scene.querySelector('[data-hud-code]');
   const hudLock = scene.querySelector('[data-hud-lock]');
+  const hudPipeline = scene.querySelector('[data-hud-pipeline]');
   const hudTitle = scene.querySelector('[data-hud-title]');
   const hudDesc = scene.querySelector('[data-hud-desc]');
   const hudCta = scene.querySelector('[data-hud-cta]');
@@ -93,8 +94,9 @@ export function bindSignalNetwork() {
       const title = node.dataset.nodeTitle || '';
       const code = node.dataset.nodeCode || 'AZO.OS';
       const summary = node.dataset.nodeSummary || '';
+      const pipeline = node.dataset.nodePipeline || '';
       const color = node.dataset.nodeColor || '#00f0ff';
-      const shortCore = title.length > 13 ? title.slice(0, 12).trimEnd() + '…' : title;
+      const shortCore = title.length > 15 ? title.slice(0, 14).trimEnd() + '…' : title;
 
       if (coreReactor) coreReactor.style.setProperty('--core-accent', color);
       if (coreCode) coreCode.textContent = code;
@@ -106,6 +108,7 @@ export function bindSignalNetwork() {
         hudCode.style.setProperty('--hud-accent', color);
       }
       if (hudLock) hudLock.hidden = !isLocked;
+      if (hudPipeline) hudPipeline.textContent = pipeline ? `// ${pipeline}` : '';
       if (hudTitle) hudTitle.textContent = title;
       if (hudDesc) hudDesc.textContent = summary;
       applyCtaForNode(node);
@@ -120,6 +123,7 @@ export function bindSignalNetwork() {
         hudCode.style.removeProperty('--hud-accent');
       }
       if (hudLock) hudLock.hidden = true;
+      if (hudPipeline) hudPipeline.textContent = '';
       if (hudTitle) hudTitle.textContent = defaultHudTitle;
       if (hudDesc) hudDesc.textContent = defaultHudDesc;
       if (hudCta) hudCta.hidden = true;
