@@ -49,11 +49,7 @@ export function bindSignalNetwork() {
     node.addEventListener('pointerleave', () => highlight(nodes.find((item) => item.matches(':focus-visible'))));
     node.addEventListener('focus', () => highlight(node));
     node.addEventListener('blur', () => highlight(null));
-    node.addEventListener('keydown', (event) => {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      event.preventDefault();
-      node.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    });
+
   }
 
   scene.addEventListener('pointermove', onPointerMove, { passive: true });
