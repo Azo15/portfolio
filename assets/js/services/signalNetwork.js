@@ -25,6 +25,7 @@ export function bindSignalNetwork() {
 }
 
 export function updateSignalNetworkProgress(progress) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const network = document.querySelector('[data-network-scene]');
   const signal = network?.querySelector('[data-network-signal]');
   if (!network || !signal) return;

@@ -619,3 +619,39 @@
 @media (prefers-reduced-motion: reduce) {
   .route-case { transition: none; }
 }
+
+@media (max-width: 1080px) {
+  .hero-panel { grid-template-columns: minmax(0,1fr); gap: 26px; }
+  .hero-intro { max-width: 780px; }
+  .hero-aside { width: 100%; max-width: 740px; justify-self: center; }
+  .signal-network { max-width: 650px; }
+}
+
+@media (max-width: 640px) {
+  .hero-panel h1 { max-width: 100%; font-size: clamp(39px,9.2vw,52px); line-height: 1.08; }
+  .hero-copy { font-size: 15px; }
+  .hero-aside-heading .mono { max-width: 70%; font-size: 9px; }
+  .signal-network { aspect-ratio: 1.18; margin-top: 9px; border-radius: 15px; }
+  .network-node { width: 30%; min-width: 120px; min-height: 86px; gap: 6px; padding: 10px 11px; border-radius: 11px; }
+  .network-node strong { font-size: 12px; }
+  .network-node-meta { font-size: 9px; }
+  .network-core { width: 23%; min-width: 78px; min-height: 68px; border-radius: 15px; }
+  .network-core span { font-size: 14px; }
+  .network-core small { font-size: 7px; }
+  .network-footer { right: 9px; bottom: 7px; left: 9px; gap: 6px; font-size: 9px; }
+  .network-hint { gap: 5px; }
+  .network-total b { font-size: 10px; }
+  .system-map-caption { font-size: 10px; }
+}
+
+@media (hover: none) {
+  .signal-network { transform: none; transition: none; }
+  .network-pointer-glow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-network { transform: none; transition: none; }
+  .network-circuit,.network-circuit-secondary { animation: none; }
+  .network-node,.network-core { transition: none; }
+  .network-pointer-glow { display: none; }
+}
