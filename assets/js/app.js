@@ -1,11 +1,11 @@
-import { renderSignalNetwork } from './services/chordDiagram.js?v=20261124-circuit-board';
+import { renderSignalNetwork } from './services/chordDiagram.js?v=20261124-chords';
 import { profile } from './data/profile.js?v=20261103-dock-radar';
 import { projects } from './data/projects.js?v=20261103-dock-radar';
 import { resume } from './data/resume.js?v=20261103-dock-radar';
 import { articles, articlesProfileUrl } from './data/articles.js?v=20261103-dock-radar';
 import { getGitHubStats } from './services/githubService.js?v=20261105-project-route';
 import { bindContactForm, showToast } from './services/contactService.js?v=20261103-dock-radar';
-import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signalNetwork.js?v=20261124-circuit-board';
+import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signalNetwork.js?v=20261124-chord-network';
 
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
@@ -191,10 +191,9 @@ function renderScrollStory(isEnglish) {
 function renderOverview() {
   const mount = byId('view-overview');
   const isEnglish = language === 'en';
-  mount.innerHTML = `<header class="hero-panel glass-panel circuit-hero">
-    <div class="circuit-title"><span class="eyebrow">AZO.OS / AZO İSMAİL</span><h1>${isEnglish ? 'Projects and their technology' : 'Projeler ve teknolojileri'}</h1></div>
-    <section class="hero-aside" aria-label="${isEnglish ? 'Interactive project map' : 'Etkileşimli proje haritası'}">${renderSignalNetwork(projects, isEnglish, escapeHtml)}</section>
-    <div class="hero-intro"><p class="hero-copy">${escapeHtml(isEnglish ? profile.summaryEn : profile.summary)}</p><div class="button-row"><button class="button" type="button" data-view-target="projects">${isEnglish ? 'Explore selected work' : 'Projelerimi keşfet'}</button><button class="button secondary" type="button" data-view-target="contact">${isEnglish ? 'Get in touch' : 'İletişime geç'}</button></div><div class="hero-signature"><span class="status-pulse" aria-hidden="true"></span>${isEnglish ? 'Currently building AI & embedded systems' : 'Şu anda yapay zekâ ve gömülü sistemler geliştiriyor'}</div></div>
+  mount.innerHTML = `<header class="hero-panel glass-panel">
+    <div class="hero-intro"><span class="eyebrow">${isEnglish ? 'AZO.ISMAIL / SOFTWARE ENGINEERING' : 'AZO.İSMAİL / YAZILIM MÜHENDİSLİĞİ'}</span><h1>${isEnglish ? 'I turn signals' : 'Sinyali anlar,'}<br><span>${isEnglish ? 'into systems that act.' : 'gerçek dünyaya taşırım.'}</span></h1><p class="hero-copy">${escapeHtml(isEnglish ? profile.summaryEn : profile.summary)}</p><div class="button-row"><button class="button" type="button" data-view-target="projects">${isEnglish ? 'Explore selected work' : 'Projelerimi keşfet'}</button><button class="button secondary" type="button" data-view-target="contact">${isEnglish ? 'Get in touch' : 'İletişime geç'}</button></div><div class="hero-signature"><span class="status-pulse" aria-hidden="true"></span>${isEnglish ? 'Currently building AI & embedded systems' : 'Şu anda yapay zekâ ve gömülü sistemler geliştiriyor'}</div></div>
+    <aside class="hero-aside"><div class="hero-aside-heading"><span class="mono">AZO.OS / ENGINEERING NETWORK</span><span class="hero-live"><i aria-hidden="true"></i> ${isEnglish ? 'LIVE MAP' : 'CANLI HARİTA'}</span></div>${renderSignalNetwork(projects, isEnglish, escapeHtml)}<p class="system-map-caption">${isEnglish ? 'From signal to decision, from software to the physical world.' : 'Sinyalden karara, yazılımdan fiziksel dünyaya.'}</p></aside>
   </header>
   ${renderScrollStory(isEnglish)}
   <section class="telemetry-dashboard" aria-labelledby="telemetry-title"><div class="telemetry-heading"><div><span class="eyebrow">${isEnglish ? 'PUBLIC SIGNAL / LIVE DATA' : 'AÇIK SİNYAL / CANLI VERİ'}</span><h2 id="telemetry-title">${isEnglish ? 'Engineering at a glance' : 'Mühendisliğe genel bakış'}</h2></div><span class="telemetry-source"><i></i> ${isEnglish ? 'GITHUB + CASE STUDIES' : 'GITHUB + VAKA DOSYALARI'}</span></div><div class="telemetry-metrics" data-live-metrics></div><div class="insight-grid"><section class="insight-panel project-mix-panel"><div class="insight-panel-heading"><div><span class="mono">01 / PORTFOLIO MIX</span><h3>${isEnglish ? 'Where I build' : 'Çalışma alanlarım'}</h3></div><span class="insight-caption">${isEnglish ? 'AUDITED PROJECTS' : 'İNCELENEN PROJELER'}</span></div><div class="project-mix" data-project-mix></div></section><section class="insight-panel language-panel"><div class="insight-panel-heading"><div><span class="mono">02 / GITHUB SIGNAL</span><h3>${isEnglish ? 'Languages in public repos' : 'Açık depolardaki diller'}</h3></div><span class="insight-caption">${isEnglish ? 'BY REPOSITORY' : 'DEPO SAYISINA GÖRE'}</span></div><div class="language-bars" data-language-bars><p class="telemetry-empty">${isEnglish ? 'Connecting to GitHub…' : 'GitHub’a bağlanılıyor…'}</p></div></section></div></section>
