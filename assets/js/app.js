@@ -502,7 +502,7 @@ function closeCase() {
   document.body.style.overflow = '';
 }
 
-const paletteOverlay = document.querySelector('[data-palette-overlay], [data-chord-node]');
+const paletteOverlay = document.querySelector('[data-palette-overlay]');
 const paletteInput = document.querySelector('[data-palette-input]');
 const paletteResults = document.querySelector('[data-palette-results]');
 
