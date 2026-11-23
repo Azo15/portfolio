@@ -615,30 +615,293 @@
 .chord-network {
   position: relative;
   aspect-ratio: auto;
-  padding: 16px 8px 12px;
-  background: radial-gradient(ellipse at center, #142338, #080f1b 75%);
+  padding: 14px 12px 12px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(0, 240, 255, 0.11), rgba(16, 185, 129, 0.04) 44%, rgba(6, 12, 23, 0.96) 76%),
+    linear-gradient(155deg, rgba(10, 19, 34, 0.96), rgba(6, 11, 21, 0.98));
 }
-.chord-network svg { position: relative; display: block; width: 100%; height: auto; overflow: visible; }
-.chord-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; font: 12px/1.4 var(--font-mono); color: #e3edf8; }
-.chord-legend span::before { content: ''; display: inline-block; width: 9px; height: 9px; margin-inline-end: 7px; border-radius: 50%; background: #61e6e0; }
-.chord-legend span:last-child::before { background: #b69aff; }
-.chord-guide { fill: none; stroke: #395372; stroke-dasharray: 2 5; opacity: .48; }
-.chord-edge { fill: none; stroke: #86aeee; stroke-width: 1.4; opacity: .48; transition: opacity .2s, stroke .2s; }
-.chord-node { cursor: pointer; --arc: #61e6e0; transition: opacity .2s; }
-.chord-t { --arc: #b69aff; }
+.chord-network svg { position: relative; z-index: 1; display: block; width: 100%; height: auto; overflow: visible; }
+
+.telemetry-wheel-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  padding: 4px 4px 10px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+.wheel-sector-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+.wheel-sector-pill {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 4px 8px;
+  color: #9fb2c8;
+  background: rgba(15, 25, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 7px;
+  cursor: pointer;
+  font: 600 9px/1.3 var(--font-mono);
+  letter-spacing: 0.04em;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.wheel-sector-pill:hover,
+.wheel-sector-pill.is-active {
+  color: #fff;
+  background: color-mix(in srgb, var(--pill-color, #00f0ff) 18%, rgba(10, 18, 32, 0.95));
+  border-color: color-mix(in srgb, var(--pill-color, #00f0ff) 65%, transparent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--pill-color, #00f0ff) 24%, transparent);
+}
+.wheel-autoscan-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  color: #93a8c0;
+  background: rgba(15, 24, 40, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 999px;
+  cursor: pointer;
+  font: 600 9px/1.3 var(--font-mono);
+  letter-spacing: 0.06em;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+.wheel-autoscan-btn .autoscan-dot {
+  width: 6px;
+  height: 6px;
+  background: #64748b;
+  border-radius: 50%;
+}
+.wheel-autoscan-btn.is-active {
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.36);
+}
+.wheel-autoscan-btn.is-active .autoscan-dot {
+  background: var(--emerald);
+  box-shadow: 0 0 10px var(--emerald);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.chord-guide-outer { fill: none; stroke: rgba(100, 145, 186, 0.22); stroke-width: 1; stroke-dasharray: 3 6; }
+.chord-guide { fill: none; stroke: rgba(56, 189, 248, 0.24); stroke-width: 1; stroke-dasharray: 2 5; }
+.chord-radar-sweep {
+  fill: none;
+  stroke: rgba(0, 240, 255, 0.16);
+  stroke-width: 1.5;
+  stroke-dasharray: 28 190;
+  transform-origin: 270px 235px;
+  animation: radar-spin 18s linear infinite;
+}
+@keyframes radar-spin {
+  to { transform: rotate(360deg); }
+}
+
+.telemetry-tick { stroke: rgba(148, 163, 184, 0.22); stroke-width: 1; }
+.telemetry-tick.is-major { stroke: rgba(0, 240, 255, 0.42); stroke-width: 1.4; }
+
+.chord-edge {
+  fill: none;
+  stroke: var(--edge-color, #38bdf8);
+  stroke-width: 1.25;
+  opacity: 0.26;
+  transition: opacity 220ms ease, stroke-width 220ms ease, filter 220ms ease;
+}
+.chord-edge.is-sector-dimmed { opacity: 0.06; }
+.chord-edge.is-related {
+  opacity: 0.96;
+  stroke-width: 2.35;
+  stroke-dasharray: 7 4;
+  filter: drop-shadow(0 0 6px var(--edge-color, #00f0ff));
+  animation: synapse-flow 1.2s linear infinite;
+}
+@keyframes synapse-flow {
+  to { stroke-dashoffset: -22; }
+}
+
+.chord-node { cursor: pointer; --arc: #00f0ff; transition: opacity 220ms ease, transform 220ms ease; }
+.chord-node.is-sector-dimmed { opacity: 0.2; }
 .chord-node path { fill: none; }
-.chord-arc { stroke: var(--arc); stroke-width: 11; }
+.chord-arc {
+  stroke: var(--arc);
+  stroke-width: 9;
+  stroke-linecap: round;
+  opacity: 0.82;
+  transition: stroke-width 180ms ease, filter 180ms ease, opacity 180ms ease;
+}
 .chord-arc-hit { stroke: transparent; stroke-width: 28; }
-.chord-node text { fill: #d9e7f8; font: 600 12px var(--font-mono); }
+.chord-spoke {
+  stroke: var(--arc);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+  opacity: 0.28;
+  transition: opacity 180ms ease, stroke-width 180ms ease;
+}
+.chord-inner-node {
+  fill: #071120;
+  stroke: var(--arc);
+  stroke-width: 1.6;
+  transition: r 180ms ease, fill 180ms ease;
+}
+.chord-leader {
+  fill: none;
+  stroke: var(--arc);
+  stroke-width: 1.1;
+  opacity: 0.55;
+  transition: opacity 180ms ease;
+}
+.chord-label-pill {
+  fill: rgba(7, 15, 29, 0.9);
+  stroke: color-mix(in srgb, var(--arc) 42%, rgba(148, 163, 184, 0.25));
+  stroke-width: 1;
+  transition: fill 180ms ease, stroke 180ms ease, filter 180ms ease;
+}
+.chord-label-text {
+  fill: #dbeafe;
+  font: 600 10.5px var(--font-mono);
+  letter-spacing: -0.01em;
+}
+.chord-code-tag {
+  fill: var(--arc);
+  font: 600 7.5px var(--font-mono);
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+}
+
 .chord-node:focus-visible { outline: none; }
-.chord-node:focus-visible .chord-arc, .chord-node.is-related .chord-arc { stroke: #fff; }
-.chord-network.is-exploring .chord-edge:not(.is-related),
-.chord-network.is-exploring .chord-node:not(.is-related) { opacity: .17; }
-.chord-edge.is-related { opacity: 1; stroke: #75f5ed; stroke-width: 2.2; }
-.chord-signal { fill: #e7ffff; filter: drop-shadow(0 0 5px #61e6e0); }
-.chord-detail { position: relative; min-height: 2.8em; margin: 0; padding-inline: 8px; text-align: center; color: #d3e4f9; font: 12px/1.4 var(--font-mono); overflow-wrap: anywhere; }
+.chord-node:hover .chord-arc,
+.chord-node:focus-visible .chord-arc,
+.chord-node.is-related .chord-arc {
+  stroke-width: 12;
+  opacity: 1;
+  filter: drop-shadow(0 0 8px var(--arc));
+}
+.chord-node.is-pinned .chord-arc {
+  stroke: #ffffff;
+  stroke-width: 13;
+  filter: drop-shadow(0 0 11px var(--arc));
+}
+.chord-node.is-related .chord-spoke { opacity: 0.82; stroke-width: 1.4; }
+.chord-node.is-related .chord-inner-node { fill: var(--arc); }
+.chord-node.is-related .chord-label-pill {
+  fill: color-mix(in srgb, var(--arc) 18%, #07101f);
+  stroke: var(--arc);
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--arc) 35%, transparent));
+}
+.chord-node.is-related .chord-label-text { fill: #ffffff; }
+
+.chord-network.is-exploring .chord-edge:not(.is-related) { opacity: 0.07; }
+.chord-network.is-exploring .chord-node:not(.is-related) { opacity: 0.24; }
+
+.azo-core-reactor { --core-accent: #00f0ff; pointer-events: none; }
+.core-outer-ring {
+  fill: rgba(6, 13, 25, 0.92);
+  stroke: color-mix(in srgb, var(--core-accent) 55%, rgba(148, 163, 184, 0.25));
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--core-accent) 26%, transparent));
+  transition: stroke 220ms ease, filter 220ms ease;
+}
+.core-spin-ring {
+  fill: none;
+  stroke: var(--core-accent);
+  stroke-width: 1.4;
+  stroke-dasharray: 18 14 6 14;
+  opacity: 0.72;
+  animation: radar-spin 12s linear infinite reverse;
+}
+.core-inner-disc {
+  fill: radial-gradient(circle, rgba(14, 28, 50, 0.96), rgba(6, 12, 23, 0.98));
+  stroke: rgba(148, 163, 184, 0.16);
+  stroke-width: 1;
+}
+.core-hud-eyebrow {
+  fill: var(--core-accent);
+  font: 600 7.5px var(--font-mono);
+  letter-spacing: 0.12em;
+}
+.core-hud-title {
+  fill: #f1f5f9;
+  font: 700 10px var(--font-display);
+  letter-spacing: -0.01em;
+}
+.core-hud-sub {
+  fill: #94a3b8;
+  font: 600 7.5px var(--font-mono);
+  letter-spacing: 0.08em;
+}
+
+.chord-signal {
+  fill: #ffffff;
+  stroke: #00f0ff;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 7px #00f0ff);
+}
+.chord-signal-secondary {
+  stroke: #10b981;
+  filter: drop-shadow(0 0 7px #10b981);
+}
+
+.wheel-hud-console {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+  padding: 11px 13px;
+  background: linear-gradient(145deg, rgba(11, 20, 36, 0.92), rgba(7, 13, 24, 0.95));
+  border: 1px solid rgba(100, 148, 186, 0.24);
+  border-radius: 13px;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.03);
+}
+.wheel-hud-info { min-width: 0; flex: 1 1 auto; }
+.wheel-hud-top { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+.wheel-hud-badge {
+  --hud-accent: var(--cyan);
+  color: var(--hud-accent);
+  font: 600 9px/1.3 var(--font-mono);
+  letter-spacing: 0.1em;
+}
+.wheel-hud-lock {
+  padding: 2px 6px;
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 999px;
+  font: 600 8px/1.2 var(--font-mono);
+  letter-spacing: 0.06em;
+}
+.wheel-hud-title {
+  margin: 0 0 3px;
+  color: var(--text);
+  font: 600 13.5px/1.35 var(--font-display);
+  overflow-wrap: anywhere;
+}
+.wheel-hud-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.wheel-hud-actions { flex: 0 0 auto; }
+.wheel-hud-cta { white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .wheel-hud-console { flex-direction: column; align-items: stretch; }
+  .wheel-hud-cta { width: 100%; justify-content: center; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .chord-node, .chord-edge { transition: none; }
-  .chord-signal { display: none; }
+  .chord-signal, .chord-radar-sweep, .core-spin-ring { display: none; animation: none; }
 }
