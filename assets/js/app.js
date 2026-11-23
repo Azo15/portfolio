@@ -73,6 +73,7 @@ let githubTelemetry = null;
 let pageSectionObserver = null;
 let storyChapterObserver = null;
 let scrollRevealObserver = null;
+let storyScrollFrame = 0;
 
 function matchesProjectQuery(project, rawQuery) {
   const query = textKey(rawQuery);
@@ -182,7 +183,7 @@ function renderScrollStory(isEnglish) {
     { id: 'intelligence', code: '02 / KARAR', title: 'Sonra kanıt bir karara dönüşür.', body: 'Modeller ve yazılım mimarisi bu sinyalleri insanların anlayabileceği, inceleyebileceği ve kullanabileceği bir sonuca dönüştürür.', action: 'Karar sistemlerini keşfet', category: 'AI & Computer Vision', state: '02 / YAPAY ZEKÂ', caption: 'Ölçülen girdiyi anlaşılır bir karara çevir.' },
     { id: 'embedded', code: '03 / ÇIKIŞ', title: 'Sonunda yazılım gerçek dünyaya ulaşır.', body: 'Gömülü projeler; seri protokoller, mikrodenetleyiciler ve görünür geri bildirim üzerinden yazılımı cihazlara bağlar.', action: 'Gömülü sistem projeleri', category: 'Embedded & Robotics', state: '03 / GÖMÜLÜ', caption: 'Sonucu fark yaratacağı yere ulaştır.' }
   ];
-  return `<section class="scroll-story" aria-labelledby="story-title"><header class="story-intro"><span class="eyebrow">${isEnglish ? 'HOW I ENGINEER / A SIGNAL JOURNEY' : 'MÜHENDİSLİK YAKLAŞIMIM / SİNYAL YOLCULUĞU'}</span><h2 id="story-title">${isEnglish ? 'One signal. Three stages.' : 'Bir sinyal. Üç aşama.'}</h2><p>${isEnglish ? 'Scroll through how an idea moves from input to intelligence to the physical world.' : 'Bir fikrin girdiden yapay zekâya, oradan fiziksel dünyaya nasıl ilerlediğini kaydırarak keşfet.'}</p></header><div class="story-layout"><aside class="story-map-sticky live-pipeline-map"><div class="story-map-head"><span class="mono">AZO.OS / LIVE PIPELINE</span><span class="story-map-state" data-story-state>01 / ${isEnglish ? 'PERCEPTION' : 'ALGILAMA'}</span></div><svg class="story-map-svg" viewBox="0 0 600 300" role="img" aria-labelledby="story-map-title story-map-desc"><title id="story-map-title">${isEnglish ? 'Scroll-responsive engineering pipeline' : 'Kaydırmaya duyarlı mühendislik akışı'}</title><desc id="story-map-desc">${isEnglish ? 'Perception flows through intelligence into embedded output.' : 'Algılama, yapay zekâ üzerinden gömülü sistemlere akar.'}</desc><defs><pattern id="story-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#9bc2dc" stroke-opacity=".1"/></pattern></defs><rect width="600" height="300" rx="20" fill="#08111f"/><rect width="600" height="300" rx="20" fill="url(#story-grid)"/><path class="story-path path-perception" pathLength="1" d="M105 150H236"/><path class="story-path path-intelligence" pathLength="1" d="M236 150H366"/><path class="story-path path-embedded" pathLength="1" d="M366 150H495"/><g class="story-node node-perception"><circle cx="105" cy="150" r="35"/><text x="105" y="154" text-anchor="middle">01</text></g><g class="story-node node-intelligence"><circle cx="300" cy="150" r="35"/><text x="300" y="154" text-anchor="middle">02</text></g><g class="story-node node-embedded"><circle cx="495" cy="150" r="35"/><text x="495" y="154" text-anchor="middle">03</text></g><circle class="story-packet" cx="105" cy="150" r="6"/></svg><p class="story-map-caption" data-story-caption>${escapeHtml(chapters[0].caption)}</p><div class="story-progress-rail" aria-hidden="true"><span data-story-progress-fill></span></div></aside><ol class="story-chapters">${chapters.map((chapter, index) => `<li class="story-chapter${index === 0 ? ' is-current' : ''}" data-story-step data-stage="${chapter.id}" data-story-state="${escapeHtml(chapter.state)}" data-story-caption="${escapeHtml(chapter.caption)}"><div class="story-chapter-copy"><span class="story-chapter-code">${chapter.code}</span><h3>${chapter.title}</h3><p>${chapter.body}</p><button type="button" class="story-chapter-link" data-discipline-filter="${escapeHtml(chapter.category)}">${chapter.action} <span aria-hidden="true">→</span></button></div></li>`).join('')}</ol></div></section>`;
+  return `<section class="scroll-story" aria-labelledby="story-title"><header class="story-intro"><span class="eyebrow">${isEnglish ? 'HOW I ENGINEER / A SIGNAL JOURNEY' : 'MÜHENDİSLİK YAKLAŞIMIM / SİNYAL YOLCULUĞU'}</span><h2 id="story-title">${isEnglish ? 'One signal. Three stages.' : 'Bir sinyal. Üç aşama.'}</h2><p>${isEnglish ? 'Scroll through how an idea moves from input to intelligence to the physical world.' : 'Bir fikrin girdiden yapay zekâya, oradan fiziksel dünyaya nasıl ilerlediğini kaydırarak keşfet.'}</p></header><div class="story-layout"><aside class="story-map-sticky live-pipeline-map"><div class="story-map-head"><span class="mono">AZO.OS / LIVE PIPELINE</span><span class="story-map-state" data-story-state>01 / ${isEnglish ? 'PERCEPTION' : 'ALGILAMA'}</span></div><svg class="story-map-svg story-map-svg--desktop" viewBox="0 0 600 300" role="img" aria-labelledby="story-map-title story-map-desc"><title id="story-map-title">${isEnglish ? 'Scroll-responsive engineering pipeline' : 'Kaydırmaya duyarlı mühendislik akışı'}</title><desc id="story-map-desc">${isEnglish ? 'Perception flows through intelligence into embedded output.' : 'Algılama, yapay zekâ üzerinden gömülü sistemlere akar.'}</desc><defs><pattern id="story-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#9bc2dc" stroke-opacity=".1"/></pattern></defs><rect width="600" height="300" rx="20" fill="#08111f"/><rect width="600" height="300" rx="20" fill="url(#story-grid)"/><path class="story-path path-perception" pathLength="1" d="M105 150H300"/><path class="story-path path-intelligence" pathLength="1" d="M300 150H495"/><g class="story-node node-perception"><circle cx="105" cy="150" r="35"/><text x="105" y="154" text-anchor="middle">01</text></g><g class="story-node node-intelligence"><circle cx="300" cy="150" r="35"/><text x="300" y="154" text-anchor="middle">02</text></g><g class="story-node node-embedded"><circle cx="495" cy="150" r="35"/><text x="495" y="154" text-anchor="middle">03</text></g><circle class="story-packet" data-story-packet cx="105" cy="150" r="6"/></svg><svg class="story-map-svg story-map-svg--mobile" viewBox="0 0 300 560" role="img" aria-label="${isEnglish ? 'Vertical engineering pipeline: perception, intelligence, embedded output' : 'Dikey mühendislik akışı: algılama, yapay zekâ, gömülü sistem'}"><defs><pattern id="story-grid-mobile" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#9bc2dc" stroke-opacity=".1"/></pattern></defs><rect width="300" height="560" rx="20" fill="#08111f"/><rect width="300" height="560" rx="20" fill="url(#story-grid-mobile)"/><path class="story-path path-perception" pathLength="1" d="M150 94V280"/><path class="story-path path-intelligence" pathLength="1" d="M150 280V466"/><g class="story-node node-perception"><circle cx="150" cy="94" r="38"/><text x="150" y="98" text-anchor="middle">01</text><text class="story-node-label" x="150" y="151" text-anchor="middle">${isEnglish ? 'PERCEPTION' : 'ALGILAMA'}</text></g><g class="story-node node-intelligence"><circle cx="150" cy="280" r="38"/><text x="150" y="284" text-anchor="middle">02</text><text class="story-node-label" x="150" y="337" text-anchor="middle">AI / DECISION</text></g><g class="story-node node-embedded"><circle cx="150" cy="466" r="38"/><text x="150" y="470" text-anchor="middle">03</text><text class="story-node-label" x="150" y="523" text-anchor="middle">${isEnglish ? 'EMBEDDED' : 'GÖMÜLÜ'}</text></g><circle class="story-packet" data-story-packet cx="150" cy="94" r="6"/></svg><p class="story-map-caption" data-story-caption>${escapeHtml(chapters[0].caption)}</p><div class="story-progress-rail" aria-hidden="true"><span data-story-progress-fill></span></div></aside><ol class="story-chapters">${chapters.map((chapter, index) => `<li class="story-chapter${index === 0 ? ' is-current' : ''}" data-story-step data-stage="${chapter.id}" data-story-state="${escapeHtml(chapter.state)}" data-story-caption="${escapeHtml(chapter.caption)}"><div class="story-chapter-copy"><span class="story-chapter-code">${chapter.code}</span><h3>${chapter.title}</h3><p>${chapter.body}</p><button type="button" class="story-chapter-link" data-discipline-filter="${escapeHtml(chapter.category)}">${chapter.action} <span aria-hidden="true">→</span></button></div></li>`).join('')}</ol></div></section>`;
 }
 
 function renderOverview() {
@@ -403,7 +404,51 @@ function observeStoryChapters() {
     if (current) setCurrentStep(current);
   }, { rootMargin: '-49% 0px -49% 0px', threshold: 0 });
   steps.forEach((step) => storyChapterObserver.observe(step));
+  updateStoryScrollProgress();
 }
+
+function updateStoryScrollProgress() {
+  if (storyScrollFrame) return;
+  storyScrollFrame = requestAnimationFrame(() => {
+    storyScrollFrame = 0;
+    const story = document.querySelector('.scroll-story');
+    if (!story) return;
+    const rect = story.getBoundingClientRect();
+    const intro = story.querySelector('.story-intro');
+    const start = rect.top + (intro?.offsetHeight ?? 0) + 24;
+    const range = Math.max(1, rect.height - (intro?.offsetHeight ?? 0) - window.innerHeight * .48);
+    const progress = Math.min(1, Math.max(0, (window.innerHeight * .48 - start) / range));
+    const stage = progress < .34 ? 'perception' : progress < .68 ? 'intelligence' : 'embedded';
+    document.querySelectorAll('.live-pipeline-map').forEach((visual) => {
+      visual.dataset.stage = stage;
+      visual.style.setProperty('--story-progress', progress.toFixed(4));
+    });
+    document.querySelectorAll('[data-story-packet]').forEach((packet) => {
+      const svg = packet.ownerSVGElement;
+      const mobile = svg.classList.contains('story-map-svg--mobile');
+      packet.setAttribute('cx', mobile ? '150' : String(105 + 390 * progress));
+      packet.setAttribute('cy', mobile ? String(94 + 372 * progress) : '150');
+    });
+    document.querySelectorAll('.story-path').forEach((path) => {
+      const segment = path.classList.contains('path-perception') ? 0 : 1;
+      path.style.strokeDashoffset = String(1 - Math.min(1, Math.max(0, progress * 2 - segment)));
+    });
+    const map = document.querySelector('[data-live-system-map]');
+    if (map) {
+      const points = [[19.7, 31.6], [50, 50], [79.7, 69.5], [50, 69.5], [19.7, 69.5]];
+      const scaled = progress * (points.length - 1);
+      const segment = Math.min(points.length - 2, Math.floor(scaled));
+      const fraction = scaled - segment;
+      const [fromX, fromY] = points[segment];
+      const [toX, toY] = points[segment + 1];
+      map.style.setProperty('--signal-x', `${fromX + (toX - fromX) * fraction}%`);
+      map.style.setProperty('--signal-y', `${fromY + (toY - fromY) * fraction}%`);
+    }
+  });
+}
+
+window.addEventListener('scroll', updateStoryScrollProgress, { passive: true });
+window.addEventListener('resize', updateStoryScrollProgress);
 
 function observeScrollReveals() {
   const elements = [...document.querySelectorAll(

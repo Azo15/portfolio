@@ -340,9 +340,11 @@
 .live-pipeline-map[data-stage="perception"] .node-perception text,
 .live-pipeline-map[data-stage="intelligence"] .node-intelligence text,
 .live-pipeline-map[data-stage="embedded"] .node-embedded text { fill: #e5f6ff; }
-.story-packet { fill: #e7fdff; stroke: #00f0ff; stroke-width: 2; filter: drop-shadow(0 0 7px rgba(0,240,255,.9)); transition: transform 420ms var(--ease),fill 280ms ease,stroke 280ms ease; }
-.live-pipeline-map[data-stage="intelligence"] .story-packet { transform: translateX(195px); fill: #d9d3ff; stroke: #a18cff; filter: drop-shadow(0 0 7px rgba(139,124,255,.9)); }
-.live-pipeline-map[data-stage="embedded"] .story-packet { transform: translateX(390px); fill: #c8ffe7; stroke: #34d399; filter: drop-shadow(0 0 7px rgba(16,185,129,.9)); }
+.story-packet { fill: #e7fdff; stroke: #00f0ff; stroke-width: 2; filter: drop-shadow(0 0 7px rgba(0,240,255,.9)); transition: fill 280ms ease,stroke 280ms ease; }
+.live-pipeline-map[data-stage="intelligence"] .story-packet { fill: #d9d3ff; stroke: #a18cff; filter: drop-shadow(0 0 7px rgba(139,124,255,.9)); }
+.live-pipeline-map[data-stage="embedded"] .story-packet { fill: #c8ffe7; stroke: #34d399; filter: drop-shadow(0 0 7px rgba(16,185,129,.9)); }
+.story-map-svg--mobile { display: none; }
+.story-node .story-node-label { fill: #93a8bc; font: 600 10px var(--font-mono); letter-spacing: .08em; }
 .story-map-caption { min-height: 38px; margin: 2px 4px 10px; color: #b3c2d3; font: 10px/1.65 var(--font-mono); text-align: center; }
 .story-progress-rail { height: 3px; overflow: hidden; background: rgba(148,163,184,.13); border-radius: 99px; }
 .story-progress-rail span { display: block; width: 100%; height: 100%; background: linear-gradient(90deg,var(--cyan),var(--violet),var(--emerald)); transform: scaleX(var(--story-progress,0)); transform-origin: left; transition: transform 380ms var(--ease); }
@@ -361,9 +363,7 @@
 .system-map .node-perception { top: 31.6%; left: 19.7%; }
 .system-map .node-ai { top: 69.5%; left: 80.3%; }
 .system-map .node-embedded { top: 69.5%; left: 19.7%; }
-.system-map-cursor { position: absolute; z-index: 3; top: 31.6%; left: 19.7%; width: 14px; height: 14px; background: rgba(0,240,255,.18); border: 2px solid #9afaff; border-radius: 50%; box-shadow: 0 0 14px rgba(0,240,255,.82),inset 0 0 5px rgba(0,240,255,.55); transform: translate(-50%,-50%); transition: left 520ms var(--ease),top 520ms var(--ease),background 240ms ease,border-color 240ms ease; }
-.system-map[data-stage="intelligence"] .system-map-cursor { top: 69.5%; left: 80.3%; background: rgba(139,124,255,.24); border-color: #c8beff; box-shadow: 0 0 14px rgba(139,124,255,.82),inset 0 0 5px rgba(139,124,255,.55); }
-.system-map[data-stage="embedded"] .system-map-cursor { top: 69.5%; left: 19.7%; background: rgba(16,185,129,.22); border-color: #a7f3d0; box-shadow: 0 0 14px rgba(16,185,129,.82),inset 0 0 5px rgba(16,185,129,.55); }
+.system-map-cursor { position: absolute; z-index: 3; top: var(--signal-y,31.6%); left: var(--signal-x,19.7%); width: 14px; height: 14px; background: rgba(0,240,255,.18); border: 2px solid #9afaff; border-radius: 50%; box-shadow: 0 0 14px rgba(0,240,255,.82),inset 0 0 5px rgba(0,240,255,.55); transform: translate(-50%,-50%); transition: top 80ms linear,left 80ms linear,background 240ms ease,border-color 240ms ease; }
 .system-map[data-stage="perception"] .node-perception,.system-map[data-stage="intelligence"] .node-ai,.system-map[data-stage="embedded"] .node-embedded { background: var(--cyan); border-color: #d5ffff; box-shadow: 0 0 14px rgba(0,240,255,.72); }
 .system-map[data-stage="intelligence"] .node-ai { background: #9c8cff; border-color: #eee9ff; box-shadow: 0 0 14px rgba(139,124,255,.75); }
 .system-map[data-stage="embedded"] .node-embedded { background: #34d399; border-color: #d1fae5; box-shadow: 0 0 14px rgba(16,185,129,.78); }
@@ -386,6 +386,9 @@
   .story-map-head { padding-bottom: 8px; }
   .story-map-head .mono, .story-map-state { font-size: 8px; }
   .story-map-svg { max-height: 190px; margin: 5px 0 1px; }
+  .story-map-svg--desktop { display: none; }
+  .story-map-svg--mobile { display: block; width: min(100%,190px); max-height: none; margin: 5px auto 1px; }
+  .story-node .story-node-label { font-size: 10px; }
   .story-map-caption { min-height: 30px; margin-bottom: 7px; font-size: 9px; }
   .story-chapter { min-height: 44vh; padding: 28px 4px; }
   .story-chapter h3 { margin-top: 11px; font-size: 25px; }
