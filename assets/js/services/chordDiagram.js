@@ -34,7 +34,7 @@ export function renderSignalNetwork(projects, isEnglish, escapeHtml) {
   };
   return `<div class="signal-network chord-network" data-network-scene>
     <div class="chord-legend"><span>${isEnglish ? 'Selected projects' : 'Seçili projeler'}</span><span>${isEnglish ? 'Technologies' : 'Teknolojiler'}</span></div>
-    <svg viewBox="0 0 500 450" role="group" aria-label="${isEnglish ? 'Project and technology relationships' : 'Proje ve teknoloji ilişkileri'}">
+    <svg viewBox="-32 -24 564 498" role="group" aria-label="${isEnglish ? 'Project and technology relationships' : 'Proje ve teknoloji ilişkileri'}">
       <circle class="chord-guide" cx="250" cy="225" r="140"/>
       <g aria-hidden="true">${connections.join('')}<circle class="chord-signal" r="3" hidden/></g>
       ${cases.map((node) => renderNode(node, true)).join('')}
@@ -43,3 +43,4 @@ export function renderSignalNetwork(projects, isEnglish, escapeHtml) {
     <p class="chord-detail" aria-hidden="true">${isEnglish ? 'Select an arc to explore' : 'Keşfetmek için bir yay seç'}</p>
   </div>`;
 }
+
