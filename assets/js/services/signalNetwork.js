@@ -20,6 +20,42 @@ export function bindSignalNetwork() {
     scene.style.setProperty('--tilt-y', '0deg');
   };
 
+  const nodes = [...scene.querySelectorAll('[data-chord-node]')];
+  const edges = [...scene.querySelectorAll('.chord-edge')];
+  const detail = scene.querySelector('.chord-detail');
+  const hint = detail.textContent;
+
+  const highlight = (node) => {
+    const key = node?.dataset.chordNode;
+    const related = new Set(key ? [key] : []);
+    for (const edge of edges) {
+      const { from, to } = edge.dataset;
+      const matches = from === key || to === key;
+      edge.classList.toggle('is-related', matches);
+      if (matches) {
+        related.add(from);
+        related.add(to);
+      }
+    }
+    for (const item of nodes) {
+      item.classList.toggle('is-related', related.has(item.dataset.chordNode));
+    }
+    scene.classList.toggle('is-exploring', Boolean(node));
+    detail.textContent = node?.getAttribute('aria-label') || hint;
+  };
+
+  for (const node of nodes) {
+    node.addEventListener('pointerenter', () => highlight(node));
+    node.addEventListener('pointerleave', () => highlight(nodes.find((item) => item.matches(':focus-visible'))));
+    node.addEventListener('focus', () => highlight(node));
+    node.addEventListener('blur', () => highlight(null));
+    node.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      node.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+  }
+
   scene.addEventListener('pointermove', onPointerMove, { passive: true });
   scene.addEventListener('pointerleave', resetPointer, { passive: true });
 }
@@ -27,12 +63,15 @@ export function bindSignalNetwork() {
 export function updateSignalNetworkProgress(progress) {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const network = document.querySelector('[data-network-scene]');
-  const signal = network?.querySelector('[data-network-signal]');
-  if (!network || !signal) return;
+  const signal = network?.querySelector('.chord-signal');
+  const edges = network?.querySelectorAll('.chord-edge');
+  if (!signal || !edges?.length) return;
 
-  const point = progress < .5
-    ? { x: 145 + (340 - 145) * progress * 2, y: 120 + (240 - 120) * progress * 2 }
-    : { x: 340 + (145 - 340) * (progress - .5) * 2, y: 240 + (360 - 240) * (progress - .5) * 2 };
+  const position = Math.max(0, Math.min(1, progress)) * edges.length;
+  const index = Math.min(edges.length - 1, Math.floor(position));
+  const edge = edges[index];
+  const point = edge.getPointAtLength(edge.getTotalLength() * (position - index));
+  signal.removeAttribute('hidden');
   signal.setAttribute('cx', point.x.toFixed(1));
   signal.setAttribute('cy', point.y.toFixed(1));
 }
