@@ -5,7 +5,7 @@ import { resume } from './data/resume.js?v=20261103-dock-radar';
 import { articles, articlesProfileUrl } from './data/articles.js?v=20261103-dock-radar';
 import { getGitHubStats } from './services/githubService.js?v=20261105-project-route';
 import { bindContactForm, showToast } from './services/contactService.js?v=20261103-dock-radar';
-import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signalNetwork.js?v=20261124-network';
+import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signalNetwork.js?v=20261124-chord-network';
 
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
