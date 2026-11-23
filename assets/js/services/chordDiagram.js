@@ -27,9 +27,9 @@ export function renderSignalNetwork(projects, isEnglish, escapeHtml) {
     <div class="chord-legend"><span>${isEnglish ? 'Selected projects' : 'Seçili projeler'}</span><span>${isEnglish ? 'Technologies' : 'Teknolojiler'}</span></div>
     <div class="circuit-board">
       <div class="circuit-rail">${cases.map((node) => renderNode(node, 'data-open-case')).join('')}</div>
-      <svg viewBox="0 0 240 400" preserveAspectRatio="none" aria-hidden="true">
+      <div class="circuit-wiring"><svg viewBox="0 0 240 400" preserveAspectRatio="none" aria-hidden="true">
         ${connections.join('')}<circle class="chord-signal" r="4" hidden/>
-      </svg>
+      </svg></div>
       <div class="circuit-rail">${tools.map((node) => renderNode(node, 'data-tech-query')).join('')}</div>
     </div>
     <p class="chord-detail" aria-hidden="true">${isEnglish ? 'Select a project or technology to explore' : 'Keşfetmek için bir proje veya teknoloji seç'}</p>
