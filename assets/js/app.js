@@ -552,7 +552,7 @@ async function updateGitHubTelemetry(refresh = false) {
 }
 
 document.addEventListener('click', (event) => {
-  const target = event.target.closest('button, a, [data-card-case], [data-case-overlay], [data-palette-overlay]');
+  const target = event.target.closest('button, a, [data-chord-node], [data-card-case], [data-case-overlay], [data-palette-overlay]');
   if (!target) return;
 
   if (target.matches('[data-view-target]')) { event.preventDefault(); navigate(target.dataset.viewTarget); return; }
