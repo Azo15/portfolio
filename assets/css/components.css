@@ -245,7 +245,7 @@
 .hero-live i { width: 6px; height: 6px; background: var(--emerald); border-radius: 50%; box-shadow: 0 0 10px rgba(16,185,129,.7); }
 .system-map { position: relative; width: 100%; max-width: 540px; margin: 4px auto 0; }
 .system-map img { display: block; width: 100%; height: auto; }
-.system-map-label { position: absolute; display: grid; width: 16%; height: 14%; place-items: center; color: #b3c6d8; font: 7px/1.35 var(--font-mono); letter-spacing: .025em; text-align: center; white-space: nowrap; }
+.system-map-label { position: absolute; z-index: 2; display: grid; width: 16%; height: 14%; padding: 2px 4px; place-items: center; color: #c5d5e5; background: rgba(7,16,30,.94); border: 1px solid rgba(0,240,255,.3); border-radius: 7px; box-shadow: 0 4px 12px rgba(0,0,0,.28); font: 600 clamp(6px,.72vw,8px)/1.2 var(--font-mono); letter-spacing: .015em; text-align: center; white-space: normal; overflow-wrap: anywhere; }
 .map-label-vision { top: 24.5%; left: 11.9%; }
 .map-label-ai { top: 62.5%; left: 72.5%; }
 .map-label-embedded { top: 62.5%; left: 11.9%; }
