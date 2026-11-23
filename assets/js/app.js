@@ -4,6 +4,7 @@ import { resume } from './data/resume.js?v=20261103-dock-radar';
 import { articles, articlesProfileUrl } from './data/articles.js?v=20261103-dock-radar';
 import { getGitHubStats } from './services/githubService.js?v=20261105-project-route';
 import { bindContactForm, showToast } from './services/contactService.js?v=20261103-dock-radar';
+import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signalNetwork.js?v=20261124-network';
 
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
@@ -232,6 +233,7 @@ function renderOverview() {
     return `<button class="tech-chip${isSelected ? ' is-active' : ''}" type="button" data-tech-query="${escapeHtml(item)}"><span>${escapeHtml(item)}</span></button>`;
   }).join('')}</div></section>`).join('')}</div>`;
   renderTelemetryDashboard(githubTelemetry);
+  bindSignalNetwork();
 }
 
 function renderProjects() {
@@ -460,6 +462,7 @@ function updateStoryScrollProgress() {
       const segment = path.classList.contains('path-perception') ? 0 : 1;
       path.style.strokeDashoffset = String(1 - Math.min(1, Math.max(0, progress * 2 - segment)));
     });
+    updateSignalNetworkProgress(progress);
   });
 }
 
