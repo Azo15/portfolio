@@ -345,6 +345,7 @@
 .live-pipeline-map[data-stage="embedded"] .story-packet { fill: #c8ffe7; stroke: #34d399; filter: drop-shadow(0 0 7px rgba(16,185,129,.9)); }
 .story-map-svg--mobile { display: none; }
 .story-node .story-node-label { fill: #93a8bc; font: 600 10px var(--font-mono); letter-spacing: .08em; }
+.story-flow-arrow { fill: #47dce6; stroke: #08111f; stroke-width: 5px; paint-order: stroke; font: 700 18px var(--font-mono); }
 .story-map-caption { min-height: 38px; margin: 2px 4px 10px; color: #b3c2d3; font: 10px/1.65 var(--font-mono); text-align: center; }
 .story-progress-rail { height: 3px; overflow: hidden; background: rgba(148,163,184,.13); border-radius: 99px; }
 .story-progress-rail span { display: block; width: 100%; height: 100%; background: linear-gradient(90deg,var(--cyan),var(--violet),var(--emerald)); transform: scaleX(var(--story-progress,0)); transform-origin: left; transition: transform 380ms var(--ease); }
@@ -388,9 +389,10 @@
   .story-map-svg { max-height: 190px; margin: 5px 0 1px; }
   .story-map-svg--desktop { display: none; }
   .story-map-svg--mobile { display: block; width: min(100%,190px); max-height: none; margin: 5px auto 1px; }
-  .story-node .story-node-label { font-size: 10px; }
+  .story-node .story-node-label { fill: #c1d0e0; font-size: 10px; stroke: #08111f; stroke-width: 6px; stroke-linejoin: round; paint-order: stroke; }
+  .story-flow-arrow { font-size: 20px; }
   .story-map-caption { min-height: 30px; margin-bottom: 7px; font-size: 9px; }
-  .story-chapter { min-height: 44vh; padding: 28px 4px; }
+  .story-chapter { min-height: clamp(230px,36vh,310px); padding: 24px 4px; }
   .story-chapter h3 { margin-top: 11px; font-size: 25px; }
   .story-chapter p { font-size: 12px; }
 }
