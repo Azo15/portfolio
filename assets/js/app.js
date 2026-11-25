@@ -9,6 +9,17 @@ import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signa
 
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
+const liveDemos = new Map([
+  ['software-health-technical-debt-analyzer', 'https://azo-analyzer-demo.onrender.com/#scan=demo'],
+  ['laravel-library-management-system', 'https://azo-library-demo.onrender.com/']
+]);
+
+function renderDemoLink(project, className = 'project-action') {
+  const url = liveDemos.get(project.id);
+  if (!url) return '';
+  return `<a class="${className}" href="${url}" target="_blank" rel="noopener noreferrer">${language === 'tr' ? 'Demoyu aç' : 'Open demo'} ↗</a>`;
+}
+
 const featuredRouteOrder = ['software-health-technical-debt-analyzer', 'smart-driver-monitoring-system', 'coin-detection-currency-prototype', 'hospital-ai-no-show-risk-analysis', 'omnibrain-ai-assistant', 'laravel-library-management-system'];
 const viewLabels = { overview: 'Overview', projects: 'Projects', resume: 'Resume', articles: 'Articles', contact: 'Contact' };
 const blueprintColors = { 'AI & Computer Vision': '#00f0ff', 'Embedded & Robotics': '#10b981', 'Web & Full-Stack': '#8b5cf6', 'Automation & Systems': '#38bdf8' };
@@ -129,7 +140,7 @@ function projectCard(project) {
       <p class="project-area">${escapeHtml(project.area)}</p>
       <p class="project-description">${escapeHtml(description)}</p>
       <div class="project-tags">${project.technologies.map((technology) => `<button class="project-tag" type="button" data-tech-query="${escapeHtml(technology)}" title="Filter by ${escapeHtml(technology)}">${escapeHtml(technology)}</button>`).join('')}</div>
-      <div class="project-actions"><button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}">Inspect / Architecture</button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${privateCase ? 'Profile ↗' : 'GitHub ↗'}</a></div>
+      <div class="project-actions">${renderDemoLink(project)}<button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}">Inspect / Architecture</button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${privateCase ? 'Profile ↗' : 'GitHub ↗'}</a></div>
     </div>
   </article>`;
 }
@@ -138,7 +149,7 @@ function featuredRouteItem(project, index) {
   const accent = blueprintColors[project.category] ?? '#00f0ff';
   const description = language === 'en' ? project.descriptionEn : project.description;
   const pipeline = project.pipeline ?? [];
-  return `<li class="route-stop" style="--route-accent:${accent}"><div class="route-marker" aria-hidden="true"><span>${String(index + 1).padStart(2, '0')}</span></div><article class="route-case"><div class="route-case-top"><span class="route-code">${escapeHtml(project.code)} / ${escapeHtml(project.category.toUpperCase())}</span><span class="route-status">${project.visibility === 'Public' ? (language === 'tr' ? 'AÇIK DEPO' : 'PUBLIC REPO') : (language === 'tr' ? 'VAKA İNCELEMESİ' : 'CASE STUDY')}</span></div><div class="route-case-main"><div class="route-case-copy"><h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(description)}</p></div><div class="route-pipeline" aria-label="${language === 'tr' ? 'Mimari akış' : 'Architecture flow'}">${pipeline.map((step, stepIndex) => `<span class="route-pipeline-step"><i>${String(stepIndex + 1).padStart(2, '0')}</i>${escapeHtml(step)}</span>`).join('<span class="route-pipeline-arrow" aria-hidden="true">→</span>')}</div></div><div class="route-case-footer"><div class="route-tech-tags" aria-label="${language === 'tr' ? 'Teknoloji etiketleri, seçerek katalogda ara' : 'Technology tags, select to search catalog'}">${project.technologies.slice(0, 4).map((item) => `<button type="button" data-tech-query="${escapeHtml(item)}" aria-label="${language === 'tr' ? 'Teknolojiye göre ara: ' : 'Search by technology: '}${escapeHtml(item)}">${escapeHtml(item)}</button>`).join('')}</div><div class="route-actions"><button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}" aria-label="${language === 'tr' ? 'Mimari vaka dosyasını aç: ' : 'Inspect architecture case: '}${escapeHtml(project.title)}">${language === 'tr' ? 'Vaka dosyasını aç' : 'Inspect case'} <span aria-hidden="true">→</span></button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${project.visibility === 'Public' ? 'GitHub ↗' : (language === 'tr' ? 'Profil ↗' : 'Profile ↗')}</a></div></div></article></li>`;
+  return `<li class="route-stop" style="--route-accent:${accent}"><div class="route-marker" aria-hidden="true"><span>${String(index + 1).padStart(2, '0')}</span></div><article class="route-case"><div class="route-case-top"><span class="route-code">${escapeHtml(project.code)} / ${escapeHtml(project.category.toUpperCase())}</span><span class="route-status">${project.visibility === 'Public' ? (language === 'tr' ? 'AÇIK DEPO' : 'PUBLIC REPO') : (language === 'tr' ? 'VAKA İNCELEMESİ' : 'CASE STUDY')}</span></div><div class="route-case-main"><div class="route-case-copy"><h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(description)}</p></div><div class="route-pipeline" aria-label="${language === 'tr' ? 'Mimari akış' : 'Architecture flow'}">${pipeline.map((step, stepIndex) => `<span class="route-pipeline-step"><i>${String(stepIndex + 1).padStart(2, '0')}</i>${escapeHtml(step)}</span>`).join('<span class="route-pipeline-arrow" aria-hidden="true">→</span>')}</div></div><div class="route-case-footer"><div class="route-tech-tags" aria-label="${language === 'tr' ? 'Teknoloji etiketleri, seçerek katalogda ara' : 'Technology tags, select to search catalog'}">${project.technologies.slice(0, 4).map((item) => `<button type="button" data-tech-query="${escapeHtml(item)}" aria-label="${language === 'tr' ? 'Teknolojiye göre ara: ' : 'Search by technology: '}${escapeHtml(item)}">${escapeHtml(item)}</button>`).join('')}</div><div class="route-actions">${renderDemoLink(project)}<button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}" aria-label="${language === 'tr' ? 'Mimari vaka dosyasını aç: ' : 'Inspect architecture case: '}${escapeHtml(project.title)}">${language === 'tr' ? 'Vaka dosyasını aç' : 'Inspect case'} <span aria-hidden="true">→</span></button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${project.visibility === 'Public' ? 'GitHub ↗' : (language === 'tr' ? 'Profil ↗' : 'Profile ↗')}</a></div></div></article></li>`;
 }
 
 function renderTelemetryDashboard(data) {
@@ -210,6 +221,11 @@ function renderOverview() {
       ${renderSignalNetwork(projects, isEnglish, escapeHtml)}
     </div>
   </header>
+  <section class="glass-panel case-section" aria-labelledby="live-demos-title">
+    <h2 id="live-demos-title">${isEnglish ? 'Live project demos' : 'Canlı proje demoları'}</h2>
+    <p>${isEnglish ? 'Explore the original apps in read-only mode.' : 'Özgün uygulamaları salt okunur modda keşfet.'}</p>
+    ${[...liveDemos.keys()].map((id) => projects.find((item) => item.id === id)).filter(Boolean).map((project) => `<div class="button-row"><h3>${escapeHtml(project.title)}</h3>${renderDemoLink(project, 'button')}</div>`).join('')}
+  </section>
   ${renderScrollStory(isEnglish)}
   <section class="telemetry-dashboard" aria-labelledby="telemetry-title"><div class="telemetry-heading"><div><span class="eyebrow">${isEnglish ? 'PUBLIC SIGNAL / LIVE DATA' : 'AÇIK SİNYAL / CANLI VERİ'}</span><h2 id="telemetry-title">${isEnglish ? 'Engineering at a glance' : 'Mühendisliğe genel bakış'}</h2></div><span class="telemetry-source"><i></i> ${isEnglish ? 'GITHUB + CASE STUDIES' : 'GITHUB + VAKA DOSYALARI'}</span></div><div class="telemetry-metrics" data-live-metrics></div><div class="insight-grid"><section class="insight-panel project-mix-panel"><div class="insight-panel-heading"><div><span class="mono">01 / PORTFOLIO MIX</span><h3>${isEnglish ? 'Where I build' : 'Çalışma alanlarım'}</h3></div><span class="insight-caption">${isEnglish ? 'AUDITED PROJECTS' : 'İNCELENEN PROJELER'}</span></div><div class="project-mix" data-project-mix></div></section><section class="insight-panel language-panel"><div class="insight-panel-heading"><div><span class="mono">02 / GITHUB SIGNAL</span><h3>${isEnglish ? 'Languages in public repos' : 'Açık depolardaki diller'}</h3></div><span class="insight-caption">${isEnglish ? 'BY REPOSITORY' : 'DEPO SAYISINA GÖRE'}</span></div><div class="language-bars" data-language-bars><p class="telemetry-empty">${isEnglish ? 'Connecting to GitHub…' : 'GitHub’a bağlanılıyor…'}</p></div></section></div></section>
   <div class="section-heading"><h2>Engineering disciplines</h2><span>01—04 / SYSTEMS MAP</span></div>
@@ -504,7 +520,7 @@ function openCase(projectId) {
   const repoTelemetryLine = repoMeta
     ? `<p class="mono" style="margin-bottom:10px">LIVE TELEMETRY · Language: ${escapeHtml(repoMeta.language || 'Multi-language')} · Stars: ★ ${repoMeta.stars} · Forks: ${repoMeta.forks}</p>`
     : '';
-  document.querySelector('[data-case-body]').innerHTML = `${pipeline}<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<button class="project-tag" type="button" data-tech-query="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3>${repoTelemetryLine}<p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
+  document.querySelector('[data-case-body]').innerHTML = `${renderDemoLink(project, 'button')}${pipeline}<section class="case-section"><h3>Problem / engineering goal</h3><p>${escapeHtml(problem)}</p></section><section class="case-section"><h3>Architecture / documented approach</h3><p>${escapeHtml(architecture)}</p></section><section class="case-section"><h3>Technology stack</h3><div class="project-tags">${project.technologies.map((tag) => `<button class="project-tag" type="button" data-tech-query="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}</div></section><section class="case-section"><h3>Repository access</h3>${repoTelemetryLine}<p>${project.visibility === 'Public' ? 'Public repository.' : 'Private repository; this portfolio links to the GitHub profile without exposing the private source URL.'}</p><a class="button ghost" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel)} ↗</a></section>`;
   applyLanguage();
   const overlay = document.querySelector('[data-case-overlay]');
   overlay.hidden = false;
