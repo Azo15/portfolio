@@ -171,7 +171,7 @@ export function bindSignalNetwork() {
     node.addEventListener('keydown', (event) => {
       if (event.key !== 'Enter' && event.key !== ' ') return;
       event.preventDefault();
-      node.click();
+      node.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
   }
 
@@ -260,12 +260,16 @@ export function bindSignalNetwork() {
     if (reduceMotion.matches || !document.body.contains(scene)) return;
     phase = (phase + 0.012) % 1;
     const activeEdges = edges.filter((e) => e.classList.contains('is-related'));
-    const pool = activeEdges.length ? activeEdges : edges;
+    const pool = activeNode ? activeEdges : edges;
+    const reverse = activeNode?.dataset.nodeKind === 'tech';
+    const travel = (fraction) => reverse ? 1 - fraction : fraction;
+    primarySignal?.toggleAttribute('hidden', !pool.length);
+    secondarySignal?.toggleAttribute('hidden', pool.length < 2);
 
     if (pool.length && primarySignal) {
       const e1 = pool[Math.floor((phase * pool.length)) % pool.length];
       const len1 = e1.getTotalLength();
-      const pt1 = e1.getPointAtLength(len1 * ((phase * 2) % 1));
+      const pt1 = e1.getPointAtLength(len1 * travel((phase * 2) % 1));
       primarySignal.removeAttribute('hidden');
       primarySignal.setAttribute('cx', pt1.x.toFixed(1));
       primarySignal.setAttribute('cy', pt1.y.toFixed(1));
@@ -274,7 +278,7 @@ export function bindSignalNetwork() {
     if (pool.length > 1 && secondarySignal) {
       const e2 = pool[(Math.floor(phase * pool.length) + 1) % pool.length];
       const len2 = e2.getTotalLength();
-      const pt2 = e2.getPointAtLength(len2 * (1 - ((phase * 1.7) % 1)));
+      const pt2 = e2.getPointAtLength(len2 * travel((phase * 1.7) % 1));
       secondarySignal.removeAttribute('hidden');
       secondarySignal.setAttribute('cx', pt2.x.toFixed(1));
       secondarySignal.setAttribute('cy', pt2.y.toFixed(1));
