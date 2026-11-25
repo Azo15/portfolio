@@ -195,6 +195,7 @@ function renderDemoShowcase(isEnglish) {
   ];
   return `<section class="demo-showcase" aria-labelledby="demo-showcase-title">
     <h2 id="demo-showcase-title">${isEnglish ? 'Try the projects' : 'Projeleri dene'}</h2>
+    <p>${isEnglish ? 'Interactive browser demos with sample data. Demo screens are in Turkish.' : 'Örnek verilerle çalışan etkileşimli tarayıcı demoları.'}</p>
     ${demos.map(({ title, page }) => `<article class="demo-showcase-item">
       <div class="demo-showcase-heading"><h3>${title}</h3><a class="button" href="./demos/${page}.html">${isEnglish ? 'Open demo' : 'Demoyu aç'} ↗</a></div>
       <iframe src="./demos/${page}.html?embed=1" title="${title} demo" loading="lazy"></iframe>
