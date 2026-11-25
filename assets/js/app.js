@@ -109,6 +109,7 @@ function getRepoTelemetry(project) {
 }
 
 const projectCovers = new Map([
+  ['hospital-ai-no-show-risk-analysis', 'hospital-no-show.jpg'],
   ['coin-detection-currency-prototype', 'coin-detection.svg'],
   ['software-health-technical-debt-analyzer', 'analyzer.jpg'],
   ['laravel-library-management-system', 'library.jpg'],
