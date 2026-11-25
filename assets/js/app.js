@@ -10,6 +10,7 @@ import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signa
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
 const liveDemos = new Map([
+  ['hospital-ai-no-show-risk-analysis', './demos/hospital-no-show/'],
   ['coin-detection-currency-prototype', 'https://azo-coin-demo.onrender.com/'],
   ['software-health-technical-debt-analyzer', 'https://azo-analyzer-demo.onrender.com/'],
   ['laravel-library-management-system', 'https://azo-library-demo.onrender.com/']
