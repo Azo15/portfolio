@@ -69,15 +69,26 @@ export function renderSignalNetwork(projects, isEnglish, escapeHtml) {
   const techSector = new Map();
   for (const project of selectedProjects) {
     const sectorName = PRIMARY_SECTOR_OVERRIDE[project.id] || project.category;
-    for (const tech of project.technologies.slice(0, 5)) {
+    for (const tech of new Set(project.technologies)) {
       techFreq.set(tech, (techFreq.get(tech) || 0) + 1);
       if (!techSector.has(tech)) techSector.set(tech, sectorName);
     }
   }
 
-  const topTechs = [...techFreq.entries()]
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
+  const rankedTechs = [...techFreq.entries()].sort((a, b) => b[1] - a[1]);
+  const visibleTechs = new Set();
+  for (const project of selectedProjects) {
+    if (project.technologies.some((tech) => visibleTechs.has(tech))) continue;
+    const match = rankedTechs.find(([tech]) => project.technologies.includes(tech));
+    if (match) visibleTechs.add(match[0]);
+  }
+  for (const [tech] of rankedTechs) {
+    if (visibleTechs.size >= 10) break;
+    visibleTechs.add(tech);
+  }
+
+  const topTechs = rankedTechs
+    .filter(([name]) => visibleTechs.has(name))
     .map(([name, count]) => ({
       name,
       count,
@@ -160,7 +171,7 @@ export function renderSignalNetwork(projects, isEnglish, escapeHtml) {
       : (isEnglish
           ? `Core technology node connected across ${node.item.count} flagship systems in the Azo.OS architecture.`
           : `Azo.OS mimarisindeki ${node.item.count} amiral gemisi sistemde aktif görev yapan çekirdek teknoloji düğümü.`);
-    const pipelineStr = isProject && node.item.pipeline ? node.item.pipeline.join(' → ') : (isProject ? node.item.technologies.join(' · ') : '');
+    const technologyList = isProject ? node.item.technologies.join(' · ') : '';
 
     const d = arcPath(node.start, node.end, node.radius);
     const [dotX, dotY] = polar(node.angle, innerR);
@@ -185,7 +196,7 @@ export function renderSignalNetwork(projects, isEnglish, escapeHtml) {
       data-node-title="${escapeHtml(fullTitle)}"
       data-node-code="${escapeHtml(sector.code)}"
       data-node-summary="${escapeHtml(summary)}"
-      data-node-pipeline="${escapeHtml(pipelineStr)}"
+      data-node-pipeline="${escapeHtml(technologyList)}"
       data-node-color="${sector.color}"
       ${actionAttr}
       style="--arc:${sector.color}">
