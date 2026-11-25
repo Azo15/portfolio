@@ -108,7 +108,7 @@ function getRepoTelemetry(project) {
 }
 
 const projectCovers = new Map([
-  ['coin-detection-currency-prototype', 'coin-detection.jpg'],
+  ['coin-detection-currency-prototype', 'coin-detection.svg'],
   ['software-health-technical-debt-analyzer', 'analyzer.jpg'],
   ['laravel-library-management-system', 'library.jpg'],
   ['yolarkada-vehicle-rental', 'yolarkadasi.jpg'],
