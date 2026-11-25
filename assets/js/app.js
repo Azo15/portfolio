@@ -10,6 +10,7 @@ import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signa
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
 const liveDemos = new Map([
+  ['coin-detection-currency-prototype', 'https://azo-coin-demo.onrender.com/'],
   ['software-health-technical-debt-analyzer', 'https://azo-analyzer-demo.onrender.com/'],
   ['laravel-library-management-system', 'https://azo-library-demo.onrender.com/']
 ]);
@@ -107,6 +108,7 @@ function getRepoTelemetry(project) {
 }
 
 const projectCovers = new Map([
+  ['coin-detection-currency-prototype', 'coin-detection.jpg'],
   ['software-health-technical-debt-analyzer', 'analyzer.jpg'],
   ['laravel-library-management-system', 'library.jpg'],
   ['yolarkada-vehicle-rental', 'yolarkadasi.jpg'],
