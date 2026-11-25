@@ -2,7 +2,6 @@ const SECTOR_CONFIG = {
   'AI & Computer Vision': {
     id: 'ai',
     code: '01 / AI & VISION',
-    shortCode: '01 / AI',
     labelEn: 'AI & COMPUTER VISION',
     labelTr: 'YAPAY ZEKÂ & GÖRÜNTÜ İŞLEME',
     color: '#00f0ff'
@@ -10,7 +9,6 @@ const SECTOR_CONFIG = {
   'Embedded & Robotics': {
     id: 'embedded',
     code: '02 / SILICON & IOT',
-    shortCode: '02 / EMB',
     labelEn: 'EMBEDDED & ROBOTICS',
     labelTr: 'GÖMÜLÜ SİSTEMLER & ROBOTİK',
     color: '#10b981'
@@ -18,7 +16,6 @@ const SECTOR_CONFIG = {
   'Web & Full-Stack': {
     id: 'web',
     code: '03 / FULL-STACK',
-    shortCode: '03 / WEB',
     labelEn: 'WEB & BACKEND ARCHITECTURE',
     labelTr: 'WEB & BACKEND MİMARİSİ',
     color: '#8b5cf6'
@@ -26,7 +23,6 @@ const SECTOR_CONFIG = {
   'Automation & Systems': {
     id: 'auto',
     code: '04 / AUTOMATION',
-    shortCode: '04 / SYS',
     labelEn: 'AUTOMATION & WORKFLOWS',
     labelTr: 'OTOMASYON & SİSTEM ARAÇLARI',
     color: '#f59e0b'
@@ -159,7 +155,6 @@ export function renderSignalNetwork(projects, isEnglish, escapeHtml) {
     const sector = SECTOR_CONFIG[sectorName] || SECTOR_CONFIG['AI & Computer Vision'];
     const fullTitle = isProject ? node.item.title : node.item.name;
     const shortTitle = isProject ? (SHORT_NAMES[node.item.id] || fullTitle.slice(0, 18)) : fullTitle;
-    const codeTag = isProject ? `SYS_${String(Number(node.key.slice(1)) + 1).padStart(2, '0')} // ${sector.shortCode}` : `TECH // ${sector.shortCode}`;
     const summary = isProject
       ? (isEnglish ? node.item.descriptionEn : node.item.description)
       : (isEnglish
@@ -203,7 +198,6 @@ export function renderSignalNetwork(projects, isEnglish, escapeHtml) {
       <circle class="chord-leader-joint" cx="${elbowX.toFixed(1)}" cy="${elbowY.toFixed(1)}" r="2.3"/>
       <rect class="chord-label-pill" x="${badgeX.toFixed(1)}" y="${(labelY - badgeHeight / 2).toFixed(1)}" width="${badgeWidth.toFixed(1)}" height="${badgeHeight}" rx="8"/>
       <text class="chord-label-text" x="${(isLeft ? labelX - 12 : labelX + 12).toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${isLeft ? 'end' : 'start'}" dominant-baseline="central">${escapeHtml(shortTitle)}</text>
-      <text class="chord-code-tag" x="${(isLeft ? badgeX + 8 : badgeX + badgeWidth - 8).toFixed(1)}" y="${(labelY - badgeHeight / 2 - 5).toFixed(1)}" text-anchor="${isLeft ? 'start' : 'end'}">${escapeHtml(codeTag)}</text>
     </g>`;
   };
 

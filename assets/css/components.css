@@ -855,13 +855,6 @@
   font: 600 13.5px var(--font-mono);
   letter-spacing: -0.015em;
 }
-.chord-code-tag {
-  fill: var(--arc);
-  font: 700 9.5px var(--font-mono);
-  letter-spacing: 0.08em;
-  opacity: 0.95;
-}
-
 .chord-node:focus-visible { outline: none; }
 .chord-node:hover .chord-arc,
 .chord-node:focus-visible .chord-arc,
