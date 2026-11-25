@@ -1,11 +1,11 @@
-import { renderSignalNetwork } from './services/chordDiagram.js?v=20261125-wheel-matches';
+import { renderSignalNetwork } from './services/chordDiagram.js?v=20261125-wheel-focus';
 import { profile } from './data/profile.js?v=20261103-dock-radar';
 import { projects } from './data/projects.js?v=20261103-dock-radar';
 import { resume } from './data/resume.js?v=20261103-dock-radar';
 import { articles, articlesProfileUrl } from './data/articles.js?v=20261103-dock-radar';
 import { getGitHubStats } from './services/githubService.js?v=20261105-project-route';
 import { bindContactForm, showToast } from './services/contactService.js?v=20261103-dock-radar';
-import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signalNetwork.js?v=20261125-wheel-matches';
+import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signalNetwork.js?v=20261125-wheel-focus';
 
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];

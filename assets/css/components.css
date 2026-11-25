@@ -855,7 +855,11 @@
   font: 600 13.5px var(--font-mono);
   letter-spacing: -0.015em;
 }
-.chord-node:focus-visible { outline: none; }
+.chord-network .chord-node:focus { outline: none; }
+.chord-network .chord-node:focus-visible .chord-label-pill {
+  stroke: #fff;
+  stroke-width: 2.5;
+}
 .chord-node:hover .chord-arc,
 .chord-node:focus-visible .chord-arc,
 .chord-node.is-related .chord-arc {
