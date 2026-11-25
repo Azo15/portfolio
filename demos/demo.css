@@ -26,3 +26,7 @@ button:focus-visible,input:focus-visible,a:focus-visible { outline: 2px solid #7
 input { width: 100%; }
 [hidden] { display: none !important; }
 @media(max-width:700px) { .layout { grid-template-columns: 1fr; } }
+
+body.embedded { padding: 12px; }
+.embedded > header, .embedded > a { display: none; }
+.embedded .layout { margin-block: 0; }

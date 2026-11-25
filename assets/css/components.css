@@ -993,3 +993,9 @@
   .chord-node, .chord-edge { transition: none; }
   .chord-signal, .chord-radar-sweep, .core-spin-ring { display: none; animation: none; }
 }
+
+.demo-showcase { display: grid; gap: 16px; margin-block: 28px; }
+.demo-showcase-item { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #0b1321; }
+.demo-showcase-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; }
+.demo-showcase-heading h3 { margin: 0; }
+.demo-showcase iframe { display: block; width: 100%; height: 420px; border: 0; border-top: 1px solid var(--line); }
