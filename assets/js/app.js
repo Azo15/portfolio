@@ -221,11 +221,6 @@ function renderOverview() {
       ${renderSignalNetwork(projects, isEnglish, escapeHtml)}
     </div>
   </header>
-  <section class="glass-panel case-section" aria-labelledby="live-demos-title">
-    <h2 id="live-demos-title">${isEnglish ? 'Live project demos' : 'Canlı proje demoları'}</h2>
-    <p>${isEnglish ? 'Explore the original apps in read-only mode.' : 'Özgün uygulamaları salt okunur modda keşfet.'}</p>
-    ${[...liveDemos.keys()].map((id) => projects.find((item) => item.id === id)).filter(Boolean).map((project) => `<div class="button-row"><h3>${escapeHtml(project.title)}</h3>${renderDemoLink(project, 'button')}</div>`).join('')}
-  </section>
   ${renderScrollStory(isEnglish)}
   <section class="telemetry-dashboard" aria-labelledby="telemetry-title"><div class="telemetry-heading"><div><span class="eyebrow">${isEnglish ? 'PUBLIC SIGNAL / LIVE DATA' : 'AÇIK SİNYAL / CANLI VERİ'}</span><h2 id="telemetry-title">${isEnglish ? 'Engineering at a glance' : 'Mühendisliğe genel bakış'}</h2></div><span class="telemetry-source"><i></i> ${isEnglish ? 'GITHUB + CASE STUDIES' : 'GITHUB + VAKA DOSYALARI'}</span></div><div class="telemetry-metrics" data-live-metrics></div><div class="insight-grid"><section class="insight-panel project-mix-panel"><div class="insight-panel-heading"><div><span class="mono">01 / PORTFOLIO MIX</span><h3>${isEnglish ? 'Where I build' : 'Çalışma alanlarım'}</h3></div><span class="insight-caption">${isEnglish ? 'AUDITED PROJECTS' : 'İNCELENEN PROJELER'}</span></div><div class="project-mix" data-project-mix></div></section><section class="insight-panel language-panel"><div class="insight-panel-heading"><div><span class="mono">02 / GITHUB SIGNAL</span><h3>${isEnglish ? 'Languages in public repos' : 'Açık depolardaki diller'}</h3></div><span class="insight-caption">${isEnglish ? 'BY REPOSITORY' : 'DEPO SAYISINA GÖRE'}</span></div><div class="language-bars" data-language-bars><p class="telemetry-empty">${isEnglish ? 'Connecting to GitHub…' : 'GitHub’a bağlanılıyor…'}</p></div></section></div></section>
   <div class="section-heading"><h2>Engineering disciplines</h2><span>01—04 / SYSTEMS MAP</span></div>
