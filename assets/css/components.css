@@ -993,3 +993,13 @@
   .chord-node, .chord-edge { transition: none; }
   .chord-signal, .chord-radar-sweep, .core-spin-ring { display: none; animation: none; }
 }
+
+.project-cover {
+  aspect-ratio: 16 / 8;
+  margin: 0;
+  overflow: hidden;
+  background: #0a1422;
+  border-bottom: 1px solid var(--line);
+}
+.project-cover img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.route-case .project-cover { border: 1px solid var(--line); border-radius: 10px; margin-block: 12px; }

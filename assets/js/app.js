@@ -106,22 +106,18 @@ function getRepoTelemetry(project) {
   return liveRepoIndex[String(project.repository).toLowerCase()] ?? null;
 }
 
-function blueprintSvg(project) {
-  const accent = blueprintColors[project.category] ?? '#00f0ff';
-  let seed = [...project.id].reduce((total, char) => (total * 31 + char.charCodeAt(0)) >>> 0, 7);
-  const points = Array.from({ length: 7 }, (_, index) => {
-    seed = (seed * 1664525 + 1013904223) >>> 0;
-    return { x: 42 + (seed % 520), y: 34 + ((seed >>> 8) % 166) };
-  });
-  const path = points.map((point, index) => `${index ? 'L' : 'M'} ${point.x} ${point.y}`).join(' ');
-  const gridId = `grid-${project.id}`;
-  return `<svg style="--blueprint-accent:${accent}" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><pattern id="${gridId}" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(125,211,252,.13)" stroke-width=".6"/></pattern></defs>
-    <rect width="600" height="240" fill="url(#${gridId})"/>
-    <path d="${path}" fill="none" stroke="rgba(0,240,255,.58)" stroke-width="1.5" stroke-dasharray="4 5"/>
-    ${points.map((point, index) => `<circle cx="${point.x}" cy="${point.y}" r="${index === 0 || index === points.length - 1 ? 5 : 3}" fill="#060911" stroke="${index % 2 ? 'rgba(139,92,246,.8)' : accent}" stroke-width="1.5"/>`).join('')}
-    <path d="M 30 210 H 120 M 480 28 H 568 M 515 44 V 76" stroke="rgba(148,163,184,.28)" stroke-width="1"/>
-  </svg>`;
+const projectCovers = new Map([
+  ['software-health-technical-debt-analyzer', 'analyzer.jpg'],
+  ['laravel-library-management-system', 'library.jpg'],
+  ['yolarkada-vehicle-rental', 'yolarkadasi.jpg'],
+  ['opencv-image-analysis-lab', 'opencv-lab.jpg'],
+]);
+
+function renderProjectCover(project) {
+  const file = projectCovers.get(project.id);
+  if (!file) return '';
+  const label = language === 'tr' ? 'Uygulama görüntüsü' : 'Application preview';
+  return `<figure class="project-cover"><img src="./assets/images/projects/${file}" alt="${escapeHtml(project.title)} · ${label}" loading="lazy" decoding="async"></figure>`;
 }
 
 function projectCard(project) {
@@ -132,9 +128,7 @@ function projectCard(project) {
     ? `<span class="repo-telemetry-badge" title="Live GitHub repository telemetry">${escapeHtml(repoMeta.language || project.code)}${repoMeta.stars ? ` · ★ ${repoMeta.stars}` : ''}</span>`
     : '';
   return `<article class="project-card${project.featured ? ' is-featured' : ''}" data-project-card data-card-case="${escapeHtml(project.id)}" tabindex="0" role="button" aria-label="${escapeHtml(project.title)} — Inspect architecture" data-search="${escapeHtml(`${project.title} ${project.description} ${project.technologies.join(' ')}`)}" data-categories="${escapeHtml(project.categories.join('|'))}">
-    <div class="blueprint" style="--blueprint-accent:${blueprintColors[project.category] ?? '#00f0ff'}" aria-label="Engineering blueprint for ${escapeHtml(project.title)}">
-      ${blueprintSvg(project)}<span class="blueprint-label">AZO.OS / ${escapeHtml(project.category.toUpperCase())}</span><span class="blueprint-signal" aria-hidden="true"><i></i><i></i><i></i><b>AZO / TRACE</b></span><span class="blueprint-symbol">${escapeHtml(project.code)}</span><span class="blueprint-code">CASE_${escapeHtml(project.id.slice(0, 8).toUpperCase())}</span>
-    </div>
+    ${renderProjectCover(project)}
     <div class="project-card-body">
       <div class="project-title-row"><h3>${escapeHtml(project.title)}</h3><div class="project-badges">${project.featured ? '<span class="flagship-badge">★ FLAGSHIP</span>' : ''}${telemetryBadge}<span class="visibility-badge${privateCase ? ' private' : ''}">${escapeHtml(project.visibility)}</span></div></div>
       <p class="project-area">${escapeHtml(project.area)}</p>
@@ -149,7 +143,7 @@ function featuredRouteItem(project, index) {
   const accent = blueprintColors[project.category] ?? '#00f0ff';
   const description = language === 'en' ? project.descriptionEn : project.description;
   const pipeline = project.pipeline ?? [];
-  return `<li class="route-stop" style="--route-accent:${accent}"><div class="route-marker" aria-hidden="true"><span>${String(index + 1).padStart(2, '0')}</span></div><article class="route-case"><div class="route-case-top"><span class="route-code">${escapeHtml(project.code)} / ${escapeHtml(project.category.toUpperCase())}</span><span class="route-status">${project.visibility === 'Public' ? (language === 'tr' ? 'AÇIK DEPO' : 'PUBLIC REPO') : (language === 'tr' ? 'VAKA İNCELEMESİ' : 'CASE STUDY')}</span></div><div class="route-case-main"><div class="route-case-copy"><h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(description)}</p></div><div class="route-pipeline" aria-label="${language === 'tr' ? 'Mimari akış' : 'Architecture flow'}">${pipeline.map((step, stepIndex) => `<span class="route-pipeline-step"><i>${String(stepIndex + 1).padStart(2, '0')}</i>${escapeHtml(step)}</span>`).join('<span class="route-pipeline-arrow" aria-hidden="true">→</span>')}</div></div><div class="route-case-footer"><div class="route-tech-tags" aria-label="${language === 'tr' ? 'Teknoloji etiketleri, seçerek katalogda ara' : 'Technology tags, select to search catalog'}">${project.technologies.slice(0, 4).map((item) => `<button type="button" data-tech-query="${escapeHtml(item)}" aria-label="${language === 'tr' ? 'Teknolojiye göre ara: ' : 'Search by technology: '}${escapeHtml(item)}">${escapeHtml(item)}</button>`).join('')}</div><div class="route-actions">${renderDemoLink(project)}<button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}" aria-label="${language === 'tr' ? 'Mimari vaka dosyasını aç: ' : 'Inspect architecture case: '}${escapeHtml(project.title)}">${language === 'tr' ? 'Vaka dosyasını aç' : 'Inspect case'} <span aria-hidden="true">→</span></button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${project.visibility === 'Public' ? 'GitHub ↗' : (language === 'tr' ? 'Profil ↗' : 'Profile ↗')}</a></div></div></article></li>`;
+  return `<li class="route-stop" style="--route-accent:${accent}"><div class="route-marker" aria-hidden="true"><span>${String(index + 1).padStart(2, '0')}</span></div><article class="route-case"><div class="route-case-top"><span class="route-code">${escapeHtml(project.code)} / ${escapeHtml(project.category.toUpperCase())}</span><span class="route-status">${project.visibility === 'Public' ? (language === 'tr' ? 'AÇIK DEPO' : 'PUBLIC REPO') : (language === 'tr' ? 'VAKA İNCELEMESİ' : 'CASE STUDY')}</span></div>${renderProjectCover(project)}<div class="route-case-main"><div class="route-case-copy"><h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(description)}</p></div><div class="route-pipeline" aria-label="${language === 'tr' ? 'Mimari akış' : 'Architecture flow'}">${pipeline.map((step, stepIndex) => `<span class="route-pipeline-step"><i>${String(stepIndex + 1).padStart(2, '0')}</i>${escapeHtml(step)}</span>`).join('<span class="route-pipeline-arrow" aria-hidden="true">→</span>')}</div></div><div class="route-case-footer"><div class="route-tech-tags" aria-label="${language === 'tr' ? 'Teknoloji etiketleri, seçerek katalogda ara' : 'Technology tags, select to search catalog'}">${project.technologies.slice(0, 4).map((item) => `<button type="button" data-tech-query="${escapeHtml(item)}" aria-label="${language === 'tr' ? 'Teknolojiye göre ara: ' : 'Search by technology: '}${escapeHtml(item)}">${escapeHtml(item)}</button>`).join('')}</div><div class="route-actions">${renderDemoLink(project)}<button class="project-action" type="button" data-open-case="${escapeHtml(project.id)}" aria-label="${language === 'tr' ? 'Mimari vaka dosyasını aç: ' : 'Inspect architecture case: '}${escapeHtml(project.title)}">${language === 'tr' ? 'Vaka dosyasını aç' : 'Inspect case'} <span aria-hidden="true">→</span></button><a class="project-action" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">${project.visibility === 'Public' ? 'GitHub ↗' : (language === 'tr' ? 'Profil ↗' : 'Profile ↗')}</a></div></div></article></li>`;
 }
 
 function renderTelemetryDashboard(data) {
