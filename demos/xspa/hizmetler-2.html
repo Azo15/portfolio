@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="tr-TR">
+<head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#081C15" />
+<script>
+    (() => { let theme = 'light'; try { const saved = localStorage.getItem('xspa-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch { } document.documentElement.dataset.theme = theme; document.documentElement.classList.add('js-boot'); setTimeout(() => document.documentElement.classList.remove('js-boot'), 1200); })();
+</script>
+<title>T&#xFC;rk Hamam&#x131; Rit&#xFC;eli · XSPA — Spa &amp; Wellness</title>
+<meta name="description" content="K&#x131;rklareli&#x27;de dingin bir spa deneyimi. Masaj, geleneksel hamam ve kendinize ay&#x131;rd&#x131;&#x11F;&#x131;n&#x131;z &#xF6;zel anlar&#x131; ke&#x15F;fedin." />
+<link rel="icon" href="./img/brand-mark.svg?v=R2yTYFmspgAR6tKTc5KPnaXd4M7wnUz0-aNZ8s7FRVg" type="image/svg+xml" />
+<link rel="alternate icon" href="./favicon.ico?v=y9JCmpw6hJh3mn7OlN9HZHuUM3kad9LYyCddM6xJ9PI" type="image/x-icon" />
+<link rel="apple-touch-icon" href="./img/apple-touch-icon.png?v=YfaaA1VpOslC3bbMivuJJHMGoz8OhiDUCsvTRK16L10" />
+
+<link rel="stylesheet" href="./fonts/fonts.css?v=WjWu3VM_wLtn0SZVRoz8nRAZoju1_c2edylimQZA-bE" />
+<link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="./lib/fontawesome/css/all.min.css" />
+<link rel="stylesheet" href="./lib/aos/aos.css" />
+<link rel="stylesheet" href="./lib/swipper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="./lib/fancybox/css/fancybox.min.css" />
+<link rel="stylesheet" href="./lib/sweetalert2/sweetalert2.min.css" />
+<link rel="stylesheet" href="./css/site.css?v=cTG3CWnn80CNtbbakjcuZwW4efNXqc--RU3sYS-xVhA" />
+<link rel="stylesheet" href="./css/navbar-account.css?v=mJQckdAQyitsgu9KiP6Ui8cOesz2KPTRtf0tAhtunbk" />
+<link rel="stylesheet" href="./css/home-statistics.css?v=i6EDq126kNItN9ttHfBY42MyTEXBYGwpC6z4UgYiVFE" />
+
+    
+<link rel="stylesheet" href="./css/interactions.css?v=pSbJkMmMhY2GHnYK7JcnvNDXRL7cvABUlw1cob6yrpo" />
+<meta name="xspa-csrf" content="CfDJ8HwWUYd9Cn1Lr8iwe9dMWZr_aROZj-GhBQAWubm1M3BUsp-OSxyO5qt_bUhwbjELjIXVxLazbQKr0ZpMpnwY3Sh_rIQ2odxkS93p6rTh-qWLV6N1ctAhsYtLI3JKeuTiMuajc_M7fNaEEg3o1Sd_hsU" />
+<meta name="xspa-csrf-header" content="RequestVerificationToken" />
+<link rel="stylesheet" href="./css/ajax-interactions.css?v=dh_-HuOI5dp2lOo_vtzbcJlJujg8fK0buYNmhpsADls" />
+<script src="./js/xspa-ajax.js?v=NwoE3VWRe9a2apLDuVYqsSp8v6hyZAB12Pa2jaCYJJo"></script>
+
+</head>
+<body class="luxe-body is-inner">
+    <div class="luxe-preloader" aria-hidden="true"><img src="./img/brand-mark.svg" width="70" height="70" alt="" /><span>XSPA</span></div>
+    <a class="luxe-skip" href="#main-content">&#x130;&#xE7;eri&#x11F;e ge&#xE7;</a>
+    <header class="luxe-header" id="site-header">
+    <aside class="xspa-announcement" id="xspa-announcement" hidden aria-label="Duyuru"><div class="container"><span>✦ Her g&#xFC;n 09:00&#x2013;00:00 &#xB7; &#x130;yi ya&#x15F;am&#x131;n&#x131;za zaman ay&#x131;r&#x131;n</span><a href="./demo-kisitlari.html">Online Randevu Al&#x131;n →</a><button type="button" id="announcement-close" aria-label="Duyuruyu kapat">×</button></div></aside>
+    <div class="luxe-topbar"><div class="container"><span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Kırklareli <span class="luxe-topbar-divider">/</span> Kendinize ay&#x131;rd&#x131;&#x11F;&#x131;n&#x131;z bir an.</span><a href="./demo-kisitlari.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> +90 538 878 70 00</a></div></div>
+    <nav class="navbar navbar-expand-xl luxe-nav" aria-label="Ana men&#xFC;">
+        <div class="container">
+            <a class="luxe-brand" aria-label="XSPA — Ana Sayfa" href="./index.html"><img src="./img/brand-mark.svg" width="50" height="50" alt="" /><span>XSPA<small>SPA &amp; WELLNESS</small></span></a>
+            <div class="luxe-nav-account">
+                    <a class="luxe-account luxe-account-signin" href="./demo-kisitlari.html"><i class="fa-regular fa-user" aria-hidden="true"></i><span>Giri&#x15F; Yap</span></a>
+            </div>
+            <button class="luxe-menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Men&#xFC;y&#xFC; a&#xE7; veya kapat"><span></span><span></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link " href="./index.html">Ana Sayfa</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./hakkimizda.html">Hakk&#x131;m&#x131;zda</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./hizmetler.html">Hizmetlerimiz</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./yapilan-isler.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./gorsel-galerisi.html">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./demo-kisitlari.html">&#x130;leti&#x15F;im</a></li>
+                </ul>
+                <div class="luxe-nav-actions">
+                    <form method="post" class="d-inline-flex align-items-center gap-2" action="./demo-kisitlari.html"><fieldset disabled>
+    <input type="hidden" name="returnUrl" value="/hizmetler/2" />
+    <label class="visually-hidden" for="ui-culture">Dil</label>
+    <select name="culture" id="ui-culture" class="form-select form-select-sm" onchange="this.form.submit()">
+        <option value="tr-TR" selected="selected">Türkçe</option>
+        <option value="en-US">English</option>
+    </select>
+    <noscript><button type="submit">Kaydet</button></noscript>
+</fieldset></form>
+
+                    <button id="theme-toggle" class="luxe-theme-toggle" type="button" aria-pressed="false" aria-label="Koyu temaya ge&#xE7;"><i class="fa-regular fa-moon" aria-hidden="true"></i><span class="visually-hidden">Temay&#x131; de&#x11F;i&#x15F;tir</span></button>
+                    <button class="luxe-button luxe-button-gold luxe-nav-book" type="button" data-bs-toggle="modal" data-bs-target="#vip-reservation">VIP Randevu<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+        <aside style="padding:12px 18px;text-align:center;background:#f7e9c8;color:#332717">
+            <strong>Salt okunur XSPA demosu.</strong> Örnek içerikleri inceleyebilirsiniz. Oturum açma, randevu ve kayıt işlemleri kapalıdır.
+            <a href="https://github.com/Azo15/Modern-Blog-Spa-CMS-Enterprise#readme">Kaynak kodu ve kurulum ↗</a>
+        </aside>
+    <main id="main-content"><section class="luxe-page-hero"><div class="container">
+    <span class="luxe-eyebrow">S&#x130;ZE &#xD6;ZEL B&#x130;R R&#x130;T&#xDC;EL</span>
+    <h1 class="luxe-title">T&#xFC;rk Hamam&#x131; Rit&#xFC;eli</h1><p class="luxe-lead">90 dk &#x2014; 850 &#x20BA;</p>
+</div></section>
+<section class="luxe-section"><div class="container luxe-ritual-detail">
+    <figure class="luxe-ritual-gallery" data-ritual-gallery>
+        <div class="luxe-ritual-stage" data-ritual-stage>
+                <a class="luxe-ritual-main" data-ritual-main data-fancybox="ritual-2" data-caption="T&amp;#252;rk Hamam&#x131; Rit&amp;#252;eli &amp;#183; Size &amp;#246;zel rit&amp;#252;el" href="./img/service-hamam.webp" aria-label="Foto&#x11F;raf&#x131; tam ekran a&#xE7;">
+                    <img src="./img/service-hamam.webp" alt="T&#xFC;rk Hamam&#x131; Rit&#xFC;eli · Size &#xF6;zel rit&#xFC;el" decoding="async" loading="eager" fetchpriority="high" />
+                    <span class="luxe-ritual-expand"><i class="fa-solid fa-expand" aria-hidden="true"></i>Foto&#x11F;raf&#x131; b&#xFC;y&#xFC;t</span>
+                </a>
+                <a class="luxe-ritual-main" data-ritual-main data-fancybox="ritual-2" data-caption="T&amp;#252;rk Hamam&#x131; Rit&amp;#252;eli &amp;#183; Rit&amp;#252;elinize haz&#x131;rl&#x131;k" href="./img/ritual/service-hamam-preparation.webp" hidden="hidden" aria-label="Foto&#x11F;raf&#x131; tam ekran a&#xE7;">
+                    <img src="./img/ritual/service-hamam-preparation.webp" alt="T&#xFC;rk Hamam&#x131; Rit&#xFC;eli · Rit&#xFC;elinize haz&#x131;rl&#x131;k" decoding="async" loading="lazy" fetchpriority="low" />
+                    <span class="luxe-ritual-expand"><i class="fa-solid fa-expand" aria-hidden="true"></i>Foto&#x11F;raf&#x131; b&#xFC;y&#xFC;t</span>
+                </a>
+                <a class="luxe-ritual-main" data-ritual-main data-fancybox="ritual-2" data-caption="T&amp;#252;rk Hamam&#x131; Rit&amp;#252;eli &amp;#183; &amp;#214;zenli bir deneyim" href="./img/ritual/service-hamam-experience.webp" hidden="hidden" aria-label="Foto&#x11F;raf&#x131; tam ekran a&#xE7;">
+                    <img src="./img/ritual/service-hamam-experience.webp" alt="T&#xFC;rk Hamam&#x131; Rit&#xFC;eli · &#xD6;zenli bir deneyim" decoding="async" loading="lazy" fetchpriority="low" />
+                    <span class="luxe-ritual-expand"><i class="fa-solid fa-expand" aria-hidden="true"></i>Foto&#x11F;raf&#x131; b&#xFC;y&#xFC;t</span>
+                </a>
+        </div>
+        <div class="luxe-ritual-thumbnails" role="group" aria-label="Rit&#xFC;el foto&#x11F;raflar&#x131;">
+                <button type="button" data-ritual-select="0" data-caption="Size &#xF6;zel rit&#xFC;el" aria-pressed="true" aria-label="1. Size &#xF6;zel rit&#xFC;el">
+                    <img src="./img/service-hamam.webp" alt="" width="240" height="160" loading="lazy" /><span>01</span>
+                </button>
+                <button type="button" data-ritual-select="1" data-caption="Rit&#xFC;elinize haz&#x131;rl&#x131;k" aria-pressed="false" aria-label="2. Rit&#xFC;elinize haz&#x131;rl&#x131;k">
+                    <img src="./img/ritual/service-hamam-preparation.webp" alt="" width="240" height="160" loading="lazy" /><span>02</span>
+                </button>
+                <button type="button" data-ritual-select="2" data-caption="&#xD6;zenli bir deneyim" aria-pressed="false" aria-label="3. &#xD6;zenli bir deneyim">
+                    <img src="./img/ritual/service-hamam-experience.webp" alt="" width="240" height="160" loading="lazy" /><span>03</span>
+                </button>
+        </div>
+        <figcaption data-ritual-caption>Size &#xF6;zel rit&#xFC;el</figcaption>
+    </figure>
+    <div class="luxe-ritual-description">
+        <span class="luxe-eyebrow">YAVA&#x15E;LAYIN, D&#x130;NLEN&#x130;N</span>
+        <h2>Bu an,<br /><em>sadece sizin.</em></h2>
+        <div class="luxe-prose">Geleneksel kese ve köpük masajı ile derin temizlik. Cildiniz ipek gibi olacak.</div>
+        <div class="luxe-price-card">
+            <div><span>Deneyim bedeli</span><strong>850 &#x20BA;</strong></div>
+            <div><i class="fa-regular fa-clock" aria-hidden="true"></i><span>Seans s&#xFC;resi<b>90 dk</b></span></div>
+        </div>
+        <button type="button" class="luxe-button luxe-button-gold" data-bs-toggle="modal" data-bs-target="#vip-reservation" data-service-id="2">Bu deneyimi planlay&#x131;n<i class="fa-regular fa-calendar-check" aria-hidden="true"></i></button>
+        <p class="luxe-contact-support">Acil sorular&#x131;n&#x131;z i&#xE7;in: <a href="./demo-kisitlari.html" target="_blank" rel="noopener noreferrer">WhatsApp Dan&#x131;&#x15F;ma Hatt&#x131;</a></p>
+        <a class="luxe-text-link" href="./hizmetler.html">T&#xFC;m rit&#xFC;eller<i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
+    </div>
+</div></section>
+<section class="luxe-section luxe-section-light luxe-journey"><div class="container">
+    <div class="luxe-section-heading"><div><span class="luxe-eyebrow">R&#x130;T&#xDC;EL&#x130;N A&#x15E;AMALARI</span><h2>Her an&#x131;nda &#xF6;zen.</h2></div></div>
+    <ol class="luxe-journey-steps">
+        <li><span>01</span><i class="fa-solid fa-mug-hot" aria-hidden="true"></i><h3>S&#x131;cak bir kar&#x15F;&#x131;lama</h3><p>Bitki &#xE7;ay&#x131; ikram&#x131;, tercihlerinize &#xF6;zel bir kons&#xFC;ltasyon ve kendinize ay&#x131;rd&#x131;&#x11F;&#x131;n&#x131;z sakin bir ba&#x15F;lang&#x131;&#xE7;.</p></li>
+        <li><span>02</span><i class="fa-solid fa-spa" aria-hidden="true"></i><h3>Ki&#x15F;iselle&#x15F;tirilmi&#x15F; seans</h3><p>Ekibimizin tercihlerinizi dikkate alarak haz&#x131;rlad&#x131;&#x11F;&#x131;, size &#xF6;zel bir uygulama.</p></li>
+        <li><span>03</span><i class="fa-solid fa-leaf" aria-hidden="true"></i><h3>Dinginli&#x11F;e biraz daha zaman</h3><p>Dinlenme odas&#x131;nda acele etmeden ge&#xE7;irilen anlar ve seans sonras&#x131;nda ferah bir mola.</p></li>
+    </ol>
+</div></section>
+<section class="luxe-section luxe-faq" aria-labelledby="service2-faq-title">
+    <div class="container">
+        <div class="luxe-faq-heading">
+            <span class="luxe-eyebrow">Z&#x130;YARET&#x130;N&#x130;ZDEN &#xD6;NCE</span>
+            <h2 id="service2-faq-title">Akl&#x131;n&#x131;zdaki k&#xFC;&#xE7;&#xFC;k sorular.</h2>
+            <p>Rit&#xFC;elinize ba&#x15F;lamadan &#xF6;nce kendinizi rahat hissetmeniz i&#xE7;in birka&#xE7; k&#xFC;&#xE7;&#xFC;k ayr&#x131;nt&#x131;.</p>
+        </div>
+        <div class="accordion luxe-faq-accordion" id="service2-faq">
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="service2-faq-question-0">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#service2-faq-answer-0" aria-expanded="false" aria-controls="service2-faq-answer-0">
+                            <span class="luxe-faq-number" aria-hidden="true">01</span>
+                            Hijyen ve haz&#x131;rl&#x131;k hakk&#x131;nda ne bilmeliyim?
+                        </button>
+                    </h3>
+                    <div id="service2-faq-answer-0" class="accordion-collapse collapse" aria-labelledby="service2-faq-question-0" data-bs-parent="#service2-faq">
+                        <div class="accordion-body">Terapistinizin haz&#x131;rl&#x131;k y&#xF6;nlendirmelerine uyun; sa&#x11F;lanan havlu ve terlikleri kullan&#x131;n. Hizmete uygunluk ve haz&#x131;rl&#x131;k sorular&#x131;n&#x131;z&#x131; ziyaret &#xF6;ncesinde ekibimize sorun; internet formlar&#x131;ndan hassas sa&#x11F;l&#x131;k bilgisi g&#xF6;ndermeyin.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="service2-faq-question-1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#service2-faq-answer-1" aria-expanded="false" aria-controls="service2-faq-answer-1">
+                            <span class="luxe-faq-number" aria-hidden="true">02</span>
+                            Randevuya ka&#xE7; dakika &#xF6;nce gelmeliyim?
+                        </button>
+                    </h3>
+                    <div id="service2-faq-answer-1" class="accordion-collapse collapse" aria-labelledby="service2-faq-question-1" data-bs-parent="#service2-faq">
+                        <div class="accordion-body">Sizi kar&#x15F;&#x131;lamak, tercihlerinizi birlikte de&#x11F;erlendirmek ve rit&#xFC;elinize sakince haz&#x131;rlanmak i&#xE7;in randevunuzdan 15 dakika &#xF6;nce gelmenizi &#xF6;neririz.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="service2-faq-question-2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#service2-faq-answer-2" aria-expanded="false" aria-controls="service2-faq-answer-2">
+                            <span class="luxe-faq-number" aria-hidden="true">03</span>
+                            Yan&#x131;mda ne getirmeliyim?
+                        </button>
+                    </h3>
+                    <div id="service2-faq-answer-2" class="accordion-collapse collapse" aria-labelledby="service2-faq-question-2" data-bs-parent="#service2-faq">
+                        <div class="accordion-body">Pe&#x15F;tamal, terlik ve havlu taraf&#x131;m&#x131;zdan sa&#x11F;lan&#x131;r. Haz&#x131;rl&#x131;k ve uygunluk sorular&#x131;n&#x131;z i&#xE7;in ekibimize do&#x11F;rudan ula&#x15F;&#x131;n. Online formlara hassas sa&#x11F;l&#x131;k bilgisi yazmay&#x131;n.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="service2-faq-question-3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#service2-faq-answer-3" aria-expanded="false" aria-controls="service2-faq-answer-3">
+                            <span class="luxe-faq-number" aria-hidden="true">04</span>
+                            &#x130;ptal ve erteleme &#x15F;artlar&#x131; nelerdir?
+                        </button>
+                    </h3>
+                    <div id="service2-faq-answer-3" class="accordion-collapse collapse" aria-labelledby="service2-faq-question-3" data-bs-parent="#service2-faq">
+                        <div class="accordion-body">&#x130;ptal veya erteleme i&#xE7;in l&#xFC;tfen m&#xFC;mk&#xFC;n olan en erken zamanda &#x2B;90 538 878 70 00 &#xFC;zerinden ekibimizle ileti&#x15F;ime ge&#xE7;ip rezervasyon kodunuzu payla&#x15F;&#x131;n. Talebinize ait ko&#x15F;ullar&#x131; ve uygun alternatif saatleri birlikte de&#x11F;erlendirelim.</div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+
+</main>
+    <section class="luxe-booking-band"><div class="container"><div><span class="luxe-eyebrow">D&#x130;NG&#x130;NL&#x130;&#x11E;E &#x130;LK ADIM</span><h2>Bug&#xFC;n, kendinize zaman ay&#x131;r&#x131;n.</h2></div><button type="button" class="luxe-button luxe-button-outline" data-bs-toggle="modal" data-bs-target="#vip-reservation">Deneyiminizi planlay&#x131;n <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></section>
+<footer class="luxe-footer"><div class="container">
+    <div class="luxe-footer-grid">
+        <div class="luxe-footer-story"><a class="luxe-brand" href="./index.html"><img src="./img/brand-mark.svg" width="58" height="58" alt="" /><span>XSPA<small>SPA &amp; WELLNESS</small></span></a><p>Yava&#x15F;lamaya zarif bir davet. &#xD6;zenli rit&#xFC;eller, do&#x11F;al dokular ve sadece kendiniz olabilece&#x11F;iniz bir alan.</p><div class="luxe-socials"><a href="https://instagram.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a><a href="https://facebook.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="facebook-f"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a><a href="https://youtube.com/@xspawellness" target="_blank" rel="noopener noreferrer" aria-label="youtube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a href="https://twitter.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></div></div>
+        <div><h3>Ke&#x15F;fedin</h3><a href="./hakkimizda.html">Hakk&#x131;m&#x131;zda</a><a href="./hizmetler.html">Hizmetlerimiz</a><a href="./gorsel-galerisi.html">Galeri</a><a href="./yapilan-isler.html">&#x130;yi ya&#x15F;am g&#xFC;nl&#xFC;&#x11F;&#xFC;</a><a href="./demo-kisitlari.html">&#x130;leti&#x15F;im</a></div>
+        <div><h3>Birlikte planlayal&#x131;m</h3><a class="luxe-footer-phone" href="./demo-kisitlari.html">+90 538 878 70 00</a><p></p><p><i class="fa-regular fa-clock" aria-hidden="true"></i> Her g&#xFC;n · 09:00&#x2013;00:00 <span class="luxe-business-status" data-business-status role="status" aria-live="polite"></span></p><a href="./demo-kisitlari.html" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp randevu hatt&#x131;</a></div>
+        <div class="luxe-footer-news"><h3>&#x130;yi ya&#x15F;amdan bir not</h3><p>Yay&#x131;mlanan iyi ya&#x15F;am yaz&#x131;lar&#x131;ndan se&#xE7;kiler i&#xE7;in ilginizi payla&#x15F;&#x131;n.</p><form method="post" data-newsletter-form action="./demo-kisitlari.html"><fieldset disabled><label class="visually-hidden" for="newsletter-email">E-posta</label><div class="luxe-newsletter-field"><input id="newsletter-email" type="email" name="email" maxlength="254" required placeholder="E-posta adresiniz" autocomplete="email" /><button type="submit" aria-label="B&#xFC;lten ilgisi g&#xF6;nder"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div><small data-newsletter-status role="status" aria-live="polite">E-posta adresiniz b&#xFC;lten talebiniz i&#xE7;in kullan&#x131;l&#x131;r.</small></fieldset></form></div>
+    </div>
+    <nav class="luxe-footer-legal" aria-label="Yasal bilgiler"><a href="./demo-kisitlari.html">Gizlilik Politikas&#x131;</a><a href="./demo-kisitlari.html">Kullan&#x131;m Ko&#x15F;ullar&#x131;</a><a href="./demo-kisitlari.html">KVKK</a></nav><div class="luxe-footer-bottom"><span>© 2026 XSPA. T&#xFC;m haklar&#x131; sakl&#x131;d&#x131;r.</span><span>SPA · WELLNESS · SLOW LIVING</span><a href="#main-content">Yukar&#x131; d&#xF6;n <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div>
+</div></footer>
+
+    <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./lib/aos/aos.js"></script>
+<script src="./lib/sweetalert2/sweetalert2.min.js"></script>
+<script src="./lib/fancybox/js/fancybox.umd.js"></script>
+<!-- Swiper Slider JS -->
+<script src="./lib/swipper/swiper-bundle.min.js"></script>
+
+<script src="./lib/jquery/dist/jquery.min.js"></script>
+<script src="./lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="./lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="./js/site.js?v=_pvW8tTG1HXrP3FXyx1FOZwOiukKrB9LMWZKRmOZRoo"></script>
+<script src="./js/slider.js?v=Rc2f1XjUbnLmuItBr5ySYNb7TdAZuPdB-Y1I1AAeEb8"></script>
+
+    
+<script src="./js/interactions.js?v=nEHCLuoSuGxJjqSiB1wUCjHefr6Rq1ahQq7NkqfwXso"></script>
+<script src="./js/interactions-ajax.js?v=VBJqzVbbDUpf78TxBHSZzdm15fD5ygVNstRRn5aHs3M"></script>
+<script src="./js/comments-ajax.js?v=jVgUBBwIoqt4eYpSL2okXLPV0v2aJPHomHKfPDHnFGQ"></script>
+<script src="./js/profile-ajax.js?v=gWxuOI7PYTUJ4QenZPjOV_83af_DPl-OP9qcNj4brHE"></script>
+<script src="./js/contact-ajax.js?v=V8k3jZxhpFzS5vsiOXz8psKrWd6H3GTn_0NqOW5c3Iw"></script>
+<script src="./js/appointments-ajax.js?v=6Quxp5SJh4SdFiuuoa8ZbSuJY2UPyrSVvvOOSn0EF7I"></script>
+</body>
+</html>

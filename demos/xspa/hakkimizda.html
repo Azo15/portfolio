@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr-TR">
+<head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#081C15" />
+<script>
+    (() => { let theme = 'light'; try { const saved = localStorage.getItem('xspa-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch { } document.documentElement.dataset.theme = theme; document.documentElement.classList.add('js-boot'); setTimeout(() => document.documentElement.classList.remove('js-boot'), 1200); })();
+</script>
+<title>Hakk&#x131;m&#x131;zda · XSPA — Spa &amp; Wellness</title>
+<meta name="description" content="K&#x131;rklareli&#x27;de dingin bir spa deneyimi. Masaj, geleneksel hamam ve kendinize ay&#x131;rd&#x131;&#x11F;&#x131;n&#x131;z &#xF6;zel anlar&#x131; ke&#x15F;fedin." />
+<link rel="icon" href="./img/brand-mark.svg?v=R2yTYFmspgAR6tKTc5KPnaXd4M7wnUz0-aNZ8s7FRVg" type="image/svg+xml" />
+<link rel="alternate icon" href="./favicon.ico?v=y9JCmpw6hJh3mn7OlN9HZHuUM3kad9LYyCddM6xJ9PI" type="image/x-icon" />
+<link rel="apple-touch-icon" href="./img/apple-touch-icon.png?v=YfaaA1VpOslC3bbMivuJJHMGoz8OhiDUCsvTRK16L10" />
+
+<link rel="stylesheet" href="./fonts/fonts.css?v=WjWu3VM_wLtn0SZVRoz8nRAZoju1_c2edylimQZA-bE" />
+<link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="./lib/fontawesome/css/all.min.css" />
+<link rel="stylesheet" href="./lib/aos/aos.css" />
+<link rel="stylesheet" href="./lib/swipper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="./lib/fancybox/css/fancybox.min.css" />
+<link rel="stylesheet" href="./lib/sweetalert2/sweetalert2.min.css" />
+<link rel="stylesheet" href="./css/site.css?v=cTG3CWnn80CNtbbakjcuZwW4efNXqc--RU3sYS-xVhA" />
+<link rel="stylesheet" href="./css/navbar-account.css?v=mJQckdAQyitsgu9KiP6Ui8cOesz2KPTRtf0tAhtunbk" />
+<link rel="stylesheet" href="./css/home-statistics.css?v=i6EDq126kNItN9ttHfBY42MyTEXBYGwpC6z4UgYiVFE" />
+
+    
+<link rel="stylesheet" href="./css/interactions.css?v=pSbJkMmMhY2GHnYK7JcnvNDXRL7cvABUlw1cob6yrpo" />
+<meta name="xspa-csrf" content="CfDJ8HwWUYd9Cn1Lr8iwe9dMWZouE1JRXrXldvLmG-Ce3Zn67exsyzgYqztncv-mRssq104r-akQbGtrHMSFaAuIqcRB-WC5azumhLD61WAjwogif6bQ2A-xz9tAoaEr1SxTnfuaFdABjjnnvdrADFymiLk" />
+<meta name="xspa-csrf-header" content="RequestVerificationToken" />
+<link rel="stylesheet" href="./css/ajax-interactions.css?v=dh_-HuOI5dp2lOo_vtzbcJlJujg8fK0buYNmhpsADls" />
+<script src="./js/xspa-ajax.js?v=NwoE3VWRe9a2apLDuVYqsSp8v6hyZAB12Pa2jaCYJJo"></script>
+
+</head>
+<body class="luxe-body is-inner">
+    <div class="luxe-preloader" aria-hidden="true"><img src="./img/brand-mark.svg" width="70" height="70" alt="" /><span>XSPA</span></div>
+    <a class="luxe-skip" href="#main-content">&#x130;&#xE7;eri&#x11F;e ge&#xE7;</a>
+    <header class="luxe-header" id="site-header">
+    <aside class="xspa-announcement" id="xspa-announcement" hidden aria-label="Duyuru"><div class="container"><span>✦ Her g&#xFC;n 09:00&#x2013;00:00 &#xB7; &#x130;yi ya&#x15F;am&#x131;n&#x131;za zaman ay&#x131;r&#x131;n</span><a href="./demo-kisitlari.html">Online Randevu Al&#x131;n →</a><button type="button" id="announcement-close" aria-label="Duyuruyu kapat">×</button></div></aside>
+    <div class="luxe-topbar"><div class="container"><span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Kırklareli <span class="luxe-topbar-divider">/</span> Kendinize ay&#x131;rd&#x131;&#x11F;&#x131;n&#x131;z bir an.</span><a href="./demo-kisitlari.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> +90 538 878 70 00</a></div></div>
+    <nav class="navbar navbar-expand-xl luxe-nav" aria-label="Ana men&#xFC;">
+        <div class="container">
+            <a class="luxe-brand" aria-label="XSPA — Ana Sayfa" href="./index.html"><img src="./img/brand-mark.svg" width="50" height="50" alt="" /><span>XSPA<small>SPA &amp; WELLNESS</small></span></a>
+            <div class="luxe-nav-account">
+                    <a class="luxe-account luxe-account-signin" href="./demo-kisitlari.html"><i class="fa-regular fa-user" aria-hidden="true"></i><span>Giri&#x15F; Yap</span></a>
+            </div>
+            <button class="luxe-menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Men&#xFC;y&#xFC; a&#xE7; veya kapat"><span></span><span></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link " href="./index.html">Ana Sayfa</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="./hakkimizda.html">Hakk&#x131;m&#x131;zda</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./hizmetler.html">Hizmetlerimiz</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./yapilan-isler.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./gorsel-galerisi.html">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./demo-kisitlari.html">&#x130;leti&#x15F;im</a></li>
+                </ul>
+                <div class="luxe-nav-actions">
+                    <form method="post" class="d-inline-flex align-items-center gap-2" action="./demo-kisitlari.html"><fieldset disabled>
+    <input type="hidden" name="returnUrl" value="/hakkimizda" />
+    <label class="visually-hidden" for="ui-culture">Dil</label>
+    <select name="culture" id="ui-culture" class="form-select form-select-sm" onchange="this.form.submit()">
+        <option value="tr-TR" selected="selected">Türkçe</option>
+        <option value="en-US">English</option>
+    </select>
+    <noscript><button type="submit">Kaydet</button></noscript>
+</fieldset></form>
+
+                    <button id="theme-toggle" class="luxe-theme-toggle" type="button" aria-pressed="false" aria-label="Koyu temaya ge&#xE7;"><i class="fa-regular fa-moon" aria-hidden="true"></i><span class="visually-hidden">Temay&#x131; de&#x11F;i&#x15F;tir</span></button>
+                    <button class="luxe-button luxe-button-gold luxe-nav-book" type="button" data-bs-toggle="modal" data-bs-target="#vip-reservation">VIP Randevu<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+        <aside style="padding:12px 18px;text-align:center;background:#f7e9c8;color:#332717">
+            <strong>Salt okunur XSPA demosu.</strong> Örnek içerikleri inceleyebilirsiniz. Oturum açma, randevu ve kayıt işlemleri kapalıdır.
+            <a href="https://github.com/Azo15/Modern-Blog-Spa-CMS-Enterprise#readme">Kaynak kodu ve kurulum ↗</a>
+        </aside>
+    <main id="main-content"><section class="luxe-page-hero luxe-about-hero"><div class="container"><span class="luxe-eyebrow">XSPA H&#x130;K&#xC2;YES&#x130;</span><h1 class="luxe-title">Her detay&#x131;nda<br /><em>&#xF6;zen var.</em></h1><p class="luxe-lead">&#x130;yi hissetmeye &#xF6;zenli bir yakla&#x15F;&#x131;m. Biraz daha az tela&#x15F;, biraz daha &#xE7;ok siz.</p></div></section><section class="luxe-section luxe-about-story"><div class="container luxe-story"><div class="luxe-story-media" data-aos="fade-up"><img src="./img/about-retreat.webp" alt="Spa d&#xFC;nyas&#x131;n&#x131;n dinginli&#x11F;i" width="1200" height="1200" /></div><div class="luxe-story-text" data-aos="fade-up"><span class="luxe-eyebrow">FELSEFEM&#x130;Z</span><h2>Spa &amp; Wellness</h2><div class="luxe-prose"> <p>XSPA&#x2019;da kendinize ay&#x131;rd&#x131;&#x11F;&#x131;n&#x131;z zaman&#x131;n de&#x11F;erini biliyoruz. Masaj, geleneksel hamam ve ki&#x15F;isel bak&#x131;m rit&#xFC;ellerini dingin ve konforlu bir atmosferde ke&#x15F;fetmeniz i&#xE7;in sizi bekliyoruz.</p> </div><div class="luxe-signature">&#x130;yi ya&#x15F;am, sizin ritminizde.</div><a class="luxe-text-link" href="./hizmetler.html">Rit&#xFC;ellerimizi ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></section><section class="luxe-section luxe-section-light"><div class="container"><div class="luxe-section-heading"><div><span class="luxe-eyebrow">&#xD6;NEMSED&#x130;KLER&#x130;M&#x130;Z</span><h2>Fark, k&#xFC;&#xE7;&#xFC;k detaylarda.</h2></div></div><div class="luxe-about-features"><div class="luxe-about-feature"><div class="luxe-hours h-100"><i class="fa-solid fa-spa text-success mb-3" aria-hidden="true"></i><h3>&#xD6;zenli Bak&#x131;m</h3><p>Konforunuz ve tercihleriniz g&#xF6;zetilerek &#xF6;zenle planlanan rit&#xFC;eller.</p></div></div><div class="luxe-about-feature"><div class="luxe-hours h-100"><i class="fa-solid fa-leaf text-success mb-3" aria-hidden="true"></i><h3>Dingin Bir Atmosfer</h3><p>Yava&#x15F;lamak ve kendinize zaman ay&#x131;rmak i&#xE7;in huzurlu bir ortam.</p></div></div><div class="luxe-about-feature"><div class="luxe-hours h-100"><i class="fa-solid fa-leaf text-success mb-3" aria-hidden="true"></i><h3>Ki&#x15F;iye &#xD6;zel Program</h3><p>Her misafir i&#xE7;in s&#x131;f&#x131;rdan tasarlanan rit&#xFC;el.</p></div></div><div class="luxe-about-feature"><div class="luxe-hours h-100"><i class="fa-solid fa-lock text-success mb-3" aria-hidden="true"></i><h3>Gizlilik &amp; Konfor</h3><p>Yaln&#x131;zca size ayr&#x131;lm&#x131;&#x15F; &#xF6;zel alanlar.</p></div></div></div></div></section>
+
+<section class="luxe-section luxe-about-invitation"><div class="container"><div class="luxe-about-invitation-card"><img src="./img/ritual/service-hamam-preparation.webp" width="1200" height="800" loading="lazy" alt="Spa atmosferini yans&#x131;tan bir mekan g&#xF6;rseli" /><div><span class="luxe-eyebrow">KEND&#x130;N&#x130;ZE ALAN A&#xC7;IN</span><h2>Bir sonraki dingin an&#x131;n&#x131;z.</h2><p>Ekibimizle tan&#x131;&#x15F;&#x131;n, size iyi gelecek rit&#xFC;eli birlikte se&#xE7;elim.</p><a class="luxe-button luxe-button-gold" href="./demo-kisitlari.html">Randevu Al <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></div></section>
+
+<section class="luxe-section luxe-faq" aria-labelledby="about-faq-title">
+    <div class="container">
+        <div class="luxe-faq-heading">
+            <span class="luxe-eyebrow">Z&#x130;YARET&#x130;N&#x130;ZDEN &#xD6;NCE</span>
+            <h2 id="about-faq-title">Akl&#x131;n&#x131;zdaki k&#xFC;&#xE7;&#xFC;k sorular.</h2>
+            <p>Rit&#xFC;elinize ba&#x15F;lamadan &#xF6;nce kendinizi rahat hissetmeniz i&#xE7;in birka&#xE7; k&#xFC;&#xE7;&#xFC;k ayr&#x131;nt&#x131;.</p>
+        </div>
+        <div class="accordion luxe-faq-accordion" id="about-faq">
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="about-faq-question-0">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#about-faq-answer-0" aria-expanded="false" aria-controls="about-faq-answer-0">
+                            <span class="luxe-faq-number" aria-hidden="true">01</span>
+                            Hijyen ve haz&#x131;rl&#x131;k hakk&#x131;nda ne bilmeliyim?
+                        </button>
+                    </h3>
+                    <div id="about-faq-answer-0" class="accordion-collapse collapse" aria-labelledby="about-faq-question-0" data-bs-parent="#about-faq">
+                        <div class="accordion-body">Terapistinizin haz&#x131;rl&#x131;k y&#xF6;nlendirmelerine uyun; sa&#x11F;lanan havlu ve terlikleri kullan&#x131;n. Hizmete uygunluk ve haz&#x131;rl&#x131;k sorular&#x131;n&#x131;z&#x131; ziyaret &#xF6;ncesinde ekibimize sorun; internet formlar&#x131;ndan hassas sa&#x11F;l&#x131;k bilgisi g&#xF6;ndermeyin.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="about-faq-question-1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#about-faq-answer-1" aria-expanded="false" aria-controls="about-faq-answer-1">
+                            <span class="luxe-faq-number" aria-hidden="true">02</span>
+                            Randevuya ka&#xE7; dakika &#xF6;nce gelmeliyim?
+                        </button>
+                    </h3>
+                    <div id="about-faq-answer-1" class="accordion-collapse collapse" aria-labelledby="about-faq-question-1" data-bs-parent="#about-faq">
+                        <div class="accordion-body">Sizi kar&#x15F;&#x131;lamak, tercihlerinizi birlikte de&#x11F;erlendirmek ve rit&#xFC;elinize sakince haz&#x131;rlanmak i&#xE7;in randevunuzdan 15 dakika &#xF6;nce gelmenizi &#xF6;neririz.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="about-faq-question-2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#about-faq-answer-2" aria-expanded="false" aria-controls="about-faq-answer-2">
+                            <span class="luxe-faq-number" aria-hidden="true">03</span>
+                            Yan&#x131;mda ne getirmeliyim?
+                        </button>
+                    </h3>
+                    <div id="about-faq-answer-2" class="accordion-collapse collapse" aria-labelledby="about-faq-question-2" data-bs-parent="#about-faq">
+                        <div class="accordion-body">Pe&#x15F;tamal, terlik ve havlu taraf&#x131;m&#x131;zdan sa&#x11F;lan&#x131;r. Haz&#x131;rl&#x131;k ve uygunluk sorular&#x131;n&#x131;z i&#xE7;in ekibimize do&#x11F;rudan ula&#x15F;&#x131;n. Online formlara hassas sa&#x11F;l&#x131;k bilgisi yazmay&#x131;n.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="about-faq-question-3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#about-faq-answer-3" aria-expanded="false" aria-controls="about-faq-answer-3">
+                            <span class="luxe-faq-number" aria-hidden="true">04</span>
+                            &#x130;ptal ve erteleme &#x15F;artlar&#x131; nelerdir?
+                        </button>
+                    </h3>
+                    <div id="about-faq-answer-3" class="accordion-collapse collapse" aria-labelledby="about-faq-question-3" data-bs-parent="#about-faq">
+                        <div class="accordion-body">&#x130;ptal veya erteleme i&#xE7;in l&#xFC;tfen m&#xFC;mk&#xFC;n olan en erken zamanda &#x2B;90 538 878 70 00 &#xFC;zerinden ekibimizle ileti&#x15F;ime ge&#xE7;ip rezervasyon kodunuzu payla&#x15F;&#x131;n. Talebinize ait ko&#x15F;ullar&#x131; ve uygun alternatif saatleri birlikte de&#x11F;erlendirelim.</div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+
+</main>
+    <section class="luxe-booking-band"><div class="container"><div><span class="luxe-eyebrow">D&#x130;NG&#x130;NL&#x130;&#x11E;E &#x130;LK ADIM</span><h2>Bug&#xFC;n, kendinize zaman ay&#x131;r&#x131;n.</h2></div><button type="button" class="luxe-button luxe-button-outline" data-bs-toggle="modal" data-bs-target="#vip-reservation">Deneyiminizi planlay&#x131;n <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></section>
+<footer class="luxe-footer"><div class="container">
+    <div class="luxe-footer-grid">
+        <div class="luxe-footer-story"><a class="luxe-brand" href="./index.html"><img src="./img/brand-mark.svg" width="58" height="58" alt="" /><span>XSPA<small>SPA &amp; WELLNESS</small></span></a><p>Yava&#x15F;lamaya zarif bir davet. &#xD6;zenli rit&#xFC;eller, do&#x11F;al dokular ve sadece kendiniz olabilece&#x11F;iniz bir alan.</p><div class="luxe-socials"><a href="https://instagram.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a><a href="https://facebook.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="facebook-f"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a><a href="https://youtube.com/@xspawellness" target="_blank" rel="noopener noreferrer" aria-label="youtube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a href="https://twitter.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></div></div>
+        <div><h3>Ke&#x15F;fedin</h3><a href="./hakkimizda.html">Hakk&#x131;m&#x131;zda</a><a href="./hizmetler.html">Hizmetlerimiz</a><a href="./gorsel-galerisi.html">Galeri</a><a href="./yapilan-isler.html">&#x130;yi ya&#x15F;am g&#xFC;nl&#xFC;&#x11F;&#xFC;</a><a href="./demo-kisitlari.html">&#x130;leti&#x15F;im</a></div>
+        <div><h3>Birlikte planlayal&#x131;m</h3><a class="luxe-footer-phone" href="./demo-kisitlari.html">+90 538 878 70 00</a><p></p><p><i class="fa-regular fa-clock" aria-hidden="true"></i> Her g&#xFC;n · 09:00&#x2013;00:00 <span class="luxe-business-status" data-business-status role="status" aria-live="polite"></span></p><a href="./demo-kisitlari.html" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp randevu hatt&#x131;</a></div>
+        <div class="luxe-footer-news"><h3>&#x130;yi ya&#x15F;amdan bir not</h3><p>Yay&#x131;mlanan iyi ya&#x15F;am yaz&#x131;lar&#x131;ndan se&#xE7;kiler i&#xE7;in ilginizi payla&#x15F;&#x131;n.</p><form method="post" data-newsletter-form action="./demo-kisitlari.html"><fieldset disabled><label class="visually-hidden" for="newsletter-email">E-posta</label><div class="luxe-newsletter-field"><input id="newsletter-email" type="email" name="email" maxlength="254" required placeholder="E-posta adresiniz" autocomplete="email" /><button type="submit" aria-label="B&#xFC;lten ilgisi g&#xF6;nder"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div><small data-newsletter-status role="status" aria-live="polite">E-posta adresiniz b&#xFC;lten talebiniz i&#xE7;in kullan&#x131;l&#x131;r.</small></fieldset></form></div>
+    </div>
+    <nav class="luxe-footer-legal" aria-label="Yasal bilgiler"><a href="./demo-kisitlari.html">Gizlilik Politikas&#x131;</a><a href="./demo-kisitlari.html">Kullan&#x131;m Ko&#x15F;ullar&#x131;</a><a href="./demo-kisitlari.html">KVKK</a></nav><div class="luxe-footer-bottom"><span>© 2026 XSPA. T&#xFC;m haklar&#x131; sakl&#x131;d&#x131;r.</span><span>SPA · WELLNESS · SLOW LIVING</span><a href="#main-content">Yukar&#x131; d&#xF6;n <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div>
+</div></footer>
+
+    <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./lib/aos/aos.js"></script>
+<script src="./lib/sweetalert2/sweetalert2.min.js"></script>
+<script src="./lib/fancybox/js/fancybox.umd.js"></script>
+<!-- Swiper Slider JS -->
+<script src="./lib/swipper/swiper-bundle.min.js"></script>
+
+<script src="./lib/jquery/dist/jquery.min.js"></script>
+<script src="./lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="./lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="./js/site.js?v=_pvW8tTG1HXrP3FXyx1FOZwOiukKrB9LMWZKRmOZRoo"></script>
+<script src="./js/slider.js?v=Rc2f1XjUbnLmuItBr5ySYNb7TdAZuPdB-Y1I1AAeEb8"></script>
+
+    
+<script src="./js/interactions.js?v=nEHCLuoSuGxJjqSiB1wUCjHefr6Rq1ahQq7NkqfwXso"></script>
+<script src="./js/interactions-ajax.js?v=VBJqzVbbDUpf78TxBHSZzdm15fD5ygVNstRRn5aHs3M"></script>
+<script src="./js/comments-ajax.js?v=jVgUBBwIoqt4eYpSL2okXLPV0v2aJPHomHKfPDHnFGQ"></script>
+<script src="./js/profile-ajax.js?v=gWxuOI7PYTUJ4QenZPjOV_83af_DPl-OP9qcNj4brHE"></script>
+<script src="./js/contact-ajax.js?v=V8k3jZxhpFzS5vsiOXz8psKrWd6H3GTn_0NqOW5c3Iw"></script>
+<script src="./js/appointments-ajax.js?v=6Quxp5SJh4SdFiuuoa8ZbSuJY2UPyrSVvvOOSn0EF7I"></script>
+</body>
+</html>

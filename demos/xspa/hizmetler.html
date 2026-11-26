@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr-TR">
+<head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#081C15" />
+<script>
+    (() => { let theme = 'light'; try { const saved = localStorage.getItem('xspa-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch { } document.documentElement.dataset.theme = theme; document.documentElement.classList.add('js-boot'); setTimeout(() => document.documentElement.classList.remove('js-boot'), 1200); })();
+</script>
+<title>Hizmetlerimiz · XSPA — Spa &amp; Wellness</title>
+<meta name="description" content="K&#x131;rklareli&#x27;de dingin bir spa deneyimi. Masaj, geleneksel hamam ve kendinize ay&#x131;rd&#x131;&#x11F;&#x131;n&#x131;z &#xF6;zel anlar&#x131; ke&#x15F;fedin." />
+<link rel="icon" href="./img/brand-mark.svg?v=R2yTYFmspgAR6tKTc5KPnaXd4M7wnUz0-aNZ8s7FRVg" type="image/svg+xml" />
+<link rel="alternate icon" href="./favicon.ico?v=y9JCmpw6hJh3mn7OlN9HZHuUM3kad9LYyCddM6xJ9PI" type="image/x-icon" />
+<link rel="apple-touch-icon" href="./img/apple-touch-icon.png?v=YfaaA1VpOslC3bbMivuJJHMGoz8OhiDUCsvTRK16L10" />
+
+<link rel="stylesheet" href="./fonts/fonts.css?v=WjWu3VM_wLtn0SZVRoz8nRAZoju1_c2edylimQZA-bE" />
+<link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="./lib/fontawesome/css/all.min.css" />
+<link rel="stylesheet" href="./lib/aos/aos.css" />
+<link rel="stylesheet" href="./lib/swipper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="./lib/fancybox/css/fancybox.min.css" />
+<link rel="stylesheet" href="./lib/sweetalert2/sweetalert2.min.css" />
+<link rel="stylesheet" href="./css/site.css?v=cTG3CWnn80CNtbbakjcuZwW4efNXqc--RU3sYS-xVhA" />
+<link rel="stylesheet" href="./css/navbar-account.css?v=mJQckdAQyitsgu9KiP6Ui8cOesz2KPTRtf0tAhtunbk" />
+<link rel="stylesheet" href="./css/home-statistics.css?v=i6EDq126kNItN9ttHfBY42MyTEXBYGwpC6z4UgYiVFE" />
+
+    
+<link rel="stylesheet" href="./css/interactions.css?v=pSbJkMmMhY2GHnYK7JcnvNDXRL7cvABUlw1cob6yrpo" />
+<meta name="xspa-csrf" content="CfDJ8HwWUYd9Cn1Lr8iwe9dMWZoywKuK3N4by8TFHJp5oCjMaryEM_DzqJGwubbEele2Iad2UiZcwUTUulX3gCQ97S-9E6mM3Wl9PSrBBaK-xLklByyWGr6KP4hBjVp2fI886SbHEhTxFnd-zIkUiQXh4Zk" />
+<meta name="xspa-csrf-header" content="RequestVerificationToken" />
+<link rel="stylesheet" href="./css/ajax-interactions.css?v=dh_-HuOI5dp2lOo_vtzbcJlJujg8fK0buYNmhpsADls" />
+<script src="./js/xspa-ajax.js?v=NwoE3VWRe9a2apLDuVYqsSp8v6hyZAB12Pa2jaCYJJo"></script>
+
+</head>
+<body class="luxe-body is-inner">
+    <div class="luxe-preloader" aria-hidden="true"><img src="./img/brand-mark.svg" width="70" height="70" alt="" /><span>XSPA</span></div>
+    <a class="luxe-skip" href="#main-content">&#x130;&#xE7;eri&#x11F;e ge&#xE7;</a>
+    <header class="luxe-header" id="site-header">
+    <aside class="xspa-announcement" id="xspa-announcement" hidden aria-label="Duyuru"><div class="container"><span>✦ Her g&#xFC;n 09:00&#x2013;00:00 &#xB7; &#x130;yi ya&#x15F;am&#x131;n&#x131;za zaman ay&#x131;r&#x131;n</span><a href="./demo-kisitlari.html">Online Randevu Al&#x131;n →</a><button type="button" id="announcement-close" aria-label="Duyuruyu kapat">×</button></div></aside>
+    <div class="luxe-topbar"><div class="container"><span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Kırklareli <span class="luxe-topbar-divider">/</span> Kendinize ay&#x131;rd&#x131;&#x11F;&#x131;n&#x131;z bir an.</span><a href="./demo-kisitlari.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> +90 538 878 70 00</a></div></div>
+    <nav class="navbar navbar-expand-xl luxe-nav" aria-label="Ana men&#xFC;">
+        <div class="container">
+            <a class="luxe-brand" aria-label="XSPA — Ana Sayfa" href="./index.html"><img src="./img/brand-mark.svg" width="50" height="50" alt="" /><span>XSPA<small>SPA &amp; WELLNESS</small></span></a>
+            <div class="luxe-nav-account">
+                    <a class="luxe-account luxe-account-signin" href="./demo-kisitlari.html"><i class="fa-regular fa-user" aria-hidden="true"></i><span>Giri&#x15F; Yap</span></a>
+            </div>
+            <button class="luxe-menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Men&#xFC;y&#xFC; a&#xE7; veya kapat"><span></span><span></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link " href="./index.html">Ana Sayfa</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./hakkimizda.html">Hakk&#x131;m&#x131;zda</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="./hizmetler.html">Hizmetlerimiz</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./yapilan-isler.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./gorsel-galerisi.html">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link " href="./demo-kisitlari.html">&#x130;leti&#x15F;im</a></li>
+                </ul>
+                <div class="luxe-nav-actions">
+                    <form method="post" class="d-inline-flex align-items-center gap-2" action="./demo-kisitlari.html"><fieldset disabled>
+    <input type="hidden" name="returnUrl" value="/hizmetler" />
+    <label class="visually-hidden" for="ui-culture">Dil</label>
+    <select name="culture" id="ui-culture" class="form-select form-select-sm" onchange="this.form.submit()">
+        <option value="tr-TR" selected="selected">Türkçe</option>
+        <option value="en-US">English</option>
+    </select>
+    <noscript><button type="submit">Kaydet</button></noscript>
+</fieldset></form>
+
+                    <button id="theme-toggle" class="luxe-theme-toggle" type="button" aria-pressed="false" aria-label="Koyu temaya ge&#xE7;"><i class="fa-regular fa-moon" aria-hidden="true"></i><span class="visually-hidden">Temay&#x131; de&#x11F;i&#x15F;tir</span></button>
+                    <button class="luxe-button luxe-button-gold luxe-nav-book" type="button" data-bs-toggle="modal" data-bs-target="#vip-reservation">VIP Randevu<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+        <aside style="padding:12px 18px;text-align:center;background:#f7e9c8;color:#332717">
+            <strong>Salt okunur XSPA demosu.</strong> Örnek içerikleri inceleyebilirsiniz. Oturum açma, randevu ve kayıt işlemleri kapalıdır.
+            <a href="https://github.com/Azo15/Modern-Blog-Spa-CMS-Enterprise#readme">Kaynak kodu ve kurulum ↗</a>
+        </aside>
+    <main id="main-content"><section class="luxe-page-hero"><div class="container"><span class="luxe-eyebrow">S&#x130;ZE &#xD6;ZEL DENEY&#x130;MLER</span><h1 class="luxe-title">Kendinize ait<br /><em>rit&#xFC;eli bulun.</em></h1><p class="luxe-lead">Zarif bir masajdan zamans&#x131;z hamam rit&#xFC;eline. Size iyi gelen deneyimi se&#xE7;in.</p><span class="luxe-page-number">01 / RITUALS</span></div></section>
+<section class="luxe-section"><div class="container"><div class="luxe-service-filters" data-service-filters hidden role="group" aria-label="Rit&#xFC;elleri filtrele">
+<button type="button" data-service-filter="all" aria-pressed="true">T&#xFC;m Rit&#xFC;eller</button><button type="button" data-service-filter="massage" aria-pressed="false">Masaj Terapileri</button><button type="button" data-service-filter="hammam" aria-pressed="false">Hamam &amp; Kese</button><button type="button" data-service-filter="care" aria-pressed="false">Cilt &amp; Y&#xFC;z Bak&#x131;m&#x131;</button><button type="button" data-service-filter="detox" aria-pressed="false">Sauna &amp; Detoks</button></div><p class="luxe-filter-count" data-service-count role="status" aria-live="polite"></p><div class="luxe-service-grid" data-filtered-services>    <article data-service-category="massage" class="luxe-service-card" data-aos="fade-up" data-aos-delay="80"><div class="luxe-service-media"><a href="./hizmetler-1.html"><img src="./img/service-isvec.webp" alt="Klasik &#x130;sve&#xE7; Masaj&#x131;" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">01</span><span class="luxe-icon-box"><i class="fa-solid fa-spa" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-1.html">Klasik &#x130;sve&#xE7; Masaj&#x131;</a></h3><p>Kas gerginli&#x11F;ini gideren, kan dola&#x15F;&#x131;m&#x131;n&#x131; art&#x131;ran rahatlat&#x131;c&#x131; masaj. Aromaterapi ya&#x11F;lar&#x131; ile uygulan&#x131;r.</p><div class="luxe-service-meta"><span>60 dk &#x2014; 650 &#x20BA;</span><a href="./hizmetler-1.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="hammam" class="luxe-service-card" data-aos="fade-up" data-aos-delay="160"><div class="luxe-service-media"><a href="./hizmetler-2.html"><img src="./img/service-hamam.webp" alt="T&#xFC;rk Hamam&#x131; Rit&#xFC;eli" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">02</span><span class="luxe-icon-box"><i class="fa-solid fa-hot-tub-person" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-2.html">T&#xFC;rk Hamam&#x131; Rit&#xFC;eli</a></h3><p>Geleneksel kese ve k&#xF6;p&#xFC;k masaj&#x131; ile derin temizlik. Cildiniz ipek gibi olacak.</p><div class="luxe-service-meta"><span>90 dk &#x2014; 850 &#x20BA;</span><a href="./hizmetler-2.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="care" class="luxe-service-card" data-aos="fade-up" data-aos-delay="0"><div class="luxe-service-media"><a href="./hizmetler-3.html"><img src="./img/service-altinmaske.webp" alt="Alt&#x131;n Y&#xFC;z Maskesi" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">03</span><span class="luxe-icon-box"><i class="fa-solid fa-gem" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-3.html">Alt&#x131;n Y&#xFC;z Maskesi</a></h3><p>24 ayar alt&#x131;n &#xF6;zl&#xFC; maske ile cilt tonu e&#x15F;itlemesi ve anti-aging etkisi.</p><div class="luxe-service-meta"><span>45 dk &#x2014; 950 &#x20BA;</span><a href="./hizmetler-3.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="massage" class="luxe-service-card" data-aos="fade-up" data-aos-delay="80"><div class="luxe-service-media"><a href="./hizmetler-4.html"><img src="./img/service-derindoku.webp" alt="Derin Doku Masaj&#x131;" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">04</span><span class="luxe-icon-box"><i class="fa-solid fa-hands-holding-circle" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-4.html">Derin Doku Masaj&#x131;</a></h3><p>Kronik kas a&#x11F;r&#x131;lar&#x131; ve spazm i&#xE7;in profesyonel derin doku tekni&#x11F;i.</p><div class="luxe-service-meta"><span>75 dk &#x2014; 750 &#x20BA;</span><a href="./hizmetler-4.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="massage" class="luxe-service-card" data-aos="fade-up" data-aos-delay="160"><div class="luxe-service-media"><a href="./hizmetler-5.html"><img src="./img/service-aromaterapi.webp" alt="Aromaterapi Masaj&#x131;" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">05</span><span class="luxe-icon-box"><i class="fa-solid fa-spa" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-5.html">Aromaterapi Masaj&#x131;</a></h3><p>Do&#x11F;al esansiyel ya&#x11F;larla stres gidericiden uyku d&#xFC;zenleyiciye t&#xFC;m ihtiya&#xE7;lar i&#xE7;in.</p><div class="luxe-service-meta"><span>60 dk &#x2014; 700 &#x20BA;</span><a href="./hizmetler-5.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="massage" class="luxe-service-card" data-aos="fade-up" data-aos-delay="0"><div class="luxe-service-media"><a href="./hizmetler-6.html"><img src="./img/service-ciftler.webp" alt="&#xC7;iftler Masaj&#x131;" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">06</span><span class="luxe-icon-box"><i class="fa-solid fa-spa" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-6.html">&#xC7;iftler Masaj&#x131;</a></h3><p>&#xD6;zel VIP odam&#x131;zda sevdi&#x11F;inizle birlikte masaj keyfi. &#x15E;ampanya ikram edilir.</p><div class="luxe-service-meta"><span>90 dk &#x2014; 1.400 &#x20BA;</span><a href="./hizmetler-6.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="massage" class="luxe-service-card" data-aos="fade-up" data-aos-delay="80"><div class="luxe-service-media"><a href="./hizmetler-7.html"><img src="./img/service-refleksoloji.webp" alt="Refleksoloji" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">07</span><span class="luxe-icon-box"><i class="fa-solid fa-leaf" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-7.html">Refleksoloji</a></h3><p>Ayak bas&#x131;n&#xE7; noktalar&#x131;ndan v&#xFC;cudun denge merkezini uyarma tekni&#x11F;i.</p><div class="luxe-service-meta"><span>45 dk &#x2014; 550 &#x20BA;</span><a href="./hizmetler-7.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="detox" class="luxe-service-card" data-aos="fade-up" data-aos-delay="160"><div class="luxe-service-media"><a href="./hizmetler-8.html"><img src="./img/service-sauna.webp" alt="Sauna &amp; Buhar Odas&#x131;" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">08</span><span class="luxe-icon-box"><i class="fa-solid fa-wind" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-8.html">Sauna &amp; Buhar Odas&#x131;</a></h3><p>Finlandiya tipi kuru sauna &#x2B; T&#xFC;rk buhar odas&#x131; kombinasyonu.</p><div class="luxe-service-meta"><span>60 dk &#x2014; 400 &#x20BA;</span><a href="./hizmetler-8.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="care" class="luxe-service-card" data-aos="fade-up" data-aos-delay="0"><div class="luxe-service-media"><a href="./hizmetler-9.html"><img src="./img/service-keratin.webp" alt="Keratin Sa&#xE7; Bak&#x131;m&#x131;" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">09</span><span class="luxe-icon-box"><i class="fa-solid fa-spa" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-9.html">Keratin Sa&#xE7; Bak&#x131;m&#x131;</a></h3><p>Profesyonel keratin tedavisi ile p&#xFC;r&#xFC;zs&#xFC;z, parlak ve frizden ar&#x131;nd&#x131;r&#x131;lm&#x131;&#x15F; sa&#xE7;lar.</p><div class="luxe-service-meta"><span>120 dk &#x2014; 1.200 &#x20BA;</span><a href="./hizmetler-9.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="care" class="luxe-service-card" data-aos="fade-up" data-aos-delay="80"><div class="luxe-service-media"><a href="./hizmetler-10.html"><img src="./img/service-peeling.webp" alt="Yosun Peeling" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">10</span><span class="luxe-icon-box"><i class="fa-solid fa-spa" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-10.html">Yosun Peeling</a></h3><p>Yosun i&#xE7;erikli bak&#x131;m ile nazik peeling ve cilt bak&#x131;m rit&#xFC;eli.</p><div class="luxe-service-meta"><span>50 dk &#x2014; 600 &#x20BA;</span><a href="./hizmetler-10.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="massage" class="luxe-service-card" data-aos="fade-up" data-aos-delay="160"><div class="luxe-service-media"><a href="./hizmetler-11.html"><img src="./img/service-bebek.webp" alt="Bebek Masaj&#x131; Kursu" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">11</span><span class="luxe-icon-box"><i class="fa-solid fa-spa" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-11.html">Bebek Masaj&#x131; Kursu</a></h3><p>Ebeveynlere bebek masaj&#x131; teknikleri &#xF6;&#x11F;retilir.</p><div class="luxe-service-meta"><span>45 dk &#x2014; 350 &#x20BA;</span><a href="./hizmetler-11.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+    <article data-service-category="massage" class="luxe-service-card" data-aos="fade-up" data-aos-delay="0"><div class="luxe-service-media"><a href="./hizmetler-12.html"><img src="./img/service-hamilelik.webp" alt="Hamilelik Masaj&#x131;" width="1200" height="830" loading="lazy" /></a><span class="luxe-service-index">12</span><span class="luxe-icon-box"><i class="fa-solid fa-spa" aria-hidden="true"></i></span></div><div class="luxe-service-body"><h3><a href="./hizmetler-12.html">Hamilelik Masaj&#x131;</a></h3><p>2. trimesterden itibaren uygulanan, anneye &#xF6;zel prenatal masaj.</p><div class="luxe-service-meta"><span>60 dk &#x2014; 700 &#x20BA;</span><a href="./hizmetler-12.html">Ke&#x15F;fedin <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div></article>
+</div><div class="mt-5">
+
+</div></div></section>
+</main>
+    <section class="luxe-booking-band"><div class="container"><div><span class="luxe-eyebrow">D&#x130;NG&#x130;NL&#x130;&#x11E;E &#x130;LK ADIM</span><h2>Bug&#xFC;n, kendinize zaman ay&#x131;r&#x131;n.</h2></div><button type="button" class="luxe-button luxe-button-outline" data-bs-toggle="modal" data-bs-target="#vip-reservation">Deneyiminizi planlay&#x131;n <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></section>
+<footer class="luxe-footer"><div class="container">
+    <div class="luxe-footer-grid">
+        <div class="luxe-footer-story"><a class="luxe-brand" href="./index.html"><img src="./img/brand-mark.svg" width="58" height="58" alt="" /><span>XSPA<small>SPA &amp; WELLNESS</small></span></a><p>Yava&#x15F;lamaya zarif bir davet. &#xD6;zenli rit&#xFC;eller, do&#x11F;al dokular ve sadece kendiniz olabilece&#x11F;iniz bir alan.</p><div class="luxe-socials"><a href="https://instagram.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a><a href="https://facebook.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="facebook-f"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a><a href="https://youtube.com/@xspawellness" target="_blank" rel="noopener noreferrer" aria-label="youtube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a href="https://twitter.com/xspawellness" target="_blank" rel="noopener noreferrer" aria-label="twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></div></div>
+        <div><h3>Ke&#x15F;fedin</h3><a href="./hakkimizda.html">Hakk&#x131;m&#x131;zda</a><a href="./hizmetler.html">Hizmetlerimiz</a><a href="./gorsel-galerisi.html">Galeri</a><a href="./yapilan-isler.html">&#x130;yi ya&#x15F;am g&#xFC;nl&#xFC;&#x11F;&#xFC;</a><a href="./demo-kisitlari.html">&#x130;leti&#x15F;im</a></div>
+        <div><h3>Birlikte planlayal&#x131;m</h3><a class="luxe-footer-phone" href="./demo-kisitlari.html">+90 538 878 70 00</a><p></p><p><i class="fa-regular fa-clock" aria-hidden="true"></i> Her g&#xFC;n · 09:00&#x2013;00:00 <span class="luxe-business-status" data-business-status role="status" aria-live="polite"></span></p><a href="./demo-kisitlari.html" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp randevu hatt&#x131;</a></div>
+        <div class="luxe-footer-news"><h3>&#x130;yi ya&#x15F;amdan bir not</h3><p>Yay&#x131;mlanan iyi ya&#x15F;am yaz&#x131;lar&#x131;ndan se&#xE7;kiler i&#xE7;in ilginizi payla&#x15F;&#x131;n.</p><form method="post" data-newsletter-form action="./demo-kisitlari.html"><fieldset disabled><label class="visually-hidden" for="newsletter-email">E-posta</label><div class="luxe-newsletter-field"><input id="newsletter-email" type="email" name="email" maxlength="254" required placeholder="E-posta adresiniz" autocomplete="email" /><button type="submit" aria-label="B&#xFC;lten ilgisi g&#xF6;nder"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div><small data-newsletter-status role="status" aria-live="polite">E-posta adresiniz b&#xFC;lten talebiniz i&#xE7;in kullan&#x131;l&#x131;r.</small></fieldset></form></div>
+    </div>
+    <nav class="luxe-footer-legal" aria-label="Yasal bilgiler"><a href="./demo-kisitlari.html">Gizlilik Politikas&#x131;</a><a href="./demo-kisitlari.html">Kullan&#x131;m Ko&#x15F;ullar&#x131;</a><a href="./demo-kisitlari.html">KVKK</a></nav><div class="luxe-footer-bottom"><span>© 2026 XSPA. T&#xFC;m haklar&#x131; sakl&#x131;d&#x131;r.</span><span>SPA · WELLNESS · SLOW LIVING</span><a href="#main-content">Yukar&#x131; d&#xF6;n <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div>
+</div></footer>
+
+    <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./lib/aos/aos.js"></script>
+<script src="./lib/sweetalert2/sweetalert2.min.js"></script>
+<script src="./lib/fancybox/js/fancybox.umd.js"></script>
+<!-- Swiper Slider JS -->
+<script src="./lib/swipper/swiper-bundle.min.js"></script>
+
+<script src="./lib/jquery/dist/jquery.min.js"></script>
+<script src="./lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="./lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="./js/site.js?v=_pvW8tTG1HXrP3FXyx1FOZwOiukKrB9LMWZKRmOZRoo"></script>
+<script src="./js/slider.js?v=Rc2f1XjUbnLmuItBr5ySYNb7TdAZuPdB-Y1I1AAeEb8"></script>
+
+    
+<script src="./js/interactions.js?v=nEHCLuoSuGxJjqSiB1wUCjHefr6Rq1ahQq7NkqfwXso"></script>
+<script src="./js/interactions-ajax.js?v=VBJqzVbbDUpf78TxBHSZzdm15fD5ygVNstRRn5aHs3M"></script>
+<script src="./js/comments-ajax.js?v=jVgUBBwIoqt4eYpSL2okXLPV0v2aJPHomHKfPDHnFGQ"></script>
+<script src="./js/profile-ajax.js?v=gWxuOI7PYTUJ4QenZPjOV_83af_DPl-OP9qcNj4brHE"></script>
+<script src="./js/contact-ajax.js?v=V8k3jZxhpFzS5vsiOXz8psKrWd6H3GTn_0NqOW5c3Iw"></script>
+<script src="./js/appointments-ajax.js?v=6Quxp5SJh4SdFiuuoa8ZbSuJY2UPyrSVvvOOSn0EF7I"></script>
+</body>
+</html>
