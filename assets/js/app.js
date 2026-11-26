@@ -10,7 +10,7 @@ import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signa
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
 const liveDemos = new Map([
-  ['modern-blog-spa-cms', './demos/xspa/'],
+  ['modern-blog-spa-cms', 'https://xspawellness.runasp.net/'],
   ['transport-route-planner', './demos/transport-route-planner/'],
   ['flutter-interactive-quiz-app', 'https://azo15.github.io/flutter-quiz-app/'],
   ['hospital-ai-no-show-risk-analysis', './demos/hospital-no-show/'],
@@ -22,7 +22,11 @@ const liveDemos = new Map([
 function renderDemoLink(project, className = 'project-action') {
   const url = liveDemos.get(project.id);
   if (!url) return '';
-  return `<a class="${className}" href="${url}" target="_blank" rel="noopener noreferrer">${language === 'tr' ? 'Demoyu aç' : 'Open demo'} ↗</a>`;
+  const isLiveSite = project.id === 'modern-blog-spa-cms';
+  const label = isLiveSite
+    ? (language === 'tr' ? 'Canlı siteyi aç' : 'Open live site')
+    : (language === 'tr' ? 'Demoyu aç' : 'Open demo');
+  return `<a class="${className}" href="${url}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
 }
 
 const featuredRouteOrder = ['software-health-technical-debt-analyzer', 'smart-driver-monitoring-system', 'coin-detection-currency-prototype', 'hospital-ai-no-show-risk-analysis', 'omnibrain-ai-assistant', 'laravel-library-management-system'];
