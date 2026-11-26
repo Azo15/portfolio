@@ -10,6 +10,7 @@ import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signa
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
 const liveDemos = new Map([
+  ['transport-route-planner', './demos/transport-route-planner/'],
   ['flutter-interactive-quiz-app', 'https://azo15.github.io/flutter-quiz-app/'],
   ['hospital-ai-no-show-risk-analysis', './demos/hospital-no-show/'],
   ['coin-detection-currency-prototype', 'https://azo-coin-demo.onrender.com/'],
@@ -110,6 +111,7 @@ function getRepoTelemetry(project) {
 }
 
 const projectCovers = new Map([
+  ['transport-route-planner', 'transport-route-planner.svg'],
   ['flutter-interactive-quiz-app', 'flutter-quiz.jpg'],
   ['hospital-ai-no-show-risk-analysis', 'hospital-no-show.jpg'],
   ['coin-detection-currency-prototype', 'coin-detection.svg'],
