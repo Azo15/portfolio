@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 390" role="img" aria-labelledby="title">
+<title id="title">Java planlayıcı puanları. İlk sırada Sanayi.</title>
+<rect width="780" height="390" rx="20" fill="#111f32"/>
+<g fill="#eef6ff" font-family="system-ui,sans-serif" font-size="19">
+<text x="36" y="57" font-size="30" font-weight="700">Ulaşım güzergâhı değerlendirmesi</text>
+<text x="36" y="91" fill="#b3c5dc">Java çıktısı · Beş ölçütün toplam Softmax puanı</text>
+<text x="36" y="152">Merkez</text><rect x="180" y="130" width="106.96" height="28" rx="5" fill="#729adc"/><text x="740" y="152" text-anchor="end">1.114 / 5</text><text x="36" y="234">Sanayi</text><rect x="180" y="212" width="369.00" height="28" rx="5" fill="#70f0d8"/><text x="740" y="234" text-anchor="end">3.844 / 5</text><text x="36" y="316">Üniversite</text><rect x="180" y="294" width="4.03" height="28" rx="5" fill="#729adc"/><text x="740" y="316" text-anchor="end">0.042 / 5</text>
+</g></svg>

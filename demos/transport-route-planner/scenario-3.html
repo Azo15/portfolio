@@ -1,0 +1,24 @@
+<!doctype html><html lang="tr"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Transport Route Planner</title><style>body{max-width:900px;margin:auto;padding:24px;background:#0b1423;color:#eef6ff;font:16px/1.6 system-ui}
+a{color:#79f4de}nav{display:flex;gap:14px;flex-wrap:wrap}pre{overflow:auto;background:#131f32;padding:16px;border-radius:10px}
+img{display:block;width:100%;height:auto;margin-block:18px}h1{line-height:1.12}</style>
+<main><h1>Transport Route Planner</h1>
+<p>Salt okunur demo. Üç sentetik senaryo özgün Java uygulamasıyla önceden hesaplandı. Gerçek güzergâh veya belediye verisi kullanılmadı.</p>
+<nav aria-label="Senaryo seç"><a href="index.html">Senaryo 1</a> · <a href="scenario-2.html">Senaryo 2</a> · <a href="scenario-3.html" aria-current=page>Senaryo 3</a></nav>
+<img src="scenario-3.svg" alt="Senaryo 3 mahalle puanları; ilk sırada Sanayi">
+<h2>Java program çıktısı</h2><pre>Mahalle Kriterleri ve Ağırlıkları:
+-----------------------------------------------------------
+Mahalle      Nüfus        Ulaşım       Maliyet      Çevresel     Sosyal      
+Merkez      630.00      4.00        348.00      94.00       25.00       
+Sanayi      1025.00     6.00        518.00      29.00       48.00       
+Üniversite  682.00      3.00        376.00      102.00      31.00       
+
+Softmax Ağırlıkları:
+Merkez      0.0000      0.1142      1.0000      0.0000      0.0000      
+Sanayi      1.0000      0.8438      0.0000      1.0000      1.0000      
+Üniversite  0.0000      0.0420      0.0000      0.0000      0.0000      
+
+En uygun mahalle: Sanayi
+</pre>
+<p><a href="https://github.com/Azo15/TransportRoutePlanner/tree/Azo1">Kaynak kodunu ve çalıştırma adımlarını aç ↗</a></p></main></html>
