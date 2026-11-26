@@ -113,7 +113,7 @@ function getRepoTelemetry(project) {
 const projectCovers = new Map([
   ['transport-route-planner', 'transport-route-planner.svg'],
   ['flutter-interactive-quiz-app', 'flutter-quiz.jpg'],
-  ['hospital-ai-no-show-risk-analysis', 'hospital-no-show.jpg'],
+  ['hospital-ai-no-show-risk-analysis', 'hospital-no-show-report.jpg'],
   ['coin-detection-currency-prototype', 'coin-detection.svg'],
   ['software-health-technical-debt-analyzer', 'analyzer.jpg'],
   ['laravel-library-management-system', 'library.jpg'],
@@ -723,3 +723,4 @@ window.addEventListener('resize', updateScrollProgress, { passive: true });
 updateScrollProgress();
 navigate(views.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'overview', { updateHash: false });
 updateGitHubTelemetry();
+
