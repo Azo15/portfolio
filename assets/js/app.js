@@ -10,6 +10,7 @@ import { bindSignalNetwork, updateSignalNetworkProgress } from './services/signa
 const views = ['overview', 'projects', 'resume', 'articles', 'contact'];
 const categories = ['AI & Computer Vision', 'Embedded & Robotics', 'Web & Full-Stack', 'Automation & Systems'];
 const liveDemos = new Map([
+  ['omnibrain-ai-assistant', './demos/omnibrain/'],
   ['modern-blog-spa-cms', 'https://xspawellness.runasp.net/'],
   ['transport-route-planner', './demos/transport-route-planner/'],
   ['flutter-interactive-quiz-app', 'https://azo15.github.io/flutter-quiz-app/'],
@@ -23,9 +24,9 @@ function renderDemoLink(project, className = 'project-action') {
   const url = liveDemos.get(project.id);
   if (!url) return '';
   const isLiveSite = project.id === 'modern-blog-spa-cms';
-  const label = isLiveSite
-    ? (language === 'tr' ? 'Canlı siteyi aç' : 'Open live site')
-    : (language === 'tr' ? 'Demoyu aç' : 'Open demo');
+  let label = language === 'tr' ? 'Demoyu aç' : 'Open demo';
+  if (isLiveSite) label = language === 'tr' ? 'Canlı siteyi aç' : 'Open live site';
+  if (project.id === 'omnibrain-ai-assistant') label = language === 'tr' ? 'Akışı incele' : 'Explore workflow';
   return `<a class="${className}" href="${url}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
 }
 
