@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OmniBrain · n8n Akış İncelemesi</title>
+<style>
+body{max-width:920px;margin:auto;padding:clamp(16px,5vw,48px);background:#0b1522;color:#edf5ff;font:16px/1.6 system-ui}
+a{color:#77efdc}details{background:#14243a;border:1px solid #36516c;border-radius:12px;margin:10px 0;padding:12px 16px}
+summary{cursor:pointer;font-weight:700;color:#77efdc}ol{padding-inline-start:2rem}li{padding:.25rem;overflow-wrap:anywhere}
+</style>
+<main><h1>OmniBrain · n8n akışı</h1>
+<p>Salt okunur inceleme. Adımlar özgün n8n dosyasının bağlantılarından çıkarıldı. Bir girdi türü seçip akışın izlediği yolu ve Notion kayıt ayrımını inceleyebilirsin. Bu sayfa botu, modeli veya kayıt işlemlerini çalıştırmaz.</p>
+<details open><summary>Ses · 14 düğüm</summary><ol><li>Telegram Trigger</li><li>Switch Type</li><li>Set Voice File Info</li><li>Telegram getFile</li><li>Download File</li><li>Switch File Type</li><li>Groq Whisper</li><li>Format Voice Input</li><li>Groq Llama 3.3</li><li>Parse AI Response</li><li>Should Save to DB?</li><li>Save to Notion</li><li>Append Success Message</li><li>Telegram Send Message</li></ol><p>Kayıt kararı olumsuzsa: Should Save to DB? → Telegram Send Message</p></details><details><summary>Fotoğraf · 14 düğüm</summary><ol><li>Telegram Trigger</li><li>Switch Type</li><li>Set Photo File Info</li><li>Telegram getFile</li><li>Download File</li><li>Switch File Type</li><li>Gemini Vision</li><li>Format Photo Input</li><li>Groq Llama 3.3</li><li>Parse AI Response</li><li>Should Save to DB?</li><li>Save to Notion</li><li>Append Success Message</li><li>Telegram Send Message</li></ol><p>Kayıt kararı olumsuzsa: Should Save to DB? → Telegram Send Message</p></details><details><summary>Belge · 14 düğüm</summary><ol><li>Telegram Trigger</li><li>Switch Type</li><li>Set Doc File Info</li><li>Telegram getFile</li><li>Download File</li><li>Switch File Type</li><li>Gemini Doc Parser</li><li>Format Doc Input</li><li>Groq Llama 3.3</li><li>Parse AI Response</li><li>Should Save to DB?</li><li>Save to Notion</li><li>Append Success Message</li><li>Telegram Send Message</li></ol><p>Kayıt kararı olumsuzsa: Should Save to DB? → Telegram Send Message</p></details><details><summary>Metin · 9 düğüm</summary><ol><li>Telegram Trigger</li><li>Switch Type</li><li>Format Text Input</li><li>Groq Llama 3.3</li><li>Parse AI Response</li><li>Should Save to DB?</li><li>Save to Notion</li><li>Append Success Message</li><li>Telegram Send Message</li></ol><p>Kayıt kararı olumsuzsa: Should Save to DB? → Telegram Send Message</p></details><details><summary>Desteklenmeyen girdi · 4 düğüm</summary><ol><li>Telegram Trigger</li><li>Switch Type</li><li>Fallback Handler</li><li>Telegram Send Message</li></ol></details>
+<p><a href="https://github.com/Azo15/OmniBrain-n8n#readme">Kaynak kodu ve kendi n8n ortamında kurulum ↗</a></p></main></html>
